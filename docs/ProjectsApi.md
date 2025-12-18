@@ -47,7 +47,7 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ProjectsApi(api_client)
-    organization = 'organization_example' # str | 
+    organization = 'test-org' # str | Organization identifier
     v2_project_request = quantcdn.V2ProjectRequest() # V2ProjectRequest | 
 
     try:
@@ -66,7 +66,7 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
  **v2_project_request** | [**V2ProjectRequest**](V2ProjectRequest.md)|  | 
 
 ### Return type
@@ -126,8 +126,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ProjectsApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
 
     try:
         # Delete a project
@@ -143,8 +143,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
 
 ### Return type
 
@@ -204,7 +204,7 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ProjectsApi(api_client)
-    organization = 'organization_example' # str | 
+    organization = 'test-org' # str | Organization identifier
 
     try:
         # Retrieve all projects for an organization
@@ -222,7 +222,7 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
 
 ### Return type
 
@@ -282,8 +282,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ProjectsApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
     with_token = False # bool |  (default to False)
 
     try:
@@ -302,8 +302,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **with_token** | **bool**|  | [default to False]
 
 ### Return type
@@ -365,8 +365,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ProjectsApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
     v2_project_request = quantcdn.V2ProjectRequest() # V2ProjectRequest | 
 
     try:
@@ -385,8 +385,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **v2_project_request** | [**V2ProjectRequest**](V2ProjectRequest.md)|  | 
 
 ### Return type

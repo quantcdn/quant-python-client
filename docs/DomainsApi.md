@@ -47,8 +47,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.DomainsApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
     v2_domain_request = quantcdn.V2DomainRequest() # V2DomainRequest | 
 
     try:
@@ -128,9 +128,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.DomainsApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
-    domain = 'domain_example' # str | Domain identifier
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    domain = '0000' # str | Domain id
 
     try:
         # Delete a domain
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organization** | **str**| Organization identifier | 
  **project** | **str**| Project identifier | 
- **domain** | **str**| Domain identifier | 
+ **domain** | **str**| Domain id | 
 
 ### Return type
 
@@ -208,8 +208,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.DomainsApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
 
     try:
         # List all domains for a project
@@ -288,9 +288,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.DomainsApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
-    domain = 'domain_example' # str | Domain identifier
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    domain = '0000' # str | Domain id
 
     try:
         # Get details of a single domain
@@ -310,7 +310,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organization** | **str**| Organization identifier | 
  **project** | **str**| Project identifier | 
- **domain** | **str**| Domain identifier | 
+ **domain** | **str**| Domain id | 
 
 ### Return type
 
@@ -369,9 +369,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.DomainsApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
-    domain = 'domain_example' # str | Domain identifier
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    domain = '0000' # str | Domain id
 
     try:
         # Renew the SSL certificate for a domain
@@ -389,7 +389,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organization** | **str**| Organization identifier | 
  **project** | **str**| Project identifier | 
- **domain** | **str**| Domain identifier | 
+ **domain** | **str**| Domain id | 
 
 ### Return type
 

@@ -43,9 +43,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ScalingPolicyApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     policy_name = 'policy_name_example' # str | The policy name
 
     try:
@@ -122,9 +122,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ScalingPolicyApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
 
     try:
         # Get the scaling policies for an environment
@@ -200,9 +200,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ScalingPolicyApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     scaling_policy = quantcdn.ScalingPolicy() # ScalingPolicy | 
 
     try:

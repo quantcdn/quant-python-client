@@ -117,7 +117,7 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.OrganizationsApi(api_client)
-    organization = 'organization_example' # str | 
+    organization = 'test-org' # str | Organization identifier
 
     try:
         # Get details of a single organization
@@ -135,7 +135,7 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
 
 ### Return type
 
@@ -155,6 +155,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The request has succeeded. |  -  |
+**404** | Organization not found. |  -  |
 **400** | The server could not understand the request due to invalid syntax. |  -  |
 **403** | Access is forbidden. |  -  |
 

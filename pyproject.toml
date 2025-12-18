@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "quantcdn"
-version = "4.6.0"
+version = "4.8.0"
 description = "QuantCDN API"
 authors = ["OpenAPI Generator Community <team@openapitools.org>"]
 license = "NoLicense"

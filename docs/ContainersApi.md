@@ -42,9 +42,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ContainersApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
 
     try:
         # Get the containers in an environment
@@ -121,10 +121,10 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ContainersApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
-    container = 'container_example' # str | The container ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
+    container = 'test-container' # str | The container ID
     container2 = quantcdn.Container() # Container | 
 
     try:

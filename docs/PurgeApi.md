@@ -42,8 +42,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.PurgeApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
     purge_create_request = quantcdn.PurgeCreateRequest() # PurgeCreateRequest | 
 
     try:
@@ -62,8 +62,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **purge_create_request** | [**PurgeCreateRequest**](PurgeCreateRequest.md)|  | 
 
 ### Return type

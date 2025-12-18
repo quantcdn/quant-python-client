@@ -42,9 +42,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.SSHAccessApi(api_client)
-    organisation = 'organisation_example' # str | The organisation machine name
-    application = 'application_example' # str | The application name
-    environment = 'environment_example' # str | The environment name
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
 
     try:
         # Get SSH access credentials for an environment
@@ -62,9 +62,9 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation** | **str**| The organisation machine name | 
- **application** | **str**| The application name | 
- **environment** | **str**| The environment name | 
+ **organisation** | **str**| The organisation ID | 
+ **application** | **str**| The application ID | 
+ **environment** | **str**| The environment ID | 
 
 ### Return type
 

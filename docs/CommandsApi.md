@@ -45,8 +45,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CommandsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    environment = 'test-env' # str | The environment ID
     create_command_request = quantcdn.CreateCommandRequest() # CreateCommandRequest | 
 
     try:
@@ -125,9 +125,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CommandsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    environment = 'environment_example' # str | The environment ID
-    command = 'command_example' # str | The command ID
+    organisation = 'test-org' # str | The organisation ID
+    environment = 'test-env' # str | The environment ID
+    command = 'test-cmd' # str | The command ID
 
     try:
         # Get a command
@@ -205,8 +205,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CommandsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    environment = 'test-env' # str | The environment ID
 
     try:
         # Get all commands for an environment

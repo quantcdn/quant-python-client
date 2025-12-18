@@ -51,8 +51,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.KVApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
     v2_store_request = quantcdn.V2StoreRequest() # V2StoreRequest | 
 
     try:
@@ -71,8 +71,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **v2_store_request** | [**V2StoreRequest**](V2StoreRequest.md)|  | 
 
 ### Return type
@@ -132,9 +132,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.KVApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
-    store_id = 'store_id_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    store_id = '0000' # str | 
 
     try:
         # Delete a kv store
@@ -150,8 +150,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **store_id** | **str**|  | 
 
 ### Return type
@@ -213,9 +213,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.KVApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
-    store_id = 'store_id_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    store_id = '0000' # str | 
     v2_store_item_request = quantcdn.V2StoreItemRequest() # V2StoreItemRequest | 
 
     try:
@@ -234,8 +234,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **store_id** | **str**|  | 
  **v2_store_item_request** | [**V2StoreItemRequest**](V2StoreItemRequest.md)|  | 
 
@@ -298,9 +298,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.KVApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
-    store_id = 'store_id_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    store_id = '0000' # str | 
     key = 'key_example' # str | 
 
     try:
@@ -319,8 +319,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **store_id** | **str**|  | 
  **key** | **str**|  | 
 
@@ -382,9 +382,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.KVApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
-    store_id = 'store_id_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    store_id = '0000' # str | 
     cursor = 'cursor_example' # str | Cursor for pagination (optional)
     limit = 10 # int | Number of items to return (optional) (default to 10)
     search = 'search_example' # str | Search filter for keys (optional)
@@ -406,8 +406,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **store_id** | **str**|  | 
  **cursor** | **str**| Cursor for pagination | [optional] 
  **limit** | **int**| Number of items to return | [optional] [default to 10]
@@ -474,9 +474,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.KVApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
-    store_id = 'store_id_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    store_id = '0000' # str | 
     key = 'key_example' # str | 
 
     try:
@@ -495,8 +495,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **store_id** | **str**|  | 
  **key** | **str**|  | 
 
@@ -559,9 +559,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.KVApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
-    store_id = 'store_id_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    store_id = '0000' # str | 
     key = 'key_example' # str | 
     v2_store_item_update_request = quantcdn.V2StoreItemUpdateRequest() # V2StoreItemUpdateRequest | 
 
@@ -581,8 +581,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **store_id** | **str**|  | 
  **key** | **str**|  | 
  **v2_store_item_update_request** | [**V2StoreItemUpdateRequest**](V2StoreItemUpdateRequest.md)|  | 
@@ -646,8 +646,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.KVApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
 
     try:
         # List key-value stores
@@ -665,8 +665,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
 
 ### Return type
 
@@ -726,9 +726,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.KVApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
-    store_id = 'store_id_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    store_id = '0000' # str | 
 
     try:
         # Get a kv store
@@ -746,8 +746,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **store_id** | **str**|  | 
 
 ### Return type

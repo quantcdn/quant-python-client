@@ -50,8 +50,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CrawlersApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
     v2_crawler_request = quantcdn.V2CrawlerRequest() # V2CrawlerRequest | 
 
     try:
@@ -131,9 +131,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CrawlersApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
-    crawler = 'crawler_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    crawler = '00000000-0000-0000-0000-000000000000' # str | The UUID of the crawler
 
     try:
         # Delete a crawler
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organization** | **str**| Organization identifier | 
  **project** | **str**| Project identifier | 
- **crawler** | **str**|  | 
+ **crawler** | **str**| The UUID of the crawler | 
 
 ### Return type
 
@@ -211,10 +211,10 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CrawlersApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
-    crawler = 'crawler_example' # str | Crawler identifier
-    run_id = 56 # int | Run identifier
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    crawler = '00000000-0000-0000-0000-000000000000' # str | Crawler identifier
+    run_id = 1 # int | Run identifier
 
     try:
         # Get a run by ID
@@ -297,9 +297,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CrawlersApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
-    crawler = 'crawler_example' # str | Crawler identifier
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    crawler = '00000000-0000-0000-0000-000000000000' # str | Crawler identifier
 
     try:
         # Get all runs for a crawler
@@ -347,7 +347,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **crawlers_list**
-> List[V2Crawler] crawlers_list(organization, project)
+> crawlers_list(organization, project)
 
 List crawlers for the project
 
@@ -357,7 +357,6 @@ List crawlers for the project
 
 ```python
 import quantcdn
-from quantcdn.models.v2_crawler import V2Crawler
 from quantcdn.rest import ApiException
 from pprint import pprint
 
@@ -381,14 +380,12 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CrawlersApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
 
     try:
         # List crawlers for the project
-        api_response = api_instance.crawlers_list(organization, project)
-        print("The response of CrawlersApi->crawlers_list:\n")
-        pprint(api_response)
+        api_instance.crawlers_list(organization, project)
     except Exception as e:
         print("Exception when calling CrawlersApi->crawlers_list: %s\n" % e)
 ```
@@ -405,7 +402,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[V2Crawler]**](V2Crawler.md)
+void (empty response body)
 
 ### Authorization
 
@@ -420,7 +417,6 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The request has succeeded. |  -  |
 **400** | The server could not understand the request due to invalid syntax. |  -  |
 **403** | Access is forbidden. |  -  |
 
@@ -461,9 +457,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CrawlersApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
-    crawler = 'crawler_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    crawler = '00000000-0000-0000-0000-000000000000' # str | The UUID of the crawler
 
     try:
         # Get details of a single crawler
@@ -483,7 +479,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organization** | **str**| Organization identifier | 
  **project** | **str**| Project identifier | 
- **crawler** | **str**|  | 
+ **crawler** | **str**| The UUID of the crawler | 
 
 ### Return type
 
@@ -544,9 +540,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CrawlersApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
-    crawler = 'crawler_example' # str | Crawler identifier
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    crawler = '00000000-0000-0000-0000-000000000000' # str | Crawler identifier
     crawlers_run_request = quantcdn.CrawlersRunRequest() # CrawlersRunRequest | 
 
     try:
@@ -631,9 +627,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CrawlersApi(api_client)
-    organization = 'organization_example' # str | Organization identifier
-    project = 'project_example' # str | Project identifier
-    crawler = 'crawler_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    crawler = '00000000-0000-0000-0000-000000000000' # str | The UUID of the crawler
     v2_crawler_request = quantcdn.V2CrawlerRequest() # V2CrawlerRequest | 
 
     try:
@@ -654,7 +650,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organization** | **str**| Organization identifier | 
  **project** | **str**| Project identifier | 
- **crawler** | **str**|  | 
+ **crawler** | **str**| The UUID of the crawler | 
  **v2_crawler_request** | [**V2CrawlerRequest**](V2CrawlerRequest.md)|  | 
 
 ### Return type

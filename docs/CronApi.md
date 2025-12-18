@@ -49,9 +49,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CronApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     create_cron_job_request = quantcdn.CreateCronJobRequest() # CreateCronJobRequest | 
 
     try:
@@ -132,9 +132,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CronApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     cron = 'cron_example' # str | The cron job ID
 
     try:
@@ -212,9 +212,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CronApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     cron = 'cron_example' # str | The cron job ID
 
     try:
@@ -295,10 +295,10 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CronApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
-    cron = 'cron_example' # str | The cron job ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
+    cron = 'test-cron' # str | The cron job ID
     run = 'run_example' # str | The cron run ID
 
     try:
@@ -379,10 +379,10 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CronApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
-    cron = 'cron_example' # str | The cron job ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
+    cron = 'test-cron' # str | The cron job ID
 
     try:
         # Get all runs for a cron job
@@ -461,9 +461,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CronApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
 
     try:
         # Get all cron jobs for an environment
@@ -543,9 +543,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CronApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     cron = 'cron_example' # str | The cron job ID
     update_cron_job_request = quantcdn.UpdateCronJobRequest() # UpdateCronJobRequest | 
 

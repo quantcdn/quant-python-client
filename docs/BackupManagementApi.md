@@ -46,9 +46,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.BackupManagementApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     type = 'type_example' # str | The backup type
     create_backup_request = quantcdn.CreateBackupRequest() # CreateBackupRequest |  (optional)
 
@@ -130,9 +130,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.BackupManagementApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     type = 'type_example' # str | The backup type
     backup_id = 'backup_id_example' # str | The backup ID
 
@@ -214,9 +214,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.BackupManagementApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     type = 'type_example' # str | The backup type
     backup_id = 'backup_id_example' # str | The backup ID
 
@@ -300,9 +300,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.BackupManagementApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     type = 'type_example' # str | The backup type
     order = desc # str | Sort order for backups by creation date (asc = oldest first, desc = newest first) (optional) (default to desc)
     limit = 50 # int | Maximum number of backups to return (max 100) (optional) (default to 50)

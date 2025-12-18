@@ -52,8 +52,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.EnvironmentsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
     create_environment_request = quantcdn.CreateEnvironmentRequest() # CreateEnvironmentRequest | 
 
     try:
@@ -133,9 +133,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.EnvironmentsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
 
     try:
         # Delete an environment
@@ -212,9 +212,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.EnvironmentsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
 
     try:
         # Get a single environment
@@ -295,9 +295,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.EnvironmentsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     start_time = 'start_time_example' # str | Start time for log retrieval (ISO 8601 format or Unix timestamp) (optional)
     end_time = 'end_time_example' # str | End time for log retrieval (ISO 8601 format or Unix timestamp) (optional)
     container_name = 'container_name_example' # str | Filter logs by specific container name (optional)
@@ -390,9 +390,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.EnvironmentsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     start_time = 56 # int | Start time for metrics retrieval (Unix timestamp in milliseconds) (optional)
     end_time = 56 # int | End time for metrics retrieval (Unix timestamp in milliseconds) (optional)
     period = 56 # int | Period in seconds for metric aggregation (e.g., 60 for 1 minute, 300 for 5 minutes) (optional)
@@ -482,8 +482,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.EnvironmentsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
 
     try:
         # Get all environments for an application
@@ -561,9 +561,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.EnvironmentsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     type = 'type_example' # str | The sync type
 
     try:
@@ -644,9 +644,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.EnvironmentsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     type = 'type_example' # str | The sync type
     sync_to_environment_request = quantcdn.SyncToEnvironmentRequest() # SyncToEnvironmentRequest | 
 
@@ -812,9 +812,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.EnvironmentsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     update_environment_state_request = quantcdn.UpdateEnvironmentStateRequest() # UpdateEnvironmentStateRequest | 
 
     try:

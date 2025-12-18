@@ -45,9 +45,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.VariablesApi(api_client)
-    api_organisation = 'api_organisation_example' # str | The organisation ID
-    api_application = 'api_application_example' # str | The application ID
-    api_environment = 'api_environment_example' # str | The environment ID
+    api_organisation = 'test-org' # str | The organisation ID
+    api_application = 'test-app' # str | The application ID
+    api_environment = 'test-env' # str | The environment ID
     bulk_set_environment_variables_request = quantcdn.BulkSetEnvironmentVariablesRequest() # BulkSetEnvironmentVariablesRequest | 
 
     try:
@@ -204,9 +204,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.VariablesApi(api_client)
-    api_organisation = 'api_organisation_example' # str | The organisation ID
-    api_application = 'api_application_example' # str | The application ID
-    api_environment = 'api_environment_example' # str | The environment ID
+    api_organisation = 'test-org' # str | The organisation ID
+    api_application = 'test-app' # str | The application ID
+    api_environment = 'test-env' # str | The environment ID
 
     try:
         # Get all variables for an environment
@@ -282,9 +282,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.VariablesApi(api_client)
-    api_organisation = 'api_organisation_example' # str | The organisation ID
-    api_application = 'api_application_example' # str | The application ID
-    api_environment = 'api_environment_example' # str | The environment ID
+    api_organisation = 'test-org' # str | The organisation ID
+    api_application = 'test-app' # str | The application ID
+    api_environment = 'test-env' # str | The environment ID
     api_variable = 'api_variable_example' # str | The variable key
     update_environment_variable_request = quantcdn.UpdateEnvironmentVariableRequest() # UpdateEnvironmentVariableRequest | 
 

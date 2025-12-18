@@ -44,8 +44,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.HeadersApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
     v2_custom_header_request = quantcdn.V2CustomHeaderRequest() # V2CustomHeaderRequest | 
 
     try:
@@ -64,8 +64,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **v2_custom_header_request** | [**V2CustomHeaderRequest**](V2CustomHeaderRequest.md)|  | 
 
 ### Return type
@@ -126,8 +126,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.HeadersApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
     v2_custom_header_request = quantcdn.V2CustomHeaderRequest() # V2CustomHeaderRequest | 
 
     try:
@@ -144,8 +144,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
  **v2_custom_header_request** | [**V2CustomHeaderRequest**](V2CustomHeaderRequest.md)|  | 
 
 ### Return type
@@ -205,8 +205,8 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.HeadersApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
 
     try:
         # List custom headers for a project
@@ -224,8 +224,8 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | **str**|  | 
- **project** | **str**|  | 
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
 
 ### Return type
 

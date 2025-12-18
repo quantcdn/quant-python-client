@@ -44,9 +44,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ComposeApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
 
     try:
         # Get the compose file for an environment
@@ -128,9 +128,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ComposeApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
+    organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
+    environment = 'test-env' # str | The environment ID
     patch_environment_compose_request = quantcdn.PatchEnvironmentComposeRequest() # PatchEnvironmentComposeRequest | Partial compose definition updates. All fields are optional.
 
     try:
@@ -215,7 +215,7 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ComposeApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
+    organisation = 'test-org' # str | The organisation ID
     validate_compose_request = quantcdn.ValidateComposeRequest() # ValidateComposeRequest | The docker-compose.yml file content. Can be sent as raw YAML string or as a JSON wrapper containing both yamlContent (string) and imageSuffix (string) fields. Query parameter imageSuffix takes precedence if both are provided.
     image_suffix = 'pr-456' # str | Optional. Image tag suffix to apply during translation. Transforms internal image tags to consistent '{containerName}-{suffix}' format (e.g., 'nginx-pr-456'). External images are left unchanged. Useful for feature branch deployments. (optional)
 

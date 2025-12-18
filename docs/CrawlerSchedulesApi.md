@@ -299,9 +299,9 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CrawlerSchedulesApi(api_client)
-    organization = 'organization_example' # str | 
-    project = 'project_example' # str | 
-    crawler = 'crawler_example' # str | 
+    organization = 'test-org' # str | 
+    project = 'test-project' # str | 
+    crawler = '00000000-0000-0000-0000-000000000000' # str | 
 
     try:
         # List schedules for a crawler
