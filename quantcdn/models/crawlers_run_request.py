@@ -26,7 +26,7 @@ class CrawlersRunRequest(BaseModel):
     """
     CrawlersRunRequest
     """ # noqa: E501
-    urls: Optional[List[StrictStr]] = Field(default=None, description="URLs to crawl")
+    urls: Optional[List[StrictStr]] = Field(default=None, description="Optional URLs to crawl (overrides crawler's default URL configuration). If not provided, the crawler will use its configured URLs or perform a full crawl.")
     __properties: ClassVar[List[str]] = ["urls"]
 
     model_config = ConfigDict(
