@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictInt, StrictStr
-from typing import List
+from typing import List, Optional
 from typing_extensions import Annotated
 from quantcdn.models.crawlers_run200_response import CrawlersRun200Response
 from quantcdn.models.crawlers_run_request import CrawlersRunRequest
@@ -1835,7 +1835,7 @@ class CrawlersApi:
         organization: Annotated[StrictStr, Field(description="Organization identifier")],
         project: Annotated[StrictStr, Field(description="Project identifier")],
         crawler: Annotated[StrictStr, Field(description="Crawler identifier")],
-        crawlers_run_request: CrawlersRunRequest,
+        crawlers_run_request: Optional[CrawlersRunRequest] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1858,7 +1858,7 @@ class CrawlersApi:
         :type project: str
         :param crawler: Crawler identifier (required)
         :type crawler: str
-        :param crawlers_run_request: (required)
+        :param crawlers_run_request:
         :type crawlers_run_request: CrawlersRunRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1917,7 +1917,7 @@ class CrawlersApi:
         organization: Annotated[StrictStr, Field(description="Organization identifier")],
         project: Annotated[StrictStr, Field(description="Project identifier")],
         crawler: Annotated[StrictStr, Field(description="Crawler identifier")],
-        crawlers_run_request: CrawlersRunRequest,
+        crawlers_run_request: Optional[CrawlersRunRequest] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1940,7 +1940,7 @@ class CrawlersApi:
         :type project: str
         :param crawler: Crawler identifier (required)
         :type crawler: str
-        :param crawlers_run_request: (required)
+        :param crawlers_run_request:
         :type crawlers_run_request: CrawlersRunRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -1999,7 +1999,7 @@ class CrawlersApi:
         organization: Annotated[StrictStr, Field(description="Organization identifier")],
         project: Annotated[StrictStr, Field(description="Project identifier")],
         crawler: Annotated[StrictStr, Field(description="Crawler identifier")],
-        crawlers_run_request: CrawlersRunRequest,
+        crawlers_run_request: Optional[CrawlersRunRequest] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2022,7 +2022,7 @@ class CrawlersApi:
         :type project: str
         :param crawler: Crawler identifier (required)
         :type crawler: str
-        :param crawlers_run_request: (required)
+        :param crawlers_run_request:
         :type crawlers_run_request: CrawlersRunRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
