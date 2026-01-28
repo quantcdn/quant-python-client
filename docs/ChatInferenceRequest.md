@@ -8,13 +8,15 @@ Name | Type | Description | Notes
 **messages** | [**List[ChatInferenceRequestMessagesInner]**](ChatInferenceRequestMessagesInner.md) | Array of chat messages. Content can be a simple string or an array of content blocks for multimodal input. | 
 **model_id** | **str** | Model ID. Use Nova models for multimodal support. | 
 **temperature** | **float** |  | [optional] [default to 0.7]
-**max_tokens** | **int** |  | [optional] [default to 1024]
+**max_tokens** | **int** | Max tokens. Claude 4.5 supports up to 64k. | [optional] [default to 4096]
 **top_p** | **float** |  | [optional] 
 **stream** | **bool** | Ignored in buffered mode, always returns complete response | [optional] 
 **system_prompt** | **str** | Optional custom system prompt. When tools are enabled, this is prepended with tool usage guidance. | [optional] 
 **stop_sequences** | **List[str]** | Custom stop sequences | [optional] 
 **response_format** | [**ChatInferenceRequestResponseFormat**](ChatInferenceRequestResponseFormat.md) |  | [optional] 
 **tool_config** | [**ChatInferenceRequestToolConfig**](ChatInferenceRequestToolConfig.md) |  | [optional] 
+**session_id** | **str** | Optional session ID for conversation continuity. Omit to use stateless mode, include to continue an existing session. | [optional] 
+**var_async** | **bool** | Enable async/durable execution mode. When true, returns 202 with pollUrl instead of waiting for completion. Use for long-running inference, client-executed tools, or operations &gt;30 seconds. | [optional] [default to False]
 
 ## Example
 

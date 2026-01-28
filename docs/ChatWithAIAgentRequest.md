@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **session_id** | **str** | Optional session ID to continue a conversation | [optional] 
 **user_id** | **str** | Optional user identifier for session isolation | [optional] 
 **stream** | **bool** | Whether to stream the response (SSE) | [optional] [default to False]
+**var_async** | **bool** | Enable async/durable execution mode. When true, returns 202 with pollUrl. Use for long-running agent tasks. | [optional] [default to False]
+**system** | **str** | Optional additional system prompt (appended to agent&#39;s configured prompt) | [optional] 
 
 ## Example
 

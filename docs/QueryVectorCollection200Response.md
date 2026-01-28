@@ -6,9 +6,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **results** | [**List[QueryVectorCollection200ResponseResultsInner]**](QueryVectorCollection200ResponseResultsInner.md) |  | [optional] 
-**query** | **str** |  | [optional] 
-**count** | **int** |  | [optional] 
-**execution_time_ms** | **int** |  | [optional] 
+**query** | **str** | Original query text (null if vector or metadata search was used) | [optional] 
+**search_mode** | **str** | Search mode used: text (query provided), vector (pre-computed), metadata (listByMetadata) | [optional] 
+**filter** | **object** | Filter that was applied (if any) | [optional] 
+**count** | **int** | Number of results returned | [optional] 
+**execution_time_ms** | **int** | Query execution time in milliseconds | [optional] 
+**collection_id** | **str** |  | [optional] 
+**has_more** | **bool** | True if more results available (listByMetadata mode only) | [optional] 
+**next_cursor** | **str** | Cursor for next page. Pass as cursor param to continue. Null when no more results. Only in listByMetadata mode. | [optional] 
+**pagination** | [**QueryVectorCollection200ResponsePagination**](QueryVectorCollection200ResponsePagination.md) |  | [optional] 
 
 ## Example
 

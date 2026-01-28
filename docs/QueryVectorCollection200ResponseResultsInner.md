@@ -5,9 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**content** | **str** |  | [optional] 
-**score** | **float** |  | [optional] 
-**metadata** | [**QueryVectorCollection200ResponseResultsInnerMetadata**](QueryVectorCollection200ResponseResultsInnerMetadata.md) |  | [optional] 
+**document_id** | **str** |  | [optional] 
+**content** | **str** | Document text content | [optional] 
+**similarity** | **float** | Cosine similarity score (1.0 for metadata-only queries) | [optional] 
+**metadata** | **Dict[str, object]** |  | [optional] 
+**embedding** | **List[float]** | Vector embedding (only if includeEmbeddings&#x3D;true) | [optional] 
 
 ## Example
 
