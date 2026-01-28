@@ -505,7 +505,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **crawlers_run**
-> CrawlersRun200Response crawlers_run(organization, project, crawler, crawlers_run_request)
+> CrawlersRun200Response crawlers_run(organization, project, crawler, crawlers_run_request=crawlers_run_request)
 
 Run a crawler
 
@@ -543,11 +543,11 @@ with quantcdn.ApiClient(configuration) as api_client:
     organization = 'test-org' # str | Organization identifier
     project = 'test-project' # str | Project identifier
     crawler = '00000000-0000-0000-0000-000000000000' # str | Crawler identifier
-    crawlers_run_request = quantcdn.CrawlersRunRequest() # CrawlersRunRequest | 
+    crawlers_run_request = quantcdn.CrawlersRunRequest() # CrawlersRunRequest |  (optional)
 
     try:
         # Run a crawler
-        api_response = api_instance.crawlers_run(organization, project, crawler, crawlers_run_request)
+        api_response = api_instance.crawlers_run(organization, project, crawler, crawlers_run_request=crawlers_run_request)
         print("The response of CrawlersApi->crawlers_run:\n")
         pprint(api_response)
     except Exception as e:
@@ -564,7 +564,7 @@ Name | Type | Description  | Notes
  **organization** | **str**| Organization identifier | 
  **project** | **str**| Project identifier | 
  **crawler** | **str**| Crawler identifier | 
- **crawlers_run_request** | [**CrawlersRunRequest**](CrawlersRunRequest.md)|  | 
+ **crawlers_run_request** | [**CrawlersRunRequest**](CrawlersRunRequest.md)|  | [optional] 
 
 ### Return type
 

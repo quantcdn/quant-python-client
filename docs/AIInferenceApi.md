@@ -7,7 +7,9 @@ Method | HTTP request | Description
 [**chat_inference**](AIInferenceApi.md#chat_inference) | **POST** /api/v3/organizations/{organisation}/ai/chat | Chat inference via API Gateway (buffered responses) with multimodal support
 [**chat_inference_stream**](AIInferenceApi.md#chat_inference_stream) | **POST** /api/v3/organizations/{organisation}/ai/chat/stream | Chat inference via streaming endpoint (true HTTP streaming) with multimodal support
 [**embeddings**](AIInferenceApi.md#embeddings) | **POST** /api/v3/organizations/{organisation}/ai/embeddings | Generate text embeddings for semantic search and RAG applications
+[**get_durable_execution_status**](AIInferenceApi.md#get_durable_execution_status) | **GET** /api/v3/organizations/{organisation}/ai/chat/executions/{identifier} | Get Durable Execution Status
 [**image_generation**](AIInferenceApi.md#image_generation) | **POST** /api/v3/organizations/{organisation}/ai/image-generation | Generate images with Amazon Nova Canvas
+[**submit_tool_callback**](AIInferenceApi.md#submit_tool_callback) | **POST** /api/v3/organizations/{organisation}/ai/chat/callback | Submit Client Tool Results (Callback)
 
 
 # **chat_inference**
@@ -17,15 +19,28 @@ Chat inference via API Gateway (buffered responses) with multimodal support
 
 Sends requests to the AI API Gateway endpoint which buffers responses. Supports text, images, videos, and documents via base64 encoding.
      *
+     * **Execution Modes:**
+     * - **Sync Mode** (default): Standard JSON response, waits for completion (200 response)
+     * - **Async Mode**: Set `async: true` for long-running tasks with polling (202 response)
+     *
+     * **Async/Durable Mode (`async: true`):**
+     * - Returns immediately with `requestId` and `pollUrl` (HTTP 202)
+     * - Uses AWS Lambda Durable Functions for long-running inference
+     * - Supports client-executed tools via `waiting_callback` state
+     * - Poll `/ai/chat/executions/{requestId}` for status
+     * - Submit client tool results via `/ai/chat/callback`
+     * - Ideal for complex prompts, large contexts, or client-side tools
+     *
      * **Multimodal Support:**
      * - **Text**: Simple string content
      * - **Images**: Base64-encoded PNG, JPEG, GIF, WebP (up to 25MB)
      * - **Videos**: Base64-encoded MP4, MOV, WebM, etc. (up to 25MB)
      * - **Documents**: Base64-encoded PDF, DOCX, CSV, etc. (up to 25MB)
      *
-     * **Supported Models:**
-     * - Amazon Nova Lite, Micro, Pro (all support multimodal)
-     * - Claude models (text only)
+     * **Supported Models (Multimodal):**
+     * - **Claude 4.5 Series**: Sonnet 4.5, Haiku 4.5, Opus 4.5 (images, up to 20 per request)
+     * - **Claude 3.5 Series**: Sonnet v1/v2 (images, up to 20 per request)
+     * - **Amazon Nova**: Lite, Pro, Micro (images, videos, documents)
      *
      * **Usage Tips:**
      * - Use base64 encoding for images/videos < 5-10MB
@@ -110,7 +125,8 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Chat inference completed (buffered response) |  -  |
+**200** | Chat inference completed (buffered response, sync mode) |  -  |
+**202** | Async execution started (when &#x60;async: true&#x60; in request) |  -  |
 **500** | Failed to perform chat inference |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -122,15 +138,27 @@ Chat inference via streaming endpoint (true HTTP streaming) with multimodal supp
 
 Streams responses from the AI streaming subdomain using Server-Sent Events (SSE). Tokens are streamed in real-time as they are generated.
      *
+     * **Execution Modes:**
+     * - **Streaming Mode** (default): Real-time SSE token-by-token responses
+     * - **Async Mode**: Set `async: true` for long-running tasks with polling (202 response)
+     *
+     * **Async/Durable Mode (`async: true`):**
+     * - Returns immediately with `requestId` and `pollUrl` (HTTP 202)
+     * - Uses AWS Lambda Durable Functions for long-running inference
+     * - Supports client-executed tools via `waiting_callback` state
+     * - Poll `/ai/chat/executions/{requestId}` for status
+     * - Submit client tool results via `/ai/chat/callback`
+     *
      * **Multimodal Support:**
      * - **Text**: Simple string content
      * - **Images**: Base64-encoded PNG, JPEG, GIF, WebP (up to 25MB)
      * - **Videos**: Base64-encoded MP4, MOV, WebM, etc. (up to 25MB)
      * - **Documents**: Base64-encoded PDF, DOCX, CSV, etc. (up to 25MB)
      *
-     * **Supported Models:**
-     * - Amazon Nova Lite, Micro, Pro (all support multimodal)
-     * - Claude models (text only)
+     * **Supported Models (Multimodal):**
+     * - **Claude 4.5 Series**: Sonnet 4.5, Haiku 4.5, Opus 4.5 (images, up to 20 per request)
+     * - **Claude 3.5 Series**: Sonnet v1/v2 (images, up to 20 per request)
+     * - **Amazon Nova**: Lite, Pro, Micro (images, videos, documents)
      *
      * **Usage Tips:**
      * - Use base64 encoding for images/videos < 5-10MB
@@ -202,13 +230,14 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: text/event-stream
+ - **Accept**: text/event-stream, application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Streaming response (text/event-stream) |  -  |
+**200** | Streaming response (text/event-stream, sync mode) |  -  |
+**202** | Async execution started (when &#x60;async: true&#x60; in request) |  -  |
 **500** | Failed to perform streaming inference |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -310,6 +339,110 @@ Name | Type | Description  | Notes
 **400** | Invalid request parameters |  -  |
 **403** | Access denied |  -  |
 **500** | Failed to generate embeddings |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_durable_execution_status**
+> GetDurableExecutionStatus200Response get_durable_execution_status(organisation, identifier)
+
+Get Durable Execution Status
+
+Poll the status of an async/durable chat execution.
+     *
+     * **When to use:** After starting chat inference with `async: true`, poll this endpoint
+     * to check execution status and retrieve results when complete.
+     *
+     * **Identifier:** Accepts either:
+     * - `requestId` (recommended): The short ID returned from the async request
+     * - `executionArn`: The full AWS Lambda durable execution ARN (must be URL-encoded)
+     *
+     * **Statuses:**
+     * - `pending`: Execution is starting (retry shortly)
+     * - `running`: Execution is in progress
+     * - `waiting_callback`: Execution paused, waiting for client tool results
+     * - `complete`: Execution finished successfully
+     * - `failed`: Execution failed with error
+     *
+     * **Client Tool Callback:**
+     * When status is `waiting_callback`, submit tool results via `POST /ai/chat/callback`.
+     *
+     * **Polling Recommendations:**
+     * - Start with 1 second delay, exponential backoff up to 30 seconds
+     * - Stop polling after 15 minutes (consider failed)
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.get_durable_execution_status200_response import GetDurableExecutionStatus200Response
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AIInferenceApi(api_client)
+    organisation = 'organisation_example' # str | The organisation ID
+    identifier = 'XkdVWiEfSwMEPrw=' # str | Either the requestId from async response, or full executionArn (URL-encoded)
+
+    try:
+        # Get Durable Execution Status
+        api_response = api_instance.get_durable_execution_status(organisation, identifier)
+        print("The response of AIInferenceApi->get_durable_execution_status:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AIInferenceApi->get_durable_execution_status: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**| The organisation ID | 
+ **identifier** | **str**| Either the requestId from async response, or full executionArn (URL-encoded) | 
+
+### Return type
+
+[**GetDurableExecutionStatus200Response**](GetDurableExecutionStatus200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Execution status retrieved |  -  |
+**404** | Execution not found |  -  |
+**403** | Access denied |  -  |
+**500** | Failed to retrieve execution status |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -416,6 +549,104 @@ Name | Type | Description  | Notes
 **400** | Invalid request parameters |  -  |
 **403** | Access denied |  -  |
 **500** | Failed to generate images |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **submit_tool_callback**
+> SubmitToolCallback200Response submit_tool_callback(organisation, submit_tool_callback_request)
+
+Submit Client Tool Results (Callback)
+
+Submit tool execution results to resume a suspended durable execution.
+     *
+     * **When to use:** When polling the execution status returns `waiting_callback`, use this endpoint
+     * to submit the results of client-executed tools. The execution will then resume.
+     *
+     * **Flow:**
+     * 1. Start async chat with client-executed tools (`autoExecute: []` or tools not in autoExecute list)
+     * 2. Poll status until `waiting_callback`
+     * 3. Execute tools locally using `pendingTools` from status response
+     * 4. Submit results here with the `callbackId`
+     * 5. Poll status until `complete`
+     *
+     * **Important:** Each `callbackId` can only be used once. After submission, poll the execution
+     * status to see the updated state.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.submit_tool_callback200_response import SubmitToolCallback200Response
+from quantcdn.models.submit_tool_callback_request import SubmitToolCallbackRequest
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AIInferenceApi(api_client)
+    organisation = 'organisation_example' # str | The organisation ID
+    submit_tool_callback_request = quantcdn.SubmitToolCallbackRequest() # SubmitToolCallbackRequest | 
+
+    try:
+        # Submit Client Tool Results (Callback)
+        api_response = api_instance.submit_tool_callback(organisation, submit_tool_callback_request)
+        print("The response of AIInferenceApi->submit_tool_callback:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AIInferenceApi->submit_tool_callback: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**| The organisation ID | 
+ **submit_tool_callback_request** | [**SubmitToolCallbackRequest**](SubmitToolCallbackRequest.md)|  | 
+
+### Return type
+
+[**SubmitToolCallback200Response**](SubmitToolCallback200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Callback submitted successfully, execution will resume |  -  |
+**400** | Invalid request (missing callbackId or toolResults) |  -  |
+**404** | Callback not found or already processed |  -  |
+**403** | Access denied |  -  |
+**500** | Failed to submit callback |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

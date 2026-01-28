@@ -5,8 +5,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**query** | **str** | Natural language search query | 
-**count** | **int** | Number of results to return | [optional] [default to 5]
+**query** | **str** | Natural language search query (mutually exclusive with vector) | [optional] 
+**vector** | **List[float]** | Pre-computed embedding vector (mutually exclusive with query). Array length must match collection dimension. | [optional] 
+**limit** | **int** | Maximum number of results to return | [optional] [default to 5]
+**threshold** | **float** | Minimum similarity score (0-1, higher &#x3D; more relevant) | [optional] [default to 0.7]
+**include_embeddings** | **bool** | Include embedding vectors in response (for debugging) | [optional] [default to False]
+**filter** | [**QueryVectorCollectionRequestFilter**](QueryVectorCollectionRequestFilter.md) |  | [optional] 
+**list_by_metadata** | **bool** | If true, skip semantic search and return all documents matching the filter. Requires filter. Supports cursor pagination. | [optional] [default to False]
+**cursor** | **str** | Pagination cursor for listByMetadata mode. Use nextCursor from previous response. Opaque format - do not construct manually. | [optional] 
+**sort_by** | **str** | Field to sort by in listByMetadata mode | [optional] [default to 'created_at']
+**sort_order** | **str** | Sort direction in listByMetadata mode | [optional] [default to 'desc']
 
 ## Example
 

@@ -3,10 +3,12 @@
 # import apis into api package
 from quantcdn.api.ai_agents_api import AIAgentsApi
 from quantcdn.api.ai_custom_tools_api import AICustomToolsApi
+from quantcdn.api.ai_file_storage_api import AIFileStorageApi
 from quantcdn.api.ai_inference_api import AIInferenceApi
 from quantcdn.api.ai_models_api import AIModelsApi
 from quantcdn.api.ai_monitoring_api import AIMonitoringApi
 from quantcdn.api.ai_sessions_api import AISessionsApi
+from quantcdn.api.ai_task_management_api import AITaskManagementApi
 from quantcdn.api.ai_tools_api import AIToolsApi
 from quantcdn.api.ai_vector_database_api import AIVectorDatabaseApi
 from quantcdn.api.applications_api import ApplicationsApi
@@ -21,6 +23,7 @@ from quantcdn.api.domains_api import DomainsApi
 from quantcdn.api.environments_api import EnvironmentsApi
 from quantcdn.api.headers_api import HeadersApi
 from quantcdn.api.kv_api import KVApi
+from quantcdn.api.orchestration_api import OrchestrationApi
 from quantcdn.api.organizations_api import OrganizationsApi
 from quantcdn.api.projects_api import ProjectsApi
 from quantcdn.api.purge_api import PurgeApi
