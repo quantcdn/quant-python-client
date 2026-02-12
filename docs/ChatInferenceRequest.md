@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 **tool_config** | [**ChatInferenceRequestToolConfig**](ChatInferenceRequestToolConfig.md) |  | [optional] 
 **session_id** | **str** | Optional session ID for conversation continuity. Omit to use stateless mode, include to continue an existing session. | [optional] 
 **var_async** | **bool** | Enable async/durable execution mode. When true, returns 202 with pollUrl instead of waiting for completion. Use for long-running inference, client-executed tools, or operations &gt;30 seconds. | [optional] [default to False]
+**allowed_tools** | **List[str]** | Top-level convenience alias for toolConfig.allowedTools. Whitelists which tools can be auto-executed. | [optional] 
+**guardrails** | [**ChatInferenceRequestGuardrails**](ChatInferenceRequestGuardrails.md) |  | [optional] 
 
 ## Example
 
