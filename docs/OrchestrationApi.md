@@ -4,15 +4,18 @@ All URIs are relative to *https://dashboard.quantcdn.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_ai_orchestration_status**](OrchestrationApi.md#get_ai_orchestration_status) | **GET** /api/v3/organizations/{organisation}/ai/tools/orchestrations/{orchestrationId} | Get Orchestration Status
+[**get_ai_orchestration_status**](OrchestrationApi.md#get_ai_orchestration_status) | **GET** /api/v3/organizations/{organisation}/ai/tools/orchestrations/{orchestrationId} | Get Tool Orchestration Status (Async Tool Polling)
 
 
 # **get_ai_orchestration_status**
 > GetAIOrchestrationStatus200Response get_ai_orchestration_status(organisation, orchestration_id)
 
-Get Orchestration Status
+Get Tool Orchestration Status (Async Tool Polling)
 
-Retrieves the status and synthesized result of a multi-tool orchestration.
+Retrieves the status and synthesized result of a multi-tool async execution orchestration.
+     *
+     * **Note:** This endpoint is for async tool execution polling (`/tools/orchestrations`).
+     * For durable batch processing orchestrations, see `GET /orchestrations` endpoints.
      *
      * **Orchestration Pattern:**
      * When the AI requests multiple async tools simultaneously, an orchestration is created
@@ -76,7 +79,7 @@ with quantcdn.ApiClient(configuration) as api_client:
     orchestration_id = 'orch_abc123def456789012345678901234' # str | Orchestration identifier for aggregated async tool executions
 
     try:
-        # Get Orchestration Status
+        # Get Tool Orchestration Status (Async Tool Polling)
         api_response = api_instance.get_ai_orchestration_status(organisation, orchestration_id)
         print("The response of OrchestrationApi->get_ai_orchestration_status:\n")
         pprint(api_response)

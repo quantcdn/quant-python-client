@@ -7,12 +7,14 @@ from quantcdn.api.ai_file_storage_api import AIFileStorageApi
 from quantcdn.api.ai_inference_api import AIInferenceApi
 from quantcdn.api.ai_models_api import AIModelsApi
 from quantcdn.api.ai_monitoring_api import AIMonitoringApi
+from quantcdn.api.ai_orchestrations_api import AIOrchestrationsApi
 from quantcdn.api.ai_sessions_api import AISessionsApi
 from quantcdn.api.ai_task_management_api import AITaskManagementApi
 from quantcdn.api.ai_tools_api import AIToolsApi
 from quantcdn.api.ai_vector_database_api import AIVectorDatabaseApi
 from quantcdn.api.applications_api import ApplicationsApi
 from quantcdn.api.backup_management_api import BackupManagementApi
+from quantcdn.api.cdn_metrics_api import CDNMetricsApi
 from quantcdn.api.commands_api import CommandsApi
 from quantcdn.api.compose_api import ComposeApi
 from quantcdn.api.containers_api import ContainersApi
@@ -30,6 +32,7 @@ from quantcdn.api.purge_api import PurgeApi
 from quantcdn.api.rules_api import RulesApi
 from quantcdn.api.ssh_access_api import SSHAccessApi
 from quantcdn.api.scaling_policy_api import ScalingPolicyApi
+from quantcdn.api.tokens_api import TokensApi
 from quantcdn.api.variables_api import VariablesApi
 from quantcdn.api.volumes_api import VolumesApi
 
