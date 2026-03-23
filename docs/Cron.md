@@ -6,8 +6,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | [optional] 
-**schedule** | **str** |  | [optional] 
-**command** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
+**schedule_expression** | **str** |  | [optional] 
+**command** | **List[str]** |  | [optional] 
+**target_container_name** | **str** |  | [optional] 
+**is_enabled** | **bool** |  | [optional] 
 
 ## Example
 
