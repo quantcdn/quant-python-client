@@ -11,6 +11,9 @@ Name | Type | Description | Notes
 **stream** | **bool** | Whether to stream the response (SSE) | [optional] [default to False]
 **var_async** | **bool** | Enable async/durable execution mode. When true, returns 202 with pollUrl. Use for long-running agent tasks. | [optional] [default to False]
 **system** | **str** | Optional additional system prompt (appended to agent&#39;s configured prompt) | [optional] 
+**long_context** | **bool** | Per-request override to force 1M context window routing | [optional] [default to False]
+**max_tool_iterations** | **int** | Maximum tool auto-execution iterations for this request | [optional] 
+**allowed_collections** | **List[str]** | Per-request override for vector DB collections the agent can query | [optional] 
 
 ## Example
 
