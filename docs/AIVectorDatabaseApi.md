@@ -6,10 +6,11 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_vector_collection**](AIVectorDatabaseApi.md#create_vector_collection) | **POST** /api/v3/organizations/{organisation}/ai/vector-db/collections | Create Vector Database Collection
 [**delete_vector_collection**](AIVectorDatabaseApi.md#delete_vector_collection) | **DELETE** /api/v3/organizations/{organisation}/ai/vector-db/collections/{collectionId} | Delete Collection
+[**delete_vector_documents**](AIVectorDatabaseApi.md#delete_vector_documents) | **DELETE** /api/v3/organizations/{organisation}/ai/vector-db/collections/{collectionId}/documents | Delete Documents from Collection
 [**get_vector_collection**](AIVectorDatabaseApi.md#get_vector_collection) | **GET** /api/v3/organizations/{organisation}/ai/vector-db/collections/{collectionId} | Get Collection Details
 [**list_vector_collections**](AIVectorDatabaseApi.md#list_vector_collections) | **GET** /api/v3/organizations/{organisation}/ai/vector-db/collections | List Vector Database Collections
+[**list_vector_documents**](AIVectorDatabaseApi.md#list_vector_documents) | **GET** /api/v3/organizations/{organisation}/ai/vector-db/collections/{collectionId}/documents | List Documents in Collection
 [**query_vector_collection**](AIVectorDatabaseApi.md#query_vector_collection) | **POST** /api/v3/organizations/{organisation}/ai/vector-db/collections/{collectionId}/query | Semantic Search Query
-[**upload_vector_documents**](AIVectorDatabaseApi.md#upload_vector_documents) | **POST** /api/v3/organizations/{organisation}/ai/vector-db/collections/{collectionId}/documents | Upload Documents to Collection
 
 
 # **create_vector_collection**
@@ -104,7 +105,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_vector_collection**
-> DeleteVectorCollection200Response delete_vector_collection(organisation, collection_id)
+> DeleteSkillCollection200Response delete_vector_collection(organisation, collection_id)
 
 Delete Collection
 
@@ -116,7 +117,7 @@ Deletes a vector database collection and all its documents. This action cannot b
 
 ```python
 import quantcdn
-from quantcdn.models.delete_vector_collection200_response import DeleteVectorCollection200Response
+from quantcdn.models.delete_skill_collection200_response import DeleteSkillCollection200Response
 from quantcdn.rest import ApiException
 from pprint import pprint
 
@@ -164,7 +165,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteVectorCollection200Response**](DeleteVectorCollection200Response.md)
+[**DeleteSkillCollection200Response**](DeleteSkillCollection200Response.md)
 
 ### Authorization
 
@@ -183,6 +184,104 @@ Name | Type | Description  | Notes
 **403** | Access denied |  -  |
 **404** | Collection not found |  -  |
 **500** | Failed to delete collection |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_vector_documents**
+> DeleteVectorDocuments200Response delete_vector_documents(organisation, collection_id, delete_vector_documents_request)
+
+Delete Documents from Collection
+
+Delete documents from a collection. Supports three deletion modes:
+     *
+     * 1. **Purge All** - Set `purgeAll: true` to delete ALL documents in the collection
+     *
+     * 2. **By Document IDs** - Provide `documentIds` array with specific document UUIDs
+     *
+     * 3. **By Metadata** - Provide `metadata` object with `field` and `values` to delete documents where the metadata field matches any of the values
+     *
+     * **Drupal Integration:**
+     * When using with Drupal AI Search, use metadata deletion with:
+     * - `field: 'drupal_entity_id'` to delete all chunks for specific entities
+     * - `field: 'drupal_long_id'` to delete specific chunks
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.delete_vector_documents200_response import DeleteVectorDocuments200Response
+from quantcdn.models.delete_vector_documents_request import DeleteVectorDocumentsRequest
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AIVectorDatabaseApi(api_client)
+    organisation = 'organisation_example' # str | Organisation machine name
+    collection_id = 'collection_id_example' # str | Collection UUID
+    delete_vector_documents_request = quantcdn.DeleteVectorDocumentsRequest() # DeleteVectorDocumentsRequest | 
+
+    try:
+        # Delete Documents from Collection
+        api_response = api_instance.delete_vector_documents(organisation, collection_id, delete_vector_documents_request)
+        print("The response of AIVectorDatabaseApi->delete_vector_documents:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AIVectorDatabaseApi->delete_vector_documents: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**| Organisation machine name | 
+ **collection_id** | **str**| Collection UUID | 
+ **delete_vector_documents_request** | [**DeleteVectorDocumentsRequest**](DeleteVectorDocumentsRequest.md)|  | 
+
+### Return type
+
+[**DeleteVectorDocuments200Response**](DeleteVectorDocuments200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Documents deleted successfully |  -  |
+**400** | Invalid request - must specify purgeAll, documentIds, or metadata |  -  |
+**403** | Access denied |  -  |
+**404** | Collection not found |  -  |
+**500** | Failed to delete documents |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -349,6 +448,92 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **list_vector_documents**
+> list_vector_documents(organisation, collection_id, key=key, limit=limit, offset=offset)
+
+List Documents in Collection
+
+Lists documents in a collection with pagination. Supports filtering by document key.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AIVectorDatabaseApi(api_client)
+    organisation = 'organisation_example' # str | 
+    collection_id = 'collection_id_example' # str | 
+    key = 'key_example' # str | Filter by document key (optional)
+    limit = 50 # int |  (optional) (default to 50)
+    offset = 0 # int |  (optional) (default to 0)
+
+    try:
+        # List Documents in Collection
+        api_instance.list_vector_documents(organisation, collection_id, key=key, limit=limit, offset=offset)
+    except Exception as e:
+        print("Exception when calling AIVectorDatabaseApi->list_vector_documents: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**|  | 
+ **collection_id** | **str**|  | 
+ **key** | **str**| Filter by document key | [optional] 
+ **limit** | **int**|  | [optional] [default to 50]
+ **offset** | **int**|  | [optional] [default to 0]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Documents retrieved successfully |  -  |
+**403** | Access denied |  -  |
+**404** | Collection not found |  -  |
+**500** | Failed to list documents |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **query_vector_collection**
 > QueryVectorCollection200Response query_vector_collection(organisation, collection_id, query_vector_collection_request)
 
@@ -466,101 +651,6 @@ Name | Type | Description  | Notes
 **403** | Access denied |  -  |
 **404** | Collection not found |  -  |
 **500** | Failed to perform search |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **upload_vector_documents**
-> UploadVectorDocuments200Response upload_vector_documents(organisation, collection_id, upload_vector_documents_request)
-
-Upload Documents to Collection
-
-Uploads documents to a vector database collection with automatic embedding generation. Documents are chunked (if needed), embedded using the collection's embedding model, and stored.
-     *
-     * **Supported Content:**
-     * - Plain text content
-     * - URLs to fetch content from
-     * - Markdown documents
-     *
-     * **Metadata:**
-     * Each document can include metadata (title, source_url, section, tags) that is returned with search results.
-
-### Example
-
-* Bearer (JWT) Authentication (BearerAuth):
-
-```python
-import quantcdn
-from quantcdn.models.upload_vector_documents200_response import UploadVectorDocuments200Response
-from quantcdn.models.upload_vector_documents_request import UploadVectorDocumentsRequest
-from quantcdn.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://dashboard.quantcdn.io
-# See configuration.py for a list of all supported configuration parameters.
-configuration = quantcdn.Configuration(
-    host = "https://dashboard.quantcdn.io"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (JWT): BearerAuth
-configuration = quantcdn.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with quantcdn.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = quantcdn.AIVectorDatabaseApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    collection_id = 'collection_id_example' # str | The collection ID
-    upload_vector_documents_request = quantcdn.UploadVectorDocumentsRequest() # UploadVectorDocumentsRequest | 
-
-    try:
-        # Upload Documents to Collection
-        api_response = api_instance.upload_vector_documents(organisation, collection_id, upload_vector_documents_request)
-        print("The response of AIVectorDatabaseApi->upload_vector_documents:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling AIVectorDatabaseApi->upload_vector_documents: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **organisation** | **str**| The organisation ID | 
- **collection_id** | **str**| The collection ID | 
- **upload_vector_documents_request** | [**UploadVectorDocumentsRequest**](UploadVectorDocumentsRequest.md)|  | 
-
-### Return type
-
-[**UploadVectorDocuments200Response**](UploadVectorDocuments200Response.md)
-
-### Authorization
-
-[BearerAuth](../README.md#BearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Documents uploaded successfully |  -  |
-**400** | Invalid request parameters |  -  |
-**403** | Access denied |  -  |
-**404** | Collection not found |  -  |
-**500** | Failed to upload documents |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
