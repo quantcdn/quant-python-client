@@ -411,7 +411,6 @@ docs/ValidateCompose422Response.md
 docs/ValidateComposeRequest.md
 docs/Variable.md
 docs/VariablesApi.md
-docs/VectorDatabaseApi.md
 docs/Volume.md
 docs/VolumesApi.md
 docs/WafConfig.md
@@ -459,7 +458,6 @@ quantcdn/api/scaling_policy_api.py
 quantcdn/api/ssh_access_api.py
 quantcdn/api/tokens_api.py
 quantcdn/api/variables_api.py
-quantcdn/api/vector_database_api.py
 quantcdn/api/volumes_api.py
 quantcdn/api_client.py
 quantcdn/api_response.py
@@ -1257,7 +1255,6 @@ test/test_validate_compose422_response.py
 test/test_validate_compose_request.py
 test/test_variable.py
 test/test_variables_api.py
-test/test_vector_database_api.py
 test/test_volume.py
 test/test_volumes_api.py
 test/test_waf_config.py

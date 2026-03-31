@@ -61,6 +61,13 @@ class TestAIVectorDatabaseApi(unittest.TestCase):
         """
         pass
 
+    def test_list_vector_documents(self) -> None:
+        """Test case for list_vector_documents
+
+        List Documents in Collection
+        """
+        pass
+
     def test_query_vector_collection(self) -> None:
         """Test case for query_vector_collection
 

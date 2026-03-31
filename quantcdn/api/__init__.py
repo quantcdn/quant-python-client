@@ -38,6 +38,5 @@ from quantcdn.api.ssh_access_api import SSHAccessApi
 from quantcdn.api.scaling_policy_api import ScalingPolicyApi
 from quantcdn.api.tokens_api import TokensApi
 from quantcdn.api.variables_api import VariablesApi
-from quantcdn.api.vector_database_api import VectorDatabaseApi
 from quantcdn.api.volumes_api import VolumesApi
 
