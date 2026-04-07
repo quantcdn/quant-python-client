@@ -36,10 +36,31 @@ class TestListSlackBots200ResponseBotsInner(unittest.TestCase):
         if include_optional:
             return ListSlackBots200ResponseBotsInner(
                 bot_id = '',
-                agent_id = '',
+                name = '',
                 setup_type = 'quant',
                 status = 'active',
                 connected = True,
+                system_prompt = '',
+                model_id = '',
+                temperature = 1.337,
+                max_tokens = 56,
+                allowed_tools = [
+                    ''
+                    ],
+                assigned_skills = [
+                    ''
+                    ],
+                allowed_collections = [
+                    ''
+                    ],
+                allowed_sub_agents = [
+                    ''
+                    ],
+                guardrail_preset = '',
+                filter_policies = [
+                    ''
+                    ],
+                long_context = True,
                 session_ttl_days = 56,
                 keywords_enabled = True,
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')

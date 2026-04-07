@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from quantcdn.models.get_governance_config200_response_spend_limits import GetGovernanceConfig200ResponseSpendLimits
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -31,7 +32,7 @@ class UpdateGovernanceConfigRequest(BaseModel):
     model_list: Optional[List[StrictStr]] = Field(default=None, alias="modelList")
     mandatory_guardrail_preset: Optional[StrictStr] = Field(default=None, alias="mandatoryGuardrailPreset")
     mandatory_filter_policies: Optional[List[StrictStr]] = Field(default=None, alias="mandatoryFilterPolicies")
-    spend_limits: Optional[Dict[str, Any]] = Field(default=None, alias="spendLimits")
+    spend_limits: Optional[GetGovernanceConfig200ResponseSpendLimits] = Field(default=None, alias="spendLimits")
     version: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["aiEnabled", "modelPolicy", "modelList", "mandatoryGuardrailPreset", "mandatoryFilterPolicies", "spendLimits", "version"]
 
@@ -91,6 +92,9 @@ class UpdateGovernanceConfigRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of spend_limits
+        if self.spend_limits:
+            _dict['spendLimits'] = self.spend_limits.to_dict()
         # set to None if mandatory_guardrail_preset (nullable) is None
         # and model_fields_set contains the field
         if self.mandatory_guardrail_preset is None and "mandatory_guardrail_preset" in self.model_fields_set:
@@ -113,7 +117,7 @@ class UpdateGovernanceConfigRequest(BaseModel):
             "modelList": obj.get("modelList"),
             "mandatoryGuardrailPreset": obj.get("mandatoryGuardrailPreset"),
             "mandatoryFilterPolicies": obj.get("mandatoryFilterPolicies"),
-            "spendLimits": obj.get("spendLimits"),
+            "spendLimits": GetGovernanceConfig200ResponseSpendLimits.from_dict(obj["spendLimits"]) if obj.get("spendLimits") is not None else None,
             "version": obj.get("version")
         })
         return _obj

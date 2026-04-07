@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **model_list** | **List[str]** |  | [optional] 
 **mandatory_guardrail_preset** | **str** |  | [optional] 
 **mandatory_filter_policies** | **List[str]** |  | [optional] 
-**spend_limits** | **object** |  | [optional] 
+**spend_limits** | [**GetGovernanceConfig200ResponseSpendLimits**](GetGovernanceConfig200ResponseSpendLimits.md) |  | [optional] 
 **version** | **int** |  | [optional] 
 
 ## Example

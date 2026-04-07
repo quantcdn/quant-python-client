@@ -18,8 +18,8 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,18 +28,33 @@ class GetSlackBot200ResponseBot(BaseModel):
     GetSlackBot200ResponseBot
     """ # noqa: E501
     bot_id: Optional[StrictStr] = Field(default=None, alias="botId")
-    agent_id: Optional[StrictStr] = Field(default=None, alias="agentId")
+    name: Optional[StrictStr] = None
     setup_type: Optional[StrictStr] = Field(default=None, alias="setupType")
     status: Optional[StrictStr] = None
     connected: Optional[StrictBool] = None
+    system_prompt: Optional[StrictStr] = Field(default=None, alias="systemPrompt")
+    model_id: Optional[StrictStr] = Field(default=None, alias="modelId")
+    temperature: Optional[Union[StrictFloat, StrictInt]] = None
+    max_tokens: Optional[StrictInt] = Field(default=None, alias="maxTokens")
+    allowed_tools: Optional[List[StrictStr]] = Field(default=None, alias="allowedTools")
+    assigned_skills: Optional[List[StrictStr]] = Field(default=None, alias="assignedSkills")
+    allowed_collections: Optional[List[StrictStr]] = Field(default=None, alias="allowedCollections")
+    allowed_sub_agents: Optional[List[StrictStr]] = Field(default=None, alias="allowedSubAgents")
+    guardrail_preset: Optional[StrictStr] = Field(default=None, alias="guardrailPreset")
+    filter_policies: Optional[List[StrictStr]] = Field(default=None, alias="filterPolicies")
+    long_context: Optional[StrictBool] = Field(default=None, alias="longContext")
     session_ttl_days: Optional[StrictInt] = Field(default=None, alias="sessionTtlDays")
     allowed_channels: Optional[List[StrictStr]] = Field(default=None, alias="allowedChannels")
+    allowed_users: Optional[List[StrictStr]] = Field(default=None, alias="allowedUsers")
+    denied_users: Optional[List[StrictStr]] = Field(default=None, alias="deniedUsers")
+    allow_guests: Optional[StrictBool] = Field(default=None, alias="allowGuests")
+    home_tab_content: Optional[StrictStr] = Field(default=None, alias="homeTabContent")
+    agent_access_control: Optional[Dict[str, Any]] = Field(default=None, alias="agentAccessControl")
     keywords_enabled: Optional[StrictBool] = Field(default=None, alias="keywordsEnabled")
     keywords: Optional[List[StrictStr]] = None
-    slash_commands: Optional[List[StrictStr]] = Field(default=None, alias="slashCommands")
     created_at: Optional[datetime] = Field(default=None, alias="createdAt")
     updated_at: Optional[datetime] = Field(default=None, alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["botId", "agentId", "setupType", "status", "connected", "sessionTtlDays", "allowedChannels", "keywordsEnabled", "keywords", "slashCommands", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["botId", "name", "setupType", "status", "connected", "systemPrompt", "modelId", "temperature", "maxTokens", "allowedTools", "assignedSkills", "allowedCollections", "allowedSubAgents", "guardrailPreset", "filterPolicies", "longContext", "sessionTtlDays", "allowedChannels", "allowedUsers", "deniedUsers", "allowGuests", "homeTabContent", "agentAccessControl", "keywordsEnabled", "keywords", "createdAt", "updatedAt"]
 
     @field_validator('setup_type')
     def setup_type_validate_enum(cls, value):
@@ -113,15 +128,30 @@ class GetSlackBot200ResponseBot(BaseModel):
 
         _obj = cls.model_validate({
             "botId": obj.get("botId"),
-            "agentId": obj.get("agentId"),
+            "name": obj.get("name"),
             "setupType": obj.get("setupType"),
             "status": obj.get("status"),
             "connected": obj.get("connected"),
+            "systemPrompt": obj.get("systemPrompt"),
+            "modelId": obj.get("modelId"),
+            "temperature": obj.get("temperature"),
+            "maxTokens": obj.get("maxTokens"),
+            "allowedTools": obj.get("allowedTools"),
+            "assignedSkills": obj.get("assignedSkills"),
+            "allowedCollections": obj.get("allowedCollections"),
+            "allowedSubAgents": obj.get("allowedSubAgents"),
+            "guardrailPreset": obj.get("guardrailPreset"),
+            "filterPolicies": obj.get("filterPolicies"),
+            "longContext": obj.get("longContext"),
             "sessionTtlDays": obj.get("sessionTtlDays"),
             "allowedChannels": obj.get("allowedChannels"),
+            "allowedUsers": obj.get("allowedUsers"),
+            "deniedUsers": obj.get("deniedUsers"),
+            "allowGuests": obj.get("allowGuests"),
+            "homeTabContent": obj.get("homeTabContent"),
+            "agentAccessControl": obj.get("agentAccessControl"),
             "keywordsEnabled": obj.get("keywordsEnabled"),
             "keywords": obj.get("keywords"),
-            "slashCommands": obj.get("slashCommands"),
             "createdAt": obj.get("createdAt"),
             "updatedAt": obj.get("updatedAt")
         })

@@ -66,7 +66,7 @@ class AISlackBotsApi:
     ) -> CreateSlackBot201Response:
         """Create Slack Bot
 
-        Creates a new Slack bot backed by an AI agent. The bot must be connected to a Slack workspace via OAuth before it can receive events.      *      * **Setup Types:**      * - `quant`: Quant-managed Slack app — uses shared OAuth credentials      * - `byo`: Bring Your Own — customer provides their own Slack app credentials
+        Creates a new Slack bot with inline AI agent configuration. A backing agent is created automatically — callers do not need to manage agents separately.      *      * **Setup Types:**      * - `quant`: Quant-managed Slack app — uses shared OAuth credentials      * - `byo`: Bring Your Own — customer provides their own Slack app credentials
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -140,7 +140,7 @@ class AISlackBotsApi:
     ) -> ApiResponse[CreateSlackBot201Response]:
         """Create Slack Bot
 
-        Creates a new Slack bot backed by an AI agent. The bot must be connected to a Slack workspace via OAuth before it can receive events.      *      * **Setup Types:**      * - `quant`: Quant-managed Slack app — uses shared OAuth credentials      * - `byo`: Bring Your Own — customer provides their own Slack app credentials
+        Creates a new Slack bot with inline AI agent configuration. A backing agent is created automatically — callers do not need to manage agents separately.      *      * **Setup Types:**      * - `quant`: Quant-managed Slack app — uses shared OAuth credentials      * - `byo`: Bring Your Own — customer provides their own Slack app credentials
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -214,7 +214,7 @@ class AISlackBotsApi:
     ) -> RESTResponseType:
         """Create Slack Bot
 
-        Creates a new Slack bot backed by an AI agent. The bot must be connected to a Slack workspace via OAuth before it can receive events.      *      * **Setup Types:**      * - `quant`: Quant-managed Slack app — uses shared OAuth credentials      * - `byo`: Bring Your Own — customer provides their own Slack app credentials
+        Creates a new Slack bot with inline AI agent configuration. A backing agent is created automatically — callers do not need to manage agents separately.      *      * **Setup Types:**      * - `quant`: Quant-managed Slack app — uses shared OAuth credentials      * - `byo`: Bring Your Own — customer provides their own Slack app credentials
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -364,7 +364,7 @@ class AISlackBotsApi:
     ) -> DeleteSlackBot200Response:
         """Delete Slack Bot
 
-        Permanently deletes a Slack bot and disconnects it from the workspace.
+        Permanently deletes a Slack bot, disconnects it from the workspace, and deletes its backing AI agent.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -438,7 +438,7 @@ class AISlackBotsApi:
     ) -> ApiResponse[DeleteSlackBot200Response]:
         """Delete Slack Bot
 
-        Permanently deletes a Slack bot and disconnects it from the workspace.
+        Permanently deletes a Slack bot, disconnects it from the workspace, and deletes its backing AI agent.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -512,7 +512,7 @@ class AISlackBotsApi:
     ) -> RESTResponseType:
         """Delete Slack Bot
 
-        Permanently deletes a Slack bot and disconnects it from the workspace.
+        Permanently deletes a Slack bot, disconnects it from the workspace, and deletes its backing AI agent.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -649,7 +649,7 @@ class AISlackBotsApi:
     ) -> GetSlackBot200Response:
         """Get Slack Bot
 
-        Retrieves details for a specific Slack bot including its configuration and connection status.
+        Retrieves details for a specific Slack bot including its configuration, connection status, and flattened agent configuration.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -723,7 +723,7 @@ class AISlackBotsApi:
     ) -> ApiResponse[GetSlackBot200Response]:
         """Get Slack Bot
 
-        Retrieves details for a specific Slack bot including its configuration and connection status.
+        Retrieves details for a specific Slack bot including its configuration, connection status, and flattened agent configuration.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -797,7 +797,7 @@ class AISlackBotsApi:
     ) -> RESTResponseType:
         """Get Slack Bot
 
-        Retrieves details for a specific Slack bot including its configuration and connection status.
+        Retrieves details for a specific Slack bot including its configuration, connection status, and flattened agent configuration.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -933,7 +933,7 @@ class AISlackBotsApi:
     ) -> ListSlackBots200Response:
         """List Slack Bots
 
-        Lists all Slack bots configured for the organization. Each bot is backed by an AI agent and can be connected to a Slack workspace.
+        Lists all Slack bots configured for the organization. Each bot is backed by an AI agent and can be connected to a Slack workspace. Agent configuration fields are flattened onto each bot object.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -1002,7 +1002,7 @@ class AISlackBotsApi:
     ) -> ApiResponse[ListSlackBots200Response]:
         """List Slack Bots
 
-        Lists all Slack bots configured for the organization. Each bot is backed by an AI agent and can be connected to a Slack workspace.
+        Lists all Slack bots configured for the organization. Each bot is backed by an AI agent and can be connected to a Slack workspace. Agent configuration fields are flattened onto each bot object.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -1071,7 +1071,7 @@ class AISlackBotsApi:
     ) -> RESTResponseType:
         """List Slack Bots
 
-        Lists all Slack bots configured for the organization. Each bot is backed by an AI agent and can be connected to a Slack workspace.
+        Lists all Slack bots configured for the organization. Each bot is backed by an AI agent and can be connected to a Slack workspace. Agent configuration fields are flattened onto each bot object.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -1806,7 +1806,7 @@ class AISlackBotsApi:
     ) -> CreateSlackBot201Response:
         """Update Slack Bot
 
-        Updates a Slack bot's configuration. Only provided fields are updated.
+        Updates a Slack bot's configuration and/or its backing agent. Only provided fields are updated.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -1885,7 +1885,7 @@ class AISlackBotsApi:
     ) -> ApiResponse[CreateSlackBot201Response]:
         """Update Slack Bot
 
-        Updates a Slack bot's configuration. Only provided fields are updated.
+        Updates a Slack bot's configuration and/or its backing agent. Only provided fields are updated.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -1964,7 +1964,7 @@ class AISlackBotsApi:
     ) -> RESTResponseType:
         """Update Slack Bot
 
-        Updates a Slack bot's configuration. Only provided fields are updated.
+        Updates a Slack bot's configuration and/or its backing agent. Only provided fields are updated.
 
         :param organisation: The organisation ID (required)
         :type organisation: str

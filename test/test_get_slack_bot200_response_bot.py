@@ -36,19 +36,46 @@ class TestGetSlackBot200ResponseBot(unittest.TestCase):
         if include_optional:
             return GetSlackBot200ResponseBot(
                 bot_id = '',
-                agent_id = '',
+                name = '',
                 setup_type = 'quant',
                 status = 'active',
                 connected = True,
+                system_prompt = '',
+                model_id = '',
+                temperature = 1.337,
+                max_tokens = 56,
+                allowed_tools = [
+                    ''
+                    ],
+                assigned_skills = [
+                    ''
+                    ],
+                allowed_collections = [
+                    ''
+                    ],
+                allowed_sub_agents = [
+                    ''
+                    ],
+                guardrail_preset = '',
+                filter_policies = [
+                    ''
+                    ],
+                long_context = True,
                 session_ttl_days = 56,
                 allowed_channels = [
                     ''
                     ],
-                keywords_enabled = True,
-                keywords = [
+                allowed_users = [
                     ''
                     ],
-                slash_commands = [
+                denied_users = [
+                    ''
+                    ],
+                allow_guests = True,
+                home_tab_content = '',
+                agent_access_control = None,
+                keywords_enabled = True,
+                keywords = [
                     ''
                     ],
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),

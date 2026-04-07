@@ -44,7 +44,12 @@ class TestUpdateGovernanceConfigRequest(unittest.TestCase):
                 mandatory_filter_policies = [
                     ''
                     ],
-                spend_limits = None,
+                spend_limits = quantcdn.models.get_governance_config_200_response_spend_limits.getGovernanceConfig_200_response_spendLimits(
+                    monthly_budget_cents = 56, 
+                    daily_budget_cents = 56, 
+                    per_user_monthly_budget_cents = 56, 
+                    per_user_daily_budget_cents = 56, 
+                    warning_threshold_percent = 56, ),
                 version = 56
             )
         else:

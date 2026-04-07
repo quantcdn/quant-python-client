@@ -35,24 +35,53 @@ class TestCreateSlackBotRequest(unittest.TestCase):
         model = CreateSlackBotRequest()
         if include_optional:
             return CreateSlackBotRequest(
-                agent_id = '',
+                name = '',
                 setup_type = 'quant',
+                system_prompt = '',
+                model_id = '',
+                temperature = 0,
+                max_tokens = 1,
+                allowed_tools = [
+                    ''
+                    ],
+                assigned_skills = [
+                    ''
+                    ],
+                allowed_collections = [
+                    ''
+                    ],
+                allowed_sub_agents = [
+                    ''
+                    ],
+                guardrail_preset = '',
+                filter_policies = [
+                    ''
+                    ],
+                long_context = True,
                 session_ttl_days = 1,
                 allowed_channels = [
                     ''
                     ],
-                keywords_enabled = True,
-                keywords = [
+                allowed_users = [
                     ''
                     ],
-                slash_commands = [
+                denied_users = [
+                    ''
+                    ],
+                allow_guests = True,
+                home_tab_content = '',
+                agent_access_control = None,
+                keywords_enabled = True,
+                keywords = [
                     ''
                     ]
             )
         else:
             return CreateSlackBotRequest(
-                agent_id = '',
+                name = '',
                 setup_type = 'quant',
+                system_prompt = '',
+                model_id = '',
         )
         """
 

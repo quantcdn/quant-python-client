@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 Create Slack Bot
 
-Creates a new Slack bot backed by an AI agent. The bot must be connected to a Slack workspace via OAuth before it can receive events.
+Creates a new Slack bot with inline AI agent configuration. A backing agent is created automatically — callers do not need to manage agents separately.
      *
      * **Setup Types:**
      * - `quant`: Quant-managed Slack app — uses shared OAuth credentials
@@ -106,7 +106,7 @@ Name | Type | Description  | Notes
 
 Delete Slack Bot
 
-Permanently deletes a Slack bot and disconnects it from the workspace.
+Permanently deletes a Slack bot, disconnects it from the workspace, and deletes its backing AI agent.
 
 ### Example
 
@@ -189,7 +189,7 @@ Name | Type | Description  | Notes
 
 Get Slack Bot
 
-Retrieves details for a specific Slack bot including its configuration and connection status.
+Retrieves details for a specific Slack bot including its configuration, connection status, and flattened agent configuration.
 
 ### Example
 
@@ -272,7 +272,7 @@ Name | Type | Description  | Notes
 
 List Slack Bots
 
-Lists all Slack bots configured for the organization. Each bot is backed by an AI agent and can be connected to a Slack workspace.
+Lists all Slack bots configured for the organization. Each bot is backed by an AI agent and can be connected to a Slack workspace. Agent configuration fields are flattened onto each bot object.
 
 ### Example
 
@@ -522,7 +522,7 @@ Name | Type | Description  | Notes
 
 Update Slack Bot
 
-Updates a Slack bot's configuration. Only provided fields are updated.
+Updates a Slack bot's configuration and/or its backing agent. Only provided fields are updated.
 
 ### Example
 

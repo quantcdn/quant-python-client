@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
@@ -27,14 +27,29 @@ class CreateSlackBotRequest(BaseModel):
     """
     CreateSlackBotRequest
     """ # noqa: E501
-    agent_id: StrictStr = Field(description="The AI agent that powers this bot", alias="agentId")
+    name: StrictStr = Field(description="Display name for the bot")
     setup_type: StrictStr = Field(description="Whether to use Quant-managed or customer-provided Slack app", alias="setupType")
+    system_prompt: StrictStr = Field(description="System prompt for the backing AI agent", alias="systemPrompt")
+    model_id: StrictStr = Field(description="AI model identifier", alias="modelId")
+    temperature: Optional[Union[Annotated[float, Field(le=2, strict=True, ge=0)], Annotated[int, Field(le=2, strict=True, ge=0)]]] = Field(default=None, description="Sampling temperature")
+    max_tokens: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Maximum response tokens", alias="maxTokens")
+    allowed_tools: Optional[List[StrictStr]] = Field(default=None, description="Tools the agent may use", alias="allowedTools")
+    assigned_skills: Optional[List[StrictStr]] = Field(default=None, description="Skills assigned to the agent", alias="assignedSkills")
+    allowed_collections: Optional[List[StrictStr]] = Field(default=None, description="Vector DB collections the agent may query", alias="allowedCollections")
+    allowed_sub_agents: Optional[List[StrictStr]] = Field(default=None, description="Sub-agents the agent may call", alias="allowedSubAgents")
+    guardrail_preset: Optional[StrictStr] = Field(default=None, description="Guardrail preset name", alias="guardrailPreset")
+    filter_policies: Optional[List[StrictStr]] = Field(default=None, description="Content filter policies", alias="filterPolicies")
+    long_context: Optional[StrictBool] = Field(default=None, description="Enable long context mode", alias="longContext")
     session_ttl_days: Optional[Annotated[int, Field(le=90, strict=True, ge=1)]] = Field(default=None, description="Session TTL in days", alias="sessionTtlDays")
     allowed_channels: Optional[List[StrictStr]] = Field(default=None, description="Slack channel IDs the bot may respond in", alias="allowedChannels")
+    allowed_users: Optional[List[StrictStr]] = Field(default=None, description="Slack user IDs allowed to interact with the bot", alias="allowedUsers")
+    denied_users: Optional[List[StrictStr]] = Field(default=None, description="Slack user IDs denied from interacting with the bot", alias="deniedUsers")
+    allow_guests: Optional[StrictBool] = Field(default=None, description="Whether guest users may interact with the bot", alias="allowGuests")
+    home_tab_content: Optional[StrictStr] = Field(default=None, description="Content shown on the bot's Home tab in Slack", alias="homeTabContent")
+    agent_access_control: Optional[Dict[str, Any]] = Field(default=None, description="Agent-level access control settings", alias="agentAccessControl")
     keywords_enabled: Optional[StrictBool] = Field(default=None, description="Whether keyword triggers are enabled", alias="keywordsEnabled")
     keywords: Optional[List[StrictStr]] = Field(default=None, description="Keywords that trigger the bot")
-    slash_commands: Optional[List[StrictStr]] = Field(default=None, description="Slash commands the bot responds to", alias="slashCommands")
-    __properties: ClassVar[List[str]] = ["agentId", "setupType", "sessionTtlDays", "allowedChannels", "keywordsEnabled", "keywords", "slashCommands"]
+    __properties: ClassVar[List[str]] = ["name", "setupType", "systemPrompt", "modelId", "temperature", "maxTokens", "allowedTools", "assignedSkills", "allowedCollections", "allowedSubAgents", "guardrailPreset", "filterPolicies", "longContext", "sessionTtlDays", "allowedChannels", "allowedUsers", "deniedUsers", "allowGuests", "homeTabContent", "agentAccessControl", "keywordsEnabled", "keywords"]
 
     @field_validator('setup_type')
     def setup_type_validate_enum(cls, value):
@@ -94,13 +109,28 @@ class CreateSlackBotRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "agentId": obj.get("agentId"),
+            "name": obj.get("name"),
             "setupType": obj.get("setupType"),
+            "systemPrompt": obj.get("systemPrompt"),
+            "modelId": obj.get("modelId"),
+            "temperature": obj.get("temperature"),
+            "maxTokens": obj.get("maxTokens"),
+            "allowedTools": obj.get("allowedTools"),
+            "assignedSkills": obj.get("assignedSkills"),
+            "allowedCollections": obj.get("allowedCollections"),
+            "allowedSubAgents": obj.get("allowedSubAgents"),
+            "guardrailPreset": obj.get("guardrailPreset"),
+            "filterPolicies": obj.get("filterPolicies"),
+            "longContext": obj.get("longContext"),
             "sessionTtlDays": obj.get("sessionTtlDays"),
             "allowedChannels": obj.get("allowedChannels"),
+            "allowedUsers": obj.get("allowedUsers"),
+            "deniedUsers": obj.get("deniedUsers"),
+            "allowGuests": obj.get("allowGuests"),
+            "homeTabContent": obj.get("homeTabContent"),
+            "agentAccessControl": obj.get("agentAccessControl"),
             "keywordsEnabled": obj.get("keywordsEnabled"),
-            "keywords": obj.get("keywords"),
-            "slashCommands": obj.get("slashCommands")
+            "keywords": obj.get("keywords")
         })
         return _obj
 

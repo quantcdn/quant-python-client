@@ -5,13 +5,28 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**agent_id** | **str** | Change the backing AI agent | [optional] 
+**name** | **str** | Display name for the bot | [optional] 
 **status** | **str** | Enable or disable the bot | [optional] 
+**system_prompt** | **str** | System prompt for the backing AI agent | [optional] 
+**model_id** | **str** | AI model identifier | [optional] 
+**temperature** | **float** | Sampling temperature | [optional] 
+**max_tokens** | **int** | Maximum response tokens | [optional] 
+**allowed_tools** | **List[str]** | Tools the agent may use | [optional] 
+**assigned_skills** | **List[str]** | Skills assigned to the agent | [optional] 
+**allowed_collections** | **List[str]** | Vector DB collections the agent may query | [optional] 
+**allowed_sub_agents** | **List[str]** | Sub-agents the agent may call | [optional] 
+**guardrail_preset** | **str** | Guardrail preset name | [optional] 
+**filter_policies** | **List[str]** | Content filter policies | [optional] 
+**long_context** | **bool** | Enable long context mode | [optional] 
 **session_ttl_days** | **int** | Session TTL in days | [optional] 
 **allowed_channels** | **List[str]** | Slack channel IDs the bot may respond in | [optional] 
+**allowed_users** | **List[str]** | Slack user IDs allowed to interact with the bot | [optional] 
+**denied_users** | **List[str]** | Slack user IDs denied from interacting with the bot | [optional] 
+**allow_guests** | **bool** | Whether guest users may interact with the bot | [optional] 
+**home_tab_content** | **str** | Content shown on the bot&#39;s Home tab in Slack | [optional] 
+**agent_access_control** | **object** | Agent-level access control settings | [optional] 
 **keywords_enabled** | **bool** | Whether keyword triggers are enabled | [optional] 
 **keywords** | **List[str]** | Keywords that trigger the bot | [optional] 
-**slash_commands** | **List[str]** | Slash commands the bot responds to | [optional] 
 
 ## Example
 
