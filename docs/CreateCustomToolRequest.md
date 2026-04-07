@@ -11,6 +11,10 @@ Name | Type | Description | Notes
 **input_schema** | **object** | JSON Schema defining the tool&#39;s input parameters | 
 **is_async** | **bool** | Whether this tool runs asynchronously (&gt;5 seconds) | [optional] [default to False]
 **timeout_seconds** | **int** | Tool execution timeout | [optional] [default to 30]
+**output_schema** | **object** | JSON Schema defining the tool&#39;s output structure | [optional] 
+**output_schema_description** | **str** | Human-readable description of the tool&#39;s output | [optional] 
+**category** | **str** | Category to group related tools | [optional] 
+**response_mode** | **str** | How the tool response is handled: llm (passed back to model) or direct (returned to user) | [optional] 
 
 ## Example
 
