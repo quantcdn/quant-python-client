@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_custom_tool**](AICustomToolsApi.md#create_custom_tool) | **POST** /api/v3/organizations/{organisation}/ai/custom-tools | Register Custom Edge Function Tool
 [**delete_custom_tool**](AICustomToolsApi.md#delete_custom_tool) | **DELETE** /api/v3/organizations/{organisation}/ai/custom-tools/{toolName} | Delete Custom Tool
+[**get_custom_tool**](AICustomToolsApi.md#get_custom_tool) | **GET** /api/v3/organizations/{organisation}/ai/custom-tools/{toolName} | Get Custom Tool
 [**list_custom_tools**](AICustomToolsApi.md#list_custom_tools) | **GET** /api/v3/organizations/{organisation}/ai/custom-tools | List Custom Tools
 
 
@@ -182,6 +183,89 @@ Name | Type | Description  | Notes
 **403** | Access denied |  -  |
 **404** | Tool not found |  -  |
 **500** | Failed to delete custom tool |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_custom_tool**
+> GetCustomTool200Response get_custom_tool(organisation, tool_name)
+
+Get Custom Tool
+
+Retrieves a single registered custom tool by name.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.get_custom_tool200_response import GetCustomTool200Response
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AICustomToolsApi(api_client)
+    organisation = 'organisation_example' # str | The organisation ID
+    tool_name = 'tool_name_example' # str | The tool name to retrieve
+
+    try:
+        # Get Custom Tool
+        api_response = api_instance.get_custom_tool(organisation, tool_name)
+        print("The response of AICustomToolsApi->get_custom_tool:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AICustomToolsApi->get_custom_tool: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**| The organisation ID | 
+ **tool_name** | **str**| The tool name to retrieve | 
+
+### Return type
+
+[**GetCustomTool200Response**](GetCustomTool200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Custom tool retrieved successfully |  -  |
+**403** | Access denied |  -  |
+**404** | Tool not found |  -  |
+**500** | Failed to retrieve custom tools |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
