@@ -199,6 +199,8 @@ docs/GetMyUsage200Response.md
 docs/GetMyUsage200ResponseDaily.md
 docs/GetMyUsage200ResponseMonthly.md
 docs/GetMyUsage200ResponseQuota.md
+docs/GetMyUsage200ResponseQuotaDailyLimit.md
+docs/GetMyUsage200ResponseQuotaMonthlyLimit.md
 docs/GetSkill200Response.md
 docs/GetSkill200ResponseSkill.md
 docs/GetSlackBot200Response.md
@@ -654,6 +656,8 @@ quantcdn/models/get_my_usage200_response.py
 quantcdn/models/get_my_usage200_response_daily.py
 quantcdn/models/get_my_usage200_response_monthly.py
 quantcdn/models/get_my_usage200_response_quota.py
+quantcdn/models/get_my_usage200_response_quota_daily_limit.py
+quantcdn/models/get_my_usage200_response_quota_monthly_limit.py
 quantcdn/models/get_skill200_response.py
 quantcdn/models/get_skill200_response_skill.py
 quantcdn/models/get_slack_bot200_response.py
@@ -1085,6 +1089,8 @@ test/test_get_my_usage200_response.py
 test/test_get_my_usage200_response_daily.py
 test/test_get_my_usage200_response_monthly.py
 test/test_get_my_usage200_response_quota.py
+test/test_get_my_usage200_response_quota_daily_limit.py
+test/test_get_my_usage200_response_quota_monthly_limit.py
 test/test_get_skill200_response.py
 test/test_get_skill200_response_skill.py
 test/test_get_slack_bot200_response.py

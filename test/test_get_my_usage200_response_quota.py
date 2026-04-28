@@ -35,8 +35,15 @@ class TestGetMyUsage200ResponseQuota(unittest.TestCase):
         model = GetMyUsage200ResponseQuota()
         if include_optional:
             return GetMyUsage200ResponseQuota(
-                monthly_limit = 56,
-                daily_limit = 56
+                monthly_limit = quantcdn.models.get_my_usage_200_response_quota_monthly_limit.getMyUsage_200_response_quota_monthlyLimit(
+                    limit_cents = 56, 
+                    used_percent = 1.337, 
+                    remaining_cents = 56, ),
+                daily_limit = quantcdn.models.get_my_usage_200_response_quota_daily_limit.getMyUsage_200_response_quota_dailyLimit(
+                    limit_cents = 56, 
+                    used_percent = 1.337, 
+                    remaining_cents = 56, 
+                    resets_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
             )
         else:
             return GetMyUsage200ResponseQuota(

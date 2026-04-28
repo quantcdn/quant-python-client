@@ -17,20 +17,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional
-from quantcdn.models.get_my_usage200_response_quota_daily_limit import GetMyUsage200ResponseQuotaDailyLimit
-from quantcdn.models.get_my_usage200_response_quota_monthly_limit import GetMyUsage200ResponseQuotaMonthlyLimit
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
-class GetMyUsage200ResponseQuota(BaseModel):
+class GetMyUsage200ResponseQuotaMonthlyLimit(BaseModel):
     """
-    GetMyUsage200ResponseQuota
+    Per-user monthly spend cap (object form, present when an org-level perUserMonthlyBudget is configured)
     """ # noqa: E501
-    monthly_limit: Optional[GetMyUsage200ResponseQuotaMonthlyLimit] = Field(default=None, alias="monthlyLimit")
-    daily_limit: Optional[GetMyUsage200ResponseQuotaDailyLimit] = Field(default=None, alias="dailyLimit")
-    __properties: ClassVar[List[str]] = ["monthlyLimit", "dailyLimit"]
+    limit_cents: Optional[StrictInt] = Field(default=None, description="The configured monthly cap in US cents", alias="limitCents")
+    used_percent: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Percentage of the cap consumed this month (0–100+)", alias="usedPercent")
+    remaining_cents: Optional[StrictInt] = Field(default=None, description="Cents remaining before the cap is hit; can be negative if overspent", alias="remainingCents")
+    __properties: ClassVar[List[str]] = ["limitCents", "usedPercent", "remainingCents"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +49,7 @@ class GetMyUsage200ResponseQuota(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of GetMyUsage200ResponseQuota from a JSON string"""
+        """Create an instance of GetMyUsage200ResponseQuotaMonthlyLimit from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,27 +70,11 @@ class GetMyUsage200ResponseQuota(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of monthly_limit
-        if self.monthly_limit:
-            _dict['monthlyLimit'] = self.monthly_limit.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of daily_limit
-        if self.daily_limit:
-            _dict['dailyLimit'] = self.daily_limit.to_dict()
-        # set to None if monthly_limit (nullable) is None
-        # and model_fields_set contains the field
-        if self.monthly_limit is None and "monthly_limit" in self.model_fields_set:
-            _dict['monthlyLimit'] = None
-
-        # set to None if daily_limit (nullable) is None
-        # and model_fields_set contains the field
-        if self.daily_limit is None and "daily_limit" in self.model_fields_set:
-            _dict['dailyLimit'] = None
-
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GetMyUsage200ResponseQuota from a dict"""
+        """Create an instance of GetMyUsage200ResponseQuotaMonthlyLimit from a dict"""
         if obj is None:
             return None
 
@@ -99,8 +82,9 @@ class GetMyUsage200ResponseQuota(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "monthlyLimit": GetMyUsage200ResponseQuotaMonthlyLimit.from_dict(obj["monthlyLimit"]) if obj.get("monthlyLimit") is not None else None,
-            "dailyLimit": GetMyUsage200ResponseQuotaDailyLimit.from_dict(obj["dailyLimit"]) if obj.get("dailyLimit") is not None else None
+            "limitCents": obj.get("limitCents"),
+            "usedPercent": obj.get("usedPercent"),
+            "remainingCents": obj.get("remainingCents")
         })
         return _obj
 
