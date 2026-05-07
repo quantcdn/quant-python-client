@@ -17,30 +17,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ScalingPolicy(BaseModel):
+class RestoreFilesystemRequest(BaseModel):
     """
-    ScalingPolicy
+    RestoreFilesystemRequest
     """ # noqa: E501
-    metric: Optional[StrictStr] = None
-    target_value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="targetValue")
-    scale_in_cooldown_seconds: Optional[StrictInt] = Field(default=None, alias="scaleInCooldownSeconds")
-    scale_out_cooldown_seconds: Optional[StrictInt] = Field(default=None, alias="scaleOutCooldownSeconds")
-    __properties: ClassVar[List[str]] = ["metric", "targetValue", "scaleInCooldownSeconds", "scaleOutCooldownSeconds"]
-
-    @field_validator('metric')
-    def metric_validate_enum(cls, value):
-        """Validates the enum"""
-        if value is None:
-            return value
-
-        if value not in set(['CPUUtilization', 'MemoryUtilization', 'RPS']):
-            raise ValueError("must be one of enum values ('CPUUtilization', 'MemoryUtilization', 'RPS')")
-        return value
+    backup_id: StrictStr = Field(description="The backup ID to restore (must match path param)", alias="backupId")
+    acknowledge_dataloss: StrictBool = Field(description="Must be true. tar extraction overwrites same-named files in the target EFS in place; pre-existing files not in the archive are preserved.", alias="acknowledgeDataloss")
+    __properties: ClassVar[List[str]] = ["backupId", "acknowledgeDataloss"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,7 +48,7 @@ class ScalingPolicy(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ScalingPolicy from a JSON string"""
+        """Create an instance of RestoreFilesystemRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -85,7 +73,7 @@ class ScalingPolicy(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ScalingPolicy from a dict"""
+        """Create an instance of RestoreFilesystemRequest from a dict"""
         if obj is None:
             return None
 
@@ -93,10 +81,8 @@ class ScalingPolicy(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "metric": obj.get("metric"),
-            "targetValue": obj.get("targetValue"),
-            "scaleInCooldownSeconds": obj.get("scaleInCooldownSeconds"),
-            "scaleOutCooldownSeconds": obj.get("scaleOutCooldownSeconds")
+            "backupId": obj.get("backupId"),
+            "acknowledgeDataloss": obj.get("acknowledgeDataloss")
         })
         return _obj
 

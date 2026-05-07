@@ -34,6 +34,7 @@ from quantcdn.api.kv_api import KVApi
 from quantcdn.api.organizations_api import OrganizationsApi
 from quantcdn.api.projects_api import ProjectsApi
 from quantcdn.api.purge_api import PurgeApi
+from quantcdn.api.restore_management_api import RestoreManagementApi
 from quantcdn.api.rules_api import RulesApi
 from quantcdn.api.ssh_access_api import SSHAccessApi
 from quantcdn.api.scaling_policy_api import ScalingPolicyApi
