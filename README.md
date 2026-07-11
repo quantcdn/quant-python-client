@@ -272,6 +272,10 @@ Class | Method | HTTP request | Description
 *KVApi* | [**k_v_list**](docs/KVApi.md#k_v_list) | **GET** /api/v2/organizations/{organization}/projects/{project}/kv | List key-value stores
 *KVApi* | [**k_v_show**](docs/KVApi.md#k_v_show) | **GET** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id} | Get a kv store
 *KVApi* | [**k_v_unlink_from_project**](docs/KVApi.md#k_v_unlink_from_project) | **DELETE** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/link | Unlink a KV store from this project
+*OpenAICompatibilityApi* | [**oai_chat_completions**](docs/OpenAICompatibilityApi.md#oai_chat_completions) | **POST** /oai/v1/chat/completions | Create a chat completion (OpenAI-compatible)
+*OpenAICompatibilityApi* | [**oai_embeddings**](docs/OpenAICompatibilityApi.md#oai_embeddings) | **POST** /oai/v1/embeddings | Create embeddings (OpenAI-compatible)
+*OpenAICompatibilityApi* | [**oai_get_model**](docs/OpenAICompatibilityApi.md#oai_get_model) | **GET** /oai/v1/models/{model} | Retrieve a model (OpenAI-compatible)
+*OpenAICompatibilityApi* | [**oai_list_models**](docs/OpenAICompatibilityApi.md#oai_list_models) | **GET** /oai/v1/models | List available models (OpenAI-compatible)
 *OrganizationsApi* | [**organizations_list**](docs/OrganizationsApi.md#organizations_list) | **GET** /api/v2/organizations | Retrieve all organizations
 *OrganizationsApi* | [**organizations_read**](docs/OrganizationsApi.md#organizations_read) | **GET** /api/v2/organizations/{organization} | Get details of a single organization
 *ProjectsApi* | [**projects_create**](docs/ProjectsApi.md#projects_create) | **POST** /api/v2/organizations/{organization}/projects | Create a new project
@@ -357,6 +361,7 @@ Class | Method | HTTP request | Description
  - [AiSearchTriggerCrawlRequest](docs/AiSearchTriggerCrawlRequest.md)
  - [AiSearchUpdateSettingsRequest](docs/AiSearchUpdateSettingsRequest.md)
  - [Application](docs/Application.md)
+ - [ApplicationCache](docs/ApplicationCache.md)
  - [ApplicationDatabase](docs/ApplicationDatabase.md)
  - [ApplicationDeploymentInformationInner](docs/ApplicationDeploymentInformationInner.md)
  - [ApplicationFilesystem](docs/ApplicationFilesystem.md)
@@ -583,6 +588,19 @@ Class | Method | HTTP request | Description
  - [ListTasks200ResponseTasksInner](docs/ListTasks200ResponseTasksInner.md)
  - [ListVectorCollections200Response](docs/ListVectorCollections200Response.md)
  - [ListVectorCollections200ResponseCollectionsInner](docs/ListVectorCollections200ResponseCollectionsInner.md)
+ - [OaiChatCompletions200Response](docs/OaiChatCompletions200Response.md)
+ - [OaiChatCompletions200ResponseChoicesInner](docs/OaiChatCompletions200ResponseChoicesInner.md)
+ - [OaiChatCompletions200ResponseChoicesInnerMessage](docs/OaiChatCompletions200ResponseChoicesInnerMessage.md)
+ - [OaiChatCompletions200ResponseUsage](docs/OaiChatCompletions200ResponseUsage.md)
+ - [OaiChatCompletionsRequest](docs/OaiChatCompletionsRequest.md)
+ - [OaiChatCompletionsRequestMessagesInner](docs/OaiChatCompletionsRequestMessagesInner.md)
+ - [OaiEmbeddings200Response](docs/OaiEmbeddings200Response.md)
+ - [OaiEmbeddings200ResponseDataInner](docs/OaiEmbeddings200ResponseDataInner.md)
+ - [OaiEmbeddings200ResponseUsage](docs/OaiEmbeddings200ResponseUsage.md)
+ - [OaiEmbeddingsRequest](docs/OaiEmbeddingsRequest.md)
+ - [OaiGetModel200Response](docs/OaiGetModel200Response.md)
+ - [OaiListModels200Response](docs/OaiListModels200Response.md)
+ - [OaiListModels200ResponseDataInner](docs/OaiListModels200ResponseDataInner.md)
  - [OrganizationsList200ResponseInner](docs/OrganizationsList200ResponseInner.md)
  - [PatchEnvironmentCompose202Response](docs/PatchEnvironmentCompose202Response.md)
  - [PatchEnvironmentCompose202ResponseSpotConfiguration](docs/PatchEnvironmentCompose202ResponseSpotConfiguration.md)

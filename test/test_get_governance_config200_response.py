@@ -61,6 +61,14 @@ class TestGetGovernanceConfig200Response(unittest.TestCase):
                             daily_cents = 56, 
                             monthly_cents = 56, 
                             unlimited = True, )
+                        }, 
+                    per_token_monthly_budget_cents = 56, 
+                    per_token_daily_budget_cents = 56, 
+                    token_overrides = {
+                        'key' : quantcdn.models.get_governance_config_200_response_spend_limits_user_overrides_value.getGovernanceConfig_200_response_spendLimits_userOverrides_value(
+                            daily_cents = 56, 
+                            monthly_cents = 56, 
+                            unlimited = True, )
                         }, ),
                 version = 56
             )

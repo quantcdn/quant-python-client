@@ -31,6 +31,7 @@ from quantcdn.api.domains_api import DomainsApi
 from quantcdn.api.environments_api import EnvironmentsApi
 from quantcdn.api.headers_api import HeadersApi
 from quantcdn.api.kv_api import KVApi
+from quantcdn.api.open_ai_compatibility_api import OpenAICompatibilityApi
 from quantcdn.api.organizations_api import OrganizationsApi
 from quantcdn.api.projects_api import ProjectsApi
 from quantcdn.api.purge_api import PurgeApi

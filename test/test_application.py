@@ -45,6 +45,10 @@ class TestApplication(unittest.TestCase):
                 filesystem = quantcdn.models.application_filesystem.Application_filesystem(
                     filesystem_id = '', 
                     mount_path = '', ),
+                cache = quantcdn.models.application_cache.Application_cache(
+                    cache_endpoint = '', 
+                    cache_identifier = '', 
+                    data_storage_max_gb = 56, ),
                 compose_definition = quantcdn.models.compose.Compose(
                     containers = [
                         quantcdn.models.container.Container(
@@ -110,6 +114,8 @@ class TestApplication(unittest.TestCase):
                     task_memory = 56, 
                     min_capacity = 56, 
                     max_capacity = 56, 
+                    single_task_only = True, 
+                    startup_grace_period_seconds = 0, 
                     spot_configuration = quantcdn.models.spot_configuration.SpotConfiguration(
                         strategy = 'spot-only', ), 
                     enable_cross_env_networking = True, 

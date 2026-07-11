@@ -35,7 +35,10 @@ class GetGovernanceConfig200ResponseSpendLimits(BaseModel):
     warning_threshold_percent: Optional[StrictInt] = Field(default=None, alias="warningThresholdPercent")
     interface_limits: Optional[Dict[str, GetGovernanceConfig200ResponseSpendLimitsInterfaceLimitsValue]] = Field(default=None, description="Aggregate spend caps per interface label (slack, autonomous, api-gateway, streaming, websocket). Keys are interface labels.", alias="interfaceLimits")
     user_overrides: Optional[Dict[str, GetGovernanceConfig200ResponseSpendLimitsUserOverridesValue]] = Field(default=None, description="Per-user budget overrides keyed by userId (numeric portal id, slack-<id>, or system:code-agent). Replaces the flat per-user budget for that user; unlimited=true exempts them.", alias="userOverrides")
-    __properties: ClassVar[List[str]] = ["monthlyBudgetCents", "dailyBudgetCents", "perUserMonthlyBudgetCents", "perUserDailyBudgetCents", "warningThresholdPercent", "interfaceLimits", "userOverrides"]
+    per_token_monthly_budget_cents: Optional[StrictInt] = Field(default=None, description="Flat monthly cap in cents applied to every API token without a named override", alias="perTokenMonthlyBudgetCents")
+    per_token_daily_budget_cents: Optional[StrictInt] = Field(default=None, description="Flat daily cap in cents applied to every API token without a named override", alias="perTokenDailyBudgetCents")
+    token_overrides: Optional[Dict[str, GetGovernanceConfig200ResponseSpendLimitsUserOverridesValue]] = Field(default=None, description="Per-token budget overrides keyed by API token id. Replaces the flat per-token budget for that token; unlimited=true exempts it.", alias="tokenOverrides")
+    __properties: ClassVar[List[str]] = ["monthlyBudgetCents", "dailyBudgetCents", "perUserMonthlyBudgetCents", "perUserDailyBudgetCents", "warningThresholdPercent", "interfaceLimits", "userOverrides", "perTokenMonthlyBudgetCents", "perTokenDailyBudgetCents", "tokenOverrides"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,6 +93,13 @@ class GetGovernanceConfig200ResponseSpendLimits(BaseModel):
                 if self.user_overrides[_key_user_overrides]:
                     _field_dict[_key_user_overrides] = self.user_overrides[_key_user_overrides].to_dict()
             _dict['userOverrides'] = _field_dict
+        # override the default output from pydantic by calling `to_dict()` of each value in token_overrides (dict)
+        _field_dict = {}
+        if self.token_overrides:
+            for _key_token_overrides in self.token_overrides:
+                if self.token_overrides[_key_token_overrides]:
+                    _field_dict[_key_token_overrides] = self.token_overrides[_key_token_overrides].to_dict()
+            _dict['tokenOverrides'] = _field_dict
         # set to None if monthly_budget_cents (nullable) is None
         # and model_fields_set contains the field
         if self.monthly_budget_cents is None and "monthly_budget_cents" in self.model_fields_set:
@@ -114,6 +124,16 @@ class GetGovernanceConfig200ResponseSpendLimits(BaseModel):
         # and model_fields_set contains the field
         if self.warning_threshold_percent is None and "warning_threshold_percent" in self.model_fields_set:
             _dict['warningThresholdPercent'] = None
+
+        # set to None if per_token_monthly_budget_cents (nullable) is None
+        # and model_fields_set contains the field
+        if self.per_token_monthly_budget_cents is None and "per_token_monthly_budget_cents" in self.model_fields_set:
+            _dict['perTokenMonthlyBudgetCents'] = None
+
+        # set to None if per_token_daily_budget_cents (nullable) is None
+        # and model_fields_set contains the field
+        if self.per_token_daily_budget_cents is None and "per_token_daily_budget_cents" in self.model_fields_set:
+            _dict['perTokenDailyBudgetCents'] = None
 
         return _dict
 
@@ -143,6 +163,14 @@ class GetGovernanceConfig200ResponseSpendLimits(BaseModel):
                 for _k, _v in obj["userOverrides"].items()
             )
             if obj.get("userOverrides") is not None
+            else None,
+            "perTokenMonthlyBudgetCents": obj.get("perTokenMonthlyBudgetCents"),
+            "perTokenDailyBudgetCents": obj.get("perTokenDailyBudgetCents"),
+            "tokenOverrides": dict(
+                (_k, GetGovernanceConfig200ResponseSpendLimitsUserOverridesValue.from_dict(_v))
+                for _k, _v in obj["tokenOverrides"].items()
+            )
+            if obj.get("tokenOverrides") is not None
             else None
         })
         return _obj

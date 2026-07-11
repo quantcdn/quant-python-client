@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from quantcdn.models.application_cache import ApplicationCache
 from quantcdn.models.application_database import ApplicationDatabase
 from quantcdn.models.application_deployment_information_inner import ApplicationDeploymentInformationInner
 from quantcdn.models.application_filesystem import ApplicationFilesystem
@@ -35,6 +36,7 @@ class Application(BaseModel):
     organisation: StrictStr = Field(description="Organisation machine name")
     database: Optional[ApplicationDatabase] = None
     filesystem: Optional[ApplicationFilesystem] = None
+    cache: Optional[ApplicationCache] = None
     compose_definition: Optional[Compose] = Field(default=None, alias="composeDefinition")
     status: Optional[StrictStr] = Field(default=None, description="Application status")
     deployment_information: Optional[List[ApplicationDeploymentInformationInner]] = Field(default=None, description="Deployment history", alias="deploymentInformation")
@@ -45,7 +47,7 @@ class Application(BaseModel):
     desired_count: Optional[StrictInt] = Field(default=None, description="Desired task count", alias="desiredCount")
     running_count: Optional[StrictInt] = Field(default=None, description="Currently running task count", alias="runningCount")
     environment_names: Optional[List[StrictStr]] = Field(default=None, description="List of environment names (read-only)", alias="environmentNames")
-    __properties: ClassVar[List[str]] = ["appName", "organisation", "database", "filesystem", "composeDefinition", "status", "deploymentInformation", "imageReference", "containerNames", "minCapacity", "maxCapacity", "desiredCount", "runningCount", "environmentNames"]
+    __properties: ClassVar[List[str]] = ["appName", "organisation", "database", "filesystem", "cache", "composeDefinition", "status", "deploymentInformation", "imageReference", "containerNames", "minCapacity", "maxCapacity", "desiredCount", "runningCount", "environmentNames"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -100,6 +102,9 @@ class Application(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of filesystem
         if self.filesystem:
             _dict['filesystem'] = self.filesystem.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of cache
+        if self.cache:
+            _dict['cache'] = self.cache.to_dict()
         # override the default output from pydantic by calling `to_dict()` of compose_definition
         if self.compose_definition:
             _dict['composeDefinition'] = self.compose_definition.to_dict()
@@ -122,6 +127,11 @@ class Application(BaseModel):
         # and model_fields_set contains the field
         if self.filesystem is None and "filesystem" in self.model_fields_set:
             _dict['filesystem'] = None
+
+        # set to None if cache (nullable) is None
+        # and model_fields_set contains the field
+        if self.cache is None and "cache" in self.model_fields_set:
+            _dict['cache'] = None
 
         # set to None if status (nullable) is None
         # and model_fields_set contains the field
@@ -184,6 +194,7 @@ class Application(BaseModel):
             "organisation": obj.get("organisation"),
             "database": ApplicationDatabase.from_dict(obj["database"]) if obj.get("database") is not None else None,
             "filesystem": ApplicationFilesystem.from_dict(obj["filesystem"]) if obj.get("filesystem") is not None else None,
+            "cache": ApplicationCache.from_dict(obj["cache"]) if obj.get("cache") is not None else None,
             "composeDefinition": Compose.from_dict(obj["composeDefinition"]) if obj.get("composeDefinition") is not None else None,
             "status": obj.get("status"),
             "deploymentInformation": [ApplicationDeploymentInformationInner.from_dict(_item) for _item in obj["deploymentInformation"]] if obj.get("deploymentInformation") is not None else None,

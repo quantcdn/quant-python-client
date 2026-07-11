@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **organisation** | **str** | Organisation machine name | 
 **database** | [**ApplicationDatabase**](ApplicationDatabase.md) |  | [optional] 
 **filesystem** | [**ApplicationFilesystem**](ApplicationFilesystem.md) |  | [optional] 
+**cache** | [**ApplicationCache**](ApplicationCache.md) |  | [optional] 
 **compose_definition** | [**Compose**](Compose.md) |  | [optional] 
 **status** | **str** | Application status | [optional] [readonly] 
 **deployment_information** | [**List[ApplicationDeploymentInformationInner]**](ApplicationDeploymentInformationInner.md) | Deployment history | [optional] [readonly] 

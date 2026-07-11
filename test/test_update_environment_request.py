@@ -100,6 +100,8 @@ class TestUpdateEnvironmentRequest(unittest.TestCase):
                     task_memory = 56, 
                     min_capacity = 56, 
                     max_capacity = 56, 
+                    single_task_only = True, 
+                    startup_grace_period_seconds = 0, 
                     spot_configuration = quantcdn.models.spot_configuration.SpotConfiguration(
                         strategy = 'spot-only', ), 
                     enable_cross_env_networking = True, 
@@ -174,6 +176,8 @@ class TestUpdateEnvironmentRequest(unittest.TestCase):
                     task_memory = 56, 
                     min_capacity = 56, 
                     max_capacity = 56, 
+                    single_task_only = True, 
+                    startup_grace_period_seconds = 0, 
                     spot_configuration = quantcdn.models.spot_configuration.SpotConfiguration(
                         strategy = 'spot-only', ), 
                     enable_cross_env_networking = True, 

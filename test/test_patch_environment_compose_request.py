@@ -40,6 +40,8 @@ class TestPatchEnvironmentComposeRequest(unittest.TestCase):
                 task_memory = '',
                 min_capacity = 0,
                 max_capacity = 1,
+                single_task_only = True,
+                startup_grace_period_seconds = 0,
                 containers = [
                     None
                     ],
