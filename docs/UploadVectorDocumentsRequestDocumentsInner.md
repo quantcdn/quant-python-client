@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **content** | **str** | Document text content | 
+**key** | **str** | Stable document key for upsert | [optional] 
 **metadata** | [**UploadVectorDocumentsRequestDocumentsInnerMetadata**](UploadVectorDocumentsRequestDocumentsInnerMetadata.md) |  | [optional] 
 
 ## Example
