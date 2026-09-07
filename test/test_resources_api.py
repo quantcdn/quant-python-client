@@ -61,10 +61,24 @@ class TestResourcesApi(unittest.TestCase):
         """
         pass
 
+    def test_get_org_resource_credentials(self) -> None:
+        """Test case for get_org_resource_credentials
+
+        Get a cache's administrative credential
+        """
+        pass
+
     def test_list_org_resources(self) -> None:
         """Test case for list_org_resources
 
         List an organisation's shared resources
+        """
+        pass
+
+    def test_purge_org_resource(self) -> None:
+        """Test case for purge_org_resource
+
+        Purge keys from a cache
         """
         pass
 

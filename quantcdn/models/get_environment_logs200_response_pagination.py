@@ -17,20 +17,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class GetEnvironmentLogs200ResponseLogEventsInner(BaseModel):
+class GetEnvironmentLogs200ResponsePagination(BaseModel):
     """
-    GetEnvironmentLogs200ResponseLogEventsInner
+    GetEnvironmentLogs200ResponsePagination
     """ # noqa: E501
-    timestamp: Optional[StrictInt] = Field(default=None, description="Unix timestamp in milliseconds")
-    message: Optional[StrictStr] = Field(default=None, description="Log message content")
-    ingestion_time: Optional[StrictInt] = Field(default=None, description="Unix timestamp in milliseconds when CloudWatch ingested the event", alias="ingestionTime")
-    log_stream_name: Optional[StrictStr] = Field(default=None, description="CloudWatch log stream, named container/container/taskId", alias="logStreamName")
-    __properties: ClassVar[List[str]] = ["timestamp", "message", "ingestionTime", "logStreamName"]
+    limit: Optional[StrictInt] = Field(default=None, description="Page size that was applied")
+    has_more: Optional[StrictBool] = Field(default=None, description="True when another page is available", alias="hasMore")
+    next_token: Optional[StrictStr] = Field(default=None, description="Token for the next page. Present only when hasMore is true.", alias="nextToken")
+    total: Optional[StrictInt] = Field(default=None, description="Total events in the time range. Present only when includeTotal=true.")
+    total_pages: Optional[StrictInt] = Field(default=None, description="ceil(total / limit). Present only when includeTotal=true.", alias="totalPages")
+    __properties: ClassVar[List[str]] = ["limit", "hasMore", "nextToken", "total", "totalPages"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +51,7 @@ class GetEnvironmentLogs200ResponseLogEventsInner(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of GetEnvironmentLogs200ResponseLogEventsInner from a JSON string"""
+        """Create an instance of GetEnvironmentLogs200ResponsePagination from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,21 +72,26 @@ class GetEnvironmentLogs200ResponseLogEventsInner(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if ingestion_time (nullable) is None
+        # set to None if next_token (nullable) is None
         # and model_fields_set contains the field
-        if self.ingestion_time is None and "ingestion_time" in self.model_fields_set:
-            _dict['ingestionTime'] = None
+        if self.next_token is None and "next_token" in self.model_fields_set:
+            _dict['nextToken'] = None
 
-        # set to None if log_stream_name (nullable) is None
+        # set to None if total (nullable) is None
         # and model_fields_set contains the field
-        if self.log_stream_name is None and "log_stream_name" in self.model_fields_set:
-            _dict['logStreamName'] = None
+        if self.total is None and "total" in self.model_fields_set:
+            _dict['total'] = None
+
+        # set to None if total_pages (nullable) is None
+        # and model_fields_set contains the field
+        if self.total_pages is None and "total_pages" in self.model_fields_set:
+            _dict['totalPages'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GetEnvironmentLogs200ResponseLogEventsInner from a dict"""
+        """Create an instance of GetEnvironmentLogs200ResponsePagination from a dict"""
         if obj is None:
             return None
 
@@ -93,10 +99,11 @@ class GetEnvironmentLogs200ResponseLogEventsInner(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "timestamp": obj.get("timestamp"),
-            "message": obj.get("message"),
-            "ingestionTime": obj.get("ingestionTime"),
-            "logStreamName": obj.get("logStreamName")
+            "limit": obj.get("limit"),
+            "hasMore": obj.get("hasMore"),
+            "nextToken": obj.get("nextToken"),
+            "total": obj.get("total"),
+            "totalPages": obj.get("totalPages")
         })
         return _obj
 

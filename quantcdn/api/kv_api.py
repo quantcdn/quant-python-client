@@ -21,6 +21,7 @@ from typing import List, Optional
 from typing_extensions import Annotated
 from quantcdn.models.kv_items_create200_response import KVItemsCreate200Response
 from quantcdn.models.kv_items_delete200_response import KVItemsDelete200Response
+from quantcdn.models.kv_items_purge200_response import KVItemsPurge200Response
 from quantcdn.models.kv_items_show200_response import KVItemsShow200Response
 from quantcdn.models.kv_link_to_project200_response import KVLinkToProject200Response
 from quantcdn.models.kv_link_to_project_request import KVLinkToProjectRequest
@@ -361,6 +362,7 @@ class KVApi:
         organization: Annotated[StrictStr, Field(description="Organization identifier")],
         project: Annotated[StrictStr, Field(description="Project identifier")],
         store_id: StrictStr,
+        force: Annotated[Optional[StrictBool], Field(description="Delete the store even if it still holds keys. Without it a non-empty store returns 409.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -383,6 +385,8 @@ class KVApi:
         :type project: str
         :param store_id: (required)
         :type store_id: str
+        :param force: Delete the store even if it still holds keys. Without it a non-empty store returns 409.
+        :type force: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -409,6 +413,7 @@ class KVApi:
             organization=organization,
             project=project,
             store_id=store_id,
+            force=force,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -418,6 +423,7 @@ class KVApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
             '400': "V2Error",
+            '409': "KVDelete409Response",
             '403': "V2Error",
         }
         response_data = self.api_client.call_api(
@@ -437,6 +443,7 @@ class KVApi:
         organization: Annotated[StrictStr, Field(description="Organization identifier")],
         project: Annotated[StrictStr, Field(description="Project identifier")],
         store_id: StrictStr,
+        force: Annotated[Optional[StrictBool], Field(description="Delete the store even if it still holds keys. Without it a non-empty store returns 409.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -459,6 +466,8 @@ class KVApi:
         :type project: str
         :param store_id: (required)
         :type store_id: str
+        :param force: Delete the store even if it still holds keys. Without it a non-empty store returns 409.
+        :type force: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -485,6 +494,7 @@ class KVApi:
             organization=organization,
             project=project,
             store_id=store_id,
+            force=force,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -494,6 +504,7 @@ class KVApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
             '400': "V2Error",
+            '409': "KVDelete409Response",
             '403': "V2Error",
         }
         response_data = self.api_client.call_api(
@@ -513,6 +524,7 @@ class KVApi:
         organization: Annotated[StrictStr, Field(description="Organization identifier")],
         project: Annotated[StrictStr, Field(description="Project identifier")],
         store_id: StrictStr,
+        force: Annotated[Optional[StrictBool], Field(description="Delete the store even if it still holds keys. Without it a non-empty store returns 409.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -535,6 +547,8 @@ class KVApi:
         :type project: str
         :param store_id: (required)
         :type store_id: str
+        :param force: Delete the store even if it still holds keys. Without it a non-empty store returns 409.
+        :type force: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -561,6 +575,7 @@ class KVApi:
             organization=organization,
             project=project,
             store_id=store_id,
+            force=force,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -570,6 +585,7 @@ class KVApi:
         _response_types_map: Dict[str, Optional[str]] = {
             '204': None,
             '400': "V2Error",
+            '409': "KVDelete409Response",
             '403': "V2Error",
         }
         response_data = self.api_client.call_api(
@@ -584,6 +600,7 @@ class KVApi:
         organization,
         project,
         store_id,
+        force,
         _request_auth,
         _content_type,
         _headers,
@@ -612,6 +629,10 @@ class KVApi:
         if store_id is not None:
             _path_params['store_id'] = store_id
         # process the query parameters
+        if force is not None:
+            
+            _query_params.append(('force', force))
+            
         # process the header parameters
         # process the form parameters
         # process the body parameter
@@ -1629,6 +1650,340 @@ class KVApi:
 
         return self.api_client.param_serialize(
             method='GET',
+            resource_path='/api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def k_v_items_purge(
+        self,
+        organization: Annotated[StrictStr, Field(description="Organization identifier")],
+        project: Annotated[StrictStr, Field(description="Project identifier")],
+        store_id: StrictStr,
+        prefix: Annotated[Optional[StrictStr], Field(description="Only delete keys that start with this string.")] = None,
+        older_than: Annotated[Optional[StrictStr], Field(description="Only delete keys last updated before this instant. ISO 8601, or a duration with unit s, m, h or d.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> KVItemsPurge200Response:
+        """Delete items in bulk by prefix and/or age
+
+        Deletes every item matching the filters. With no filters the whole store is cleared. A small purge finishes in the request and returns 200; a large one returns 202 with the counts so far and continues in the background. Idempotent.
+
+        :param organization: Organization identifier (required)
+        :type organization: str
+        :param project: Project identifier (required)
+        :type project: str
+        :param store_id: (required)
+        :type store_id: str
+        :param prefix: Only delete keys that start with this string.
+        :type prefix: str
+        :param older_than: Only delete keys last updated before this instant. ISO 8601, or a duration with unit s, m, h or d.
+        :type older_than: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._k_v_items_purge_serialize(
+            organization=organization,
+            project=project,
+            store_id=store_id,
+            prefix=prefix,
+            older_than=older_than,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "KVItemsPurge200Response",
+            '202': "KVItemsPurge202Response",
+            '400': "V2Error",
+            '403': "V2Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def k_v_items_purge_with_http_info(
+        self,
+        organization: Annotated[StrictStr, Field(description="Organization identifier")],
+        project: Annotated[StrictStr, Field(description="Project identifier")],
+        store_id: StrictStr,
+        prefix: Annotated[Optional[StrictStr], Field(description="Only delete keys that start with this string.")] = None,
+        older_than: Annotated[Optional[StrictStr], Field(description="Only delete keys last updated before this instant. ISO 8601, or a duration with unit s, m, h or d.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[KVItemsPurge200Response]:
+        """Delete items in bulk by prefix and/or age
+
+        Deletes every item matching the filters. With no filters the whole store is cleared. A small purge finishes in the request and returns 200; a large one returns 202 with the counts so far and continues in the background. Idempotent.
+
+        :param organization: Organization identifier (required)
+        :type organization: str
+        :param project: Project identifier (required)
+        :type project: str
+        :param store_id: (required)
+        :type store_id: str
+        :param prefix: Only delete keys that start with this string.
+        :type prefix: str
+        :param older_than: Only delete keys last updated before this instant. ISO 8601, or a duration with unit s, m, h or d.
+        :type older_than: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._k_v_items_purge_serialize(
+            organization=organization,
+            project=project,
+            store_id=store_id,
+            prefix=prefix,
+            older_than=older_than,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "KVItemsPurge200Response",
+            '202': "KVItemsPurge202Response",
+            '400': "V2Error",
+            '403': "V2Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def k_v_items_purge_without_preload_content(
+        self,
+        organization: Annotated[StrictStr, Field(description="Organization identifier")],
+        project: Annotated[StrictStr, Field(description="Project identifier")],
+        store_id: StrictStr,
+        prefix: Annotated[Optional[StrictStr], Field(description="Only delete keys that start with this string.")] = None,
+        older_than: Annotated[Optional[StrictStr], Field(description="Only delete keys last updated before this instant. ISO 8601, or a duration with unit s, m, h or d.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Delete items in bulk by prefix and/or age
+
+        Deletes every item matching the filters. With no filters the whole store is cleared. A small purge finishes in the request and returns 200; a large one returns 202 with the counts so far and continues in the background. Idempotent.
+
+        :param organization: Organization identifier (required)
+        :type organization: str
+        :param project: Project identifier (required)
+        :type project: str
+        :param store_id: (required)
+        :type store_id: str
+        :param prefix: Only delete keys that start with this string.
+        :type prefix: str
+        :param older_than: Only delete keys last updated before this instant. ISO 8601, or a duration with unit s, m, h or d.
+        :type older_than: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._k_v_items_purge_serialize(
+            organization=organization,
+            project=project,
+            store_id=store_id,
+            prefix=prefix,
+            older_than=older_than,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "KVItemsPurge200Response",
+            '202': "KVItemsPurge202Response",
+            '400': "V2Error",
+            '403': "V2Error",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _k_v_items_purge_serialize(
+        self,
+        organization,
+        project,
+        store_id,
+        prefix,
+        older_than,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if organization is not None:
+            _path_params['organization'] = organization
+        if project is not None:
+            _path_params['project'] = project
+        if store_id is not None:
+            _path_params['store_id'] = store_id
+        # process the query parameters
+        if prefix is not None:
+            
+            _query_params.append(('prefix', prefix))
+            
+        if older_than is not None:
+            
+            _query_params.append(('older_than', older_than))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'BearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='DELETE',
             resource_path='/api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items',
             path_params=_path_params,
             query_params=_query_params,

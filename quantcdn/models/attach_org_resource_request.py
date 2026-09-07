@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,7 +29,18 @@ class AttachOrgResourceRequest(BaseModel):
     application: StrictStr
     environment: StrictStr
     env_var_prefix: Optional[StrictStr] = Field(default=None, description="Namespaces every injected variable, so MEDIA yields MEDIA_S3_BUCKET", alias="envVarPrefix")
-    __properties: ClassVar[List[str]] = ["application", "environment", "envVarPrefix"]
+    access_level: Optional[StrictStr] = Field(default='scoped', description="Cache only. scoped injects an RBAC user limited to this environment's CACHE_PREFIX (plain and {hash-tag} forms) with FLUSHALL and FLUSHDB denied. admin injects the cache-wide credential for integrations that require FLUSHDB, such as Laravel Cache::flush() or the WordPress object cache without selective flush; it can read, write and flush every attached environment's keys.", alias="accessLevel")
+    __properties: ClassVar[List[str]] = ["application", "environment", "envVarPrefix", "accessLevel"]
+
+    @field_validator('access_level')
+    def access_level_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['scoped', 'admin']):
+            raise ValueError("must be one of enum values ('scoped', 'admin')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -84,7 +95,8 @@ class AttachOrgResourceRequest(BaseModel):
         _obj = cls.model_validate({
             "application": obj.get("application"),
             "environment": obj.get("environment"),
-            "envVarPrefix": obj.get("envVarPrefix")
+            "envVarPrefix": obj.get("envVarPrefix"),
+            "accessLevel": obj.get("accessLevel") if obj.get("accessLevel") is not None else 'scoped'
         })
         return _obj
 

@@ -61,6 +61,13 @@ class TestKVApi(unittest.TestCase):
         """
         pass
 
+    def test_k_v_items_purge(self) -> None:
+        """Test case for k_v_items_purge
+
+        Delete items in bulk by prefix and/or age
+        """
+        pass
+
     def test_k_v_items_show(self) -> None:
         """Test case for k_v_items_show
 

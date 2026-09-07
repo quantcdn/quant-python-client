@@ -26,6 +26,13 @@ class TestProjectsApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_get_project_logs(self) -> None:
+        """Test case for get_project_logs
+
+        Get CDN access logs for a project
+        """
+        pass
+
     def test_projects_create(self) -> None:
         """Test case for projects_create
 

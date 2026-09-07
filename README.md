@@ -269,6 +269,7 @@ Class | Method | HTTP request | Description
 *KVApi* | [**k_v_items_create**](docs/KVApi.md#k_v_items_create) | **POST** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items | Add an item to a kv store
 *KVApi* | [**k_v_items_delete**](docs/KVApi.md#k_v_items_delete) | **DELETE** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items/{key} | Delete an item from a kv store
 *KVApi* | [**k_v_items_list**](docs/KVApi.md#k_v_items_list) | **GET** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items | List items in a kv store
+*KVApi* | [**k_v_items_purge**](docs/KVApi.md#k_v_items_purge) | **DELETE** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items | Delete items in bulk by prefix and/or age
 *KVApi* | [**k_v_items_show**](docs/KVApi.md#k_v_items_show) | **GET** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items/{key} | Get an item from a kv store
 *KVApi* | [**k_v_items_update**](docs/KVApi.md#k_v_items_update) | **PUT** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items/{key} | Update an item in a kv store
 *KVApi* | [**k_v_link_to_project**](docs/KVApi.md#k_v_link_to_project) | **POST** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/link | Link a KV store to another project
@@ -281,6 +282,7 @@ Class | Method | HTTP request | Description
 *OpenAICompatibilityApi* | [**oai_list_models**](docs/OpenAICompatibilityApi.md#oai_list_models) | **GET** /oai/v1/models | List available models (OpenAI-compatible)
 *OrganizationsApi* | [**organizations_list**](docs/OrganizationsApi.md#organizations_list) | **GET** /api/v2/organizations | Retrieve all organizations
 *OrganizationsApi* | [**organizations_read**](docs/OrganizationsApi.md#organizations_read) | **GET** /api/v2/organizations/{organization} | Get details of a single organization
+*ProjectsApi* | [**get_project_logs**](docs/ProjectsApi.md#get_project_logs) | **GET** /api/v2/organizations/{organization}/projects/{project}/logs | Get CDN access logs for a project
 *ProjectsApi* | [**projects_create**](docs/ProjectsApi.md#projects_create) | **POST** /api/v2/organizations/{organization}/projects | Create a new project
 *ProjectsApi* | [**projects_delete**](docs/ProjectsApi.md#projects_delete) | **DELETE** /api/v2/organizations/{organization}/projects/{project} | Delete a project
 *ProjectsApi* | [**projects_list**](docs/ProjectsApi.md#projects_list) | **GET** /api/v2/organizations/{organization}/projects | Retrieve all projects for an organization
@@ -292,7 +294,9 @@ Class | Method | HTTP request | Description
 *ResourcesApi* | [**delete_org_resource**](docs/ResourcesApi.md#delete_org_resource) | **DELETE** /api/v3/organizations/{organisation}/resources/{resource} | Delete a shared resource
 *ResourcesApi* | [**detach_org_resource**](docs/ResourcesApi.md#detach_org_resource) | **DELETE** /api/v3/organizations/{organisation}/resources/{resource}/attachments/{application}/{environment} | Detach a resource from an application environment
 *ResourcesApi* | [**get_org_resource**](docs/ResourcesApi.md#get_org_resource) | **GET** /api/v3/organizations/{organisation}/resources/{resource} | Get a shared resource and its attachments
+*ResourcesApi* | [**get_org_resource_credentials**](docs/ResourcesApi.md#get_org_resource_credentials) | **GET** /api/v3/organizations/{organisation}/resources/{resource}/credentials | Get a cache&#39;s administrative credential
 *ResourcesApi* | [**list_org_resources**](docs/ResourcesApi.md#list_org_resources) | **GET** /api/v3/organizations/{organisation}/resources | List an organisation&#39;s shared resources
+*ResourcesApi* | [**purge_org_resource**](docs/ResourcesApi.md#purge_org_resource) | **POST** /api/v3/organizations/{organisation}/resources/{resource}/purge | Purge keys from a cache
 *RestoreManagementApi* | [**get_restore_status**](docs/RestoreManagementApi.md#get_restore_status) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/restores/{restoreId} | Get the status of a restore operation
 *RestoreManagementApi* | [**restore_database**](docs/RestoreManagementApi.md#restore_database) | **POST** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/backups/{backupId}/restore-database | Restore a database backup to a target environment
 *RestoreManagementApi* | [**restore_filesystem**](docs/RestoreManagementApi.md#restore_filesystem) | **POST** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/backups/{backupId}/restore-filesystem | Restore a filesystem backup to a target environment
@@ -518,6 +522,7 @@ Class | Method | HTTP request | Description
  - [GetEcrLoginCredentials200Response](docs/GetEcrLoginCredentials200Response.md)
  - [GetEnvironmentLogs200Response](docs/GetEnvironmentLogs200Response.md)
  - [GetEnvironmentLogs200ResponseLogEventsInner](docs/GetEnvironmentLogs200ResponseLogEventsInner.md)
+ - [GetEnvironmentLogs200ResponsePagination](docs/GetEnvironmentLogs200ResponsePagination.md)
  - [GetFile200Response](docs/GetFile200Response.md)
  - [GetGovernanceConfig200Response](docs/GetGovernanceConfig200Response.md)
  - [GetGovernanceConfig200ResponseSpendLimits](docs/GetGovernanceConfig200ResponseSpendLimits.md)
@@ -535,6 +540,10 @@ Class | Method | HTTP request | Description
  - [GetMyUsage200ResponseQuota](docs/GetMyUsage200ResponseQuota.md)
  - [GetMyUsage200ResponseQuotaDailyLimit](docs/GetMyUsage200ResponseQuotaDailyLimit.md)
  - [GetMyUsage200ResponseQuotaMonthlyLimit](docs/GetMyUsage200ResponseQuotaMonthlyLimit.md)
+ - [GetOrgResourceCredentials200Response](docs/GetOrgResourceCredentials200Response.md)
+ - [GetProjectLogs200Response](docs/GetProjectLogs200Response.md)
+ - [GetProjectLogs200ResponseLogsInner](docs/GetProjectLogs200ResponseLogsInner.md)
+ - [GetProjectLogs400Response](docs/GetProjectLogs400Response.md)
  - [GetRestoreStatus200Response](docs/GetRestoreStatus200Response.md)
  - [GetScalingPolicyResponse](docs/GetScalingPolicyResponse.md)
  - [GetSkill200Response](docs/GetSkill200Response.md)
@@ -562,8 +571,11 @@ Class | Method | HTTP request | Description
  - [ImportSkillCollectionRequestSource](docs/ImportSkillCollectionRequestSource.md)
  - [ImportSkillRequest](docs/ImportSkillRequest.md)
  - [ImportSkillRequestSource](docs/ImportSkillRequestSource.md)
+ - [KVDelete409Response](docs/KVDelete409Response.md)
  - [KVItemsCreate200Response](docs/KVItemsCreate200Response.md)
  - [KVItemsDelete200Response](docs/KVItemsDelete200Response.md)
+ - [KVItemsPurge200Response](docs/KVItemsPurge200Response.md)
+ - [KVItemsPurge202Response](docs/KVItemsPurge202Response.md)
  - [KVItemsShow200Response](docs/KVItemsShow200Response.md)
  - [KVItemsShow200ResponseValue](docs/KVItemsShow200ResponseValue.md)
  - [KVLinkToProject200Response](docs/KVLinkToProject200Response.md)
@@ -624,6 +636,8 @@ Class | Method | HTTP request | Description
  - [PatchEnvironmentComposeRequest](docs/PatchEnvironmentComposeRequest.md)
  - [PatchEnvironmentComposeRequestSpotConfiguration](docs/PatchEnvironmentComposeRequestSpotConfiguration.md)
  - [PurgeCreateRequest](docs/PurgeCreateRequest.md)
+ - [PurgeOrgResource200Response](docs/PurgeOrgResource200Response.md)
+ - [PurgeOrgResourceRequest](docs/PurgeOrgResourceRequest.md)
  - [QueryVectorCollection200Response](docs/QueryVectorCollection200Response.md)
  - [QueryVectorCollection200ResponsePagination](docs/QueryVectorCollection200ResponsePagination.md)
  - [QueryVectorCollection200ResponseResultsInner](docs/QueryVectorCollection200ResponseResultsInner.md)

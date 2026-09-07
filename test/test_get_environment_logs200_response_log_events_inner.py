@@ -36,7 +36,9 @@ class TestGetEnvironmentLogs200ResponseLogEventsInner(unittest.TestCase):
         if include_optional:
             return GetEnvironmentLogs200ResponseLogEventsInner(
                 timestamp = 56,
-                message = ''
+                message = '',
+                ingestion_time = 56,
+                log_stream_name = ''
             )
         else:
             return GetEnvironmentLogs200ResponseLogEventsInner(

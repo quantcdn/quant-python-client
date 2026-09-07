@@ -17,20 +17,28 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class GetEnvironmentLogs200ResponseLogEventsInner(BaseModel):
+class PurgeOrgResourceRequest(BaseModel):
     """
-    GetEnvironmentLogs200ResponseLogEventsInner
+    PurgeOrgResourceRequest
     """ # noqa: E501
-    timestamp: Optional[StrictInt] = Field(default=None, description="Unix timestamp in milliseconds")
-    message: Optional[StrictStr] = Field(default=None, description="Log message content")
-    ingestion_time: Optional[StrictInt] = Field(default=None, description="Unix timestamp in milliseconds when CloudWatch ingested the event", alias="ingestionTime")
-    log_stream_name: Optional[StrictStr] = Field(default=None, description="CloudWatch log stream, named container/container/taskId", alias="logStreamName")
-    __properties: ClassVar[List[str]] = ["timestamp", "message", "ingestionTime", "logStreamName"]
+    scope: StrictStr
+    application: Optional[StrictStr] = Field(default=None, description="scope environment only")
+    environment: Optional[StrictStr] = Field(default=None, description="scope environment only")
+    confirm: Optional[StrictBool] = Field(default=None, description="scope all only; must be true")
+    cursor: Optional[StrictStr] = Field(default=None, description="scope environment only; resume a partial purge")
+    __properties: ClassVar[List[str]] = ["scope", "application", "environment", "confirm", "cursor"]
+
+    @field_validator('scope')
+    def scope_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['environment', 'all']):
+            raise ValueError("must be one of enum values ('environment', 'all')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +58,7 @@ class GetEnvironmentLogs200ResponseLogEventsInner(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of GetEnvironmentLogs200ResponseLogEventsInner from a JSON string"""
+        """Create an instance of PurgeOrgResourceRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,21 +79,11 @@ class GetEnvironmentLogs200ResponseLogEventsInner(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if ingestion_time (nullable) is None
-        # and model_fields_set contains the field
-        if self.ingestion_time is None and "ingestion_time" in self.model_fields_set:
-            _dict['ingestionTime'] = None
-
-        # set to None if log_stream_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.log_stream_name is None and "log_stream_name" in self.model_fields_set:
-            _dict['logStreamName'] = None
-
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GetEnvironmentLogs200ResponseLogEventsInner from a dict"""
+        """Create an instance of PurgeOrgResourceRequest from a dict"""
         if obj is None:
             return None
 
@@ -93,10 +91,11 @@ class GetEnvironmentLogs200ResponseLogEventsInner(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "timestamp": obj.get("timestamp"),
-            "message": obj.get("message"),
-            "ingestionTime": obj.get("ingestionTime"),
-            "logStreamName": obj.get("logStreamName")
+            "scope": obj.get("scope"),
+            "application": obj.get("application"),
+            "environment": obj.get("environment"),
+            "confirm": obj.get("confirm"),
+            "cursor": obj.get("cursor")
         })
         return _obj
 

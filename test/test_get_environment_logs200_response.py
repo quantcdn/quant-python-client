@@ -38,8 +38,17 @@ class TestGetEnvironmentLogs200Response(unittest.TestCase):
                 log_events = [
                     quantcdn.models.get_environment_logs_200_response_log_events_inner.getEnvironmentLogs_200_response_logEvents_inner(
                         timestamp = 56, 
-                        message = '', )
+                        message = '', 
+                        ingestion_time = 56, 
+                        log_stream_name = '', )
                     ],
+                log_group_name = '',
+                pagination = quantcdn.models.get_environment_logs_200_response_pagination.getEnvironmentLogs_200_response_pagination(
+                    limit = 56, 
+                    has_more = True, 
+                    next_token = '', 
+                    total = 56, 
+                    total_pages = 56, ),
                 next_token = ''
             )
         else:

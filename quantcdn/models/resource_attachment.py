@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
@@ -31,10 +31,22 @@ class ResourceAttachment(BaseModel):
     env_name: Optional[StrictStr] = Field(default=None, alias="envName")
     env_var_prefix: Optional[StrictStr] = Field(default=None, description="Namespaces every injected variable, so MEDIA yields MEDIA_S3_BUCKET", alias="envVarPrefix")
     access_key_id: Optional[StrictStr] = Field(default=None, description="Object storage only. The secret half is written to the environment's secrets and never returned.", alias="accessKeyId")
+    cache_user_id: Optional[StrictStr] = Field(default=None, description="Cache only. This environment's own RBAC user, limited to its CACHE_PREFIX with FLUSHALL and FLUSHDB denied, so it cannot touch another environment's keys.", alias="cacheUserId")
+    access_level: Optional[StrictStr] = Field(default=None, description="Cache only. scoped: the environment holds its own RBAC user. admin: it holds the cache-wide credential and can read, write and flush every attached environment's keys. Absent on attachments made before access levels existed (treated as scoped).", alias="accessLevel")
     injected_keys: Optional[List[StrictStr]] = Field(default=None, description="The exact variable names this attachment wrote, removed precisely on detach", alias="injectedKeys")
     created_at: Optional[datetime] = Field(default=None, alias="createdAt")
     note: Optional[StrictStr] = Field(default=None, description="When the credentials take effect")
-    __properties: ClassVar[List[str]] = ["appName", "envName", "envVarPrefix", "accessKeyId", "injectedKeys", "createdAt", "note"]
+    __properties: ClassVar[List[str]] = ["appName", "envName", "envVarPrefix", "accessKeyId", "cacheUserId", "accessLevel", "injectedKeys", "createdAt", "note"]
+
+    @field_validator('access_level')
+    def access_level_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['scoped', 'admin']):
+            raise ValueError("must be one of enum values ('scoped', 'admin')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -91,6 +103,8 @@ class ResourceAttachment(BaseModel):
             "envName": obj.get("envName"),
             "envVarPrefix": obj.get("envVarPrefix"),
             "accessKeyId": obj.get("accessKeyId"),
+            "cacheUserId": obj.get("cacheUserId"),
+            "accessLevel": obj.get("accessLevel"),
             "injectedKeys": obj.get("injectedKeys"),
             "createdAt": obj.get("createdAt"),
             "note": obj.get("note")

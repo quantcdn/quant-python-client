@@ -16,7 +16,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr, field_validator
+from pydantic import Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
 from quantcdn.models.create_environment_request import CreateEnvironmentRequest
@@ -937,9 +937,11 @@ class EnvironmentsApi:
         start_time: Annotated[Optional[StrictStr], Field(description="Start time for log retrieval (ISO 8601 format or Unix timestamp)")] = None,
         end_time: Annotated[Optional[StrictStr], Field(description="End time for log retrieval (ISO 8601 format or Unix timestamp)")] = None,
         container_name: Annotated[Optional[StrictStr], Field(description="Filter logs by specific container name")] = None,
-        filter_pattern: Annotated[Optional[StrictStr], Field(description="CloudWatch Logs filter pattern for searching log content")] = None,
-        limit: Annotated[Optional[Annotated[int, Field(le=10000, strict=True, ge=1)]], Field(description="Maximum number of log entries to return per page")] = None,
-        next_token: Annotated[Optional[StrictStr], Field(description="Pagination token from previous response for retrieving next page of results")] = None,
+        filter_pattern: Annotated[Optional[StrictStr], Field(description="Literal, case-sensitive text to match anywhere in the log message")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Maximum number of log entries to return per page (default 50)")] = None,
+        next_token: Annotated[Optional[StrictStr], Field(description="Opaque pagination token from the previous response. Pass back unchanged to fetch the next page.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Sort order. desc returns newest first, asc returns oldest first.")] = None,
+        include_total: Annotated[Optional[StrictBool], Field(description="When true, the response pagination object includes the total log count for the time range. Adds 1-2 seconds of latency.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -955,7 +957,7 @@ class EnvironmentsApi:
     ) -> GetEnvironmentLogs200Response:
         """Get the logs for an environment
 
-        Retrieves logs from CloudWatch for the specified environment with optional filtering by time range, container, and pattern matching. Supports pagination via nextToken.
+        Retrieves logs from CloudWatch for the specified environment with optional filtering by time range, container, and literal text. Newest-first by default; pass the nextToken from the previous response to fetch the next page.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -969,12 +971,16 @@ class EnvironmentsApi:
         :type end_time: str
         :param container_name: Filter logs by specific container name
         :type container_name: str
-        :param filter_pattern: CloudWatch Logs filter pattern for searching log content
+        :param filter_pattern: Literal, case-sensitive text to match anywhere in the log message
         :type filter_pattern: str
-        :param limit: Maximum number of log entries to return per page
+        :param limit: Maximum number of log entries to return per page (default 50)
         :type limit: int
-        :param next_token: Pagination token from previous response for retrieving next page of results
+        :param next_token: Opaque pagination token from the previous response. Pass back unchanged to fetch the next page.
         :type next_token: str
+        :param order: Sort order. desc returns newest first, asc returns oldest first.
+        :type order: str
+        :param include_total: When true, the response pagination object includes the total log count for the time range. Adds 1-2 seconds of latency.
+        :type include_total: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1007,6 +1013,8 @@ class EnvironmentsApi:
             filter_pattern=filter_pattern,
             limit=limit,
             next_token=next_token,
+            order=order,
+            include_total=include_total,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1015,6 +1023,7 @@ class EnvironmentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetEnvironmentLogs200Response",
+            '400': None,
             '404': None,
             '422': None,
         }
@@ -1038,9 +1047,11 @@ class EnvironmentsApi:
         start_time: Annotated[Optional[StrictStr], Field(description="Start time for log retrieval (ISO 8601 format or Unix timestamp)")] = None,
         end_time: Annotated[Optional[StrictStr], Field(description="End time for log retrieval (ISO 8601 format or Unix timestamp)")] = None,
         container_name: Annotated[Optional[StrictStr], Field(description="Filter logs by specific container name")] = None,
-        filter_pattern: Annotated[Optional[StrictStr], Field(description="CloudWatch Logs filter pattern for searching log content")] = None,
-        limit: Annotated[Optional[Annotated[int, Field(le=10000, strict=True, ge=1)]], Field(description="Maximum number of log entries to return per page")] = None,
-        next_token: Annotated[Optional[StrictStr], Field(description="Pagination token from previous response for retrieving next page of results")] = None,
+        filter_pattern: Annotated[Optional[StrictStr], Field(description="Literal, case-sensitive text to match anywhere in the log message")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Maximum number of log entries to return per page (default 50)")] = None,
+        next_token: Annotated[Optional[StrictStr], Field(description="Opaque pagination token from the previous response. Pass back unchanged to fetch the next page.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Sort order. desc returns newest first, asc returns oldest first.")] = None,
+        include_total: Annotated[Optional[StrictBool], Field(description="When true, the response pagination object includes the total log count for the time range. Adds 1-2 seconds of latency.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1056,7 +1067,7 @@ class EnvironmentsApi:
     ) -> ApiResponse[GetEnvironmentLogs200Response]:
         """Get the logs for an environment
 
-        Retrieves logs from CloudWatch for the specified environment with optional filtering by time range, container, and pattern matching. Supports pagination via nextToken.
+        Retrieves logs from CloudWatch for the specified environment with optional filtering by time range, container, and literal text. Newest-first by default; pass the nextToken from the previous response to fetch the next page.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -1070,12 +1081,16 @@ class EnvironmentsApi:
         :type end_time: str
         :param container_name: Filter logs by specific container name
         :type container_name: str
-        :param filter_pattern: CloudWatch Logs filter pattern for searching log content
+        :param filter_pattern: Literal, case-sensitive text to match anywhere in the log message
         :type filter_pattern: str
-        :param limit: Maximum number of log entries to return per page
+        :param limit: Maximum number of log entries to return per page (default 50)
         :type limit: int
-        :param next_token: Pagination token from previous response for retrieving next page of results
+        :param next_token: Opaque pagination token from the previous response. Pass back unchanged to fetch the next page.
         :type next_token: str
+        :param order: Sort order. desc returns newest first, asc returns oldest first.
+        :type order: str
+        :param include_total: When true, the response pagination object includes the total log count for the time range. Adds 1-2 seconds of latency.
+        :type include_total: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1108,6 +1123,8 @@ class EnvironmentsApi:
             filter_pattern=filter_pattern,
             limit=limit,
             next_token=next_token,
+            order=order,
+            include_total=include_total,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1116,6 +1133,7 @@ class EnvironmentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetEnvironmentLogs200Response",
+            '400': None,
             '404': None,
             '422': None,
         }
@@ -1139,9 +1157,11 @@ class EnvironmentsApi:
         start_time: Annotated[Optional[StrictStr], Field(description="Start time for log retrieval (ISO 8601 format or Unix timestamp)")] = None,
         end_time: Annotated[Optional[StrictStr], Field(description="End time for log retrieval (ISO 8601 format or Unix timestamp)")] = None,
         container_name: Annotated[Optional[StrictStr], Field(description="Filter logs by specific container name")] = None,
-        filter_pattern: Annotated[Optional[StrictStr], Field(description="CloudWatch Logs filter pattern for searching log content")] = None,
-        limit: Annotated[Optional[Annotated[int, Field(le=10000, strict=True, ge=1)]], Field(description="Maximum number of log entries to return per page")] = None,
-        next_token: Annotated[Optional[StrictStr], Field(description="Pagination token from previous response for retrieving next page of results")] = None,
+        filter_pattern: Annotated[Optional[StrictStr], Field(description="Literal, case-sensitive text to match anywhere in the log message")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Maximum number of log entries to return per page (default 50)")] = None,
+        next_token: Annotated[Optional[StrictStr], Field(description="Opaque pagination token from the previous response. Pass back unchanged to fetch the next page.")] = None,
+        order: Annotated[Optional[StrictStr], Field(description="Sort order. desc returns newest first, asc returns oldest first.")] = None,
+        include_total: Annotated[Optional[StrictBool], Field(description="When true, the response pagination object includes the total log count for the time range. Adds 1-2 seconds of latency.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1157,7 +1177,7 @@ class EnvironmentsApi:
     ) -> RESTResponseType:
         """Get the logs for an environment
 
-        Retrieves logs from CloudWatch for the specified environment with optional filtering by time range, container, and pattern matching. Supports pagination via nextToken.
+        Retrieves logs from CloudWatch for the specified environment with optional filtering by time range, container, and literal text. Newest-first by default; pass the nextToken from the previous response to fetch the next page.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -1171,12 +1191,16 @@ class EnvironmentsApi:
         :type end_time: str
         :param container_name: Filter logs by specific container name
         :type container_name: str
-        :param filter_pattern: CloudWatch Logs filter pattern for searching log content
+        :param filter_pattern: Literal, case-sensitive text to match anywhere in the log message
         :type filter_pattern: str
-        :param limit: Maximum number of log entries to return per page
+        :param limit: Maximum number of log entries to return per page (default 50)
         :type limit: int
-        :param next_token: Pagination token from previous response for retrieving next page of results
+        :param next_token: Opaque pagination token from the previous response. Pass back unchanged to fetch the next page.
         :type next_token: str
+        :param order: Sort order. desc returns newest first, asc returns oldest first.
+        :type order: str
+        :param include_total: When true, the response pagination object includes the total log count for the time range. Adds 1-2 seconds of latency.
+        :type include_total: bool
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1209,6 +1233,8 @@ class EnvironmentsApi:
             filter_pattern=filter_pattern,
             limit=limit,
             next_token=next_token,
+            order=order,
+            include_total=include_total,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1217,6 +1243,7 @@ class EnvironmentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "GetEnvironmentLogs200Response",
+            '400': None,
             '404': None,
             '422': None,
         }
@@ -1238,6 +1265,8 @@ class EnvironmentsApi:
         filter_pattern,
         limit,
         next_token,
+        order,
+        include_total,
         _request_auth,
         _content_type,
         _headers,
@@ -1289,6 +1318,14 @@ class EnvironmentsApi:
         if next_token is not None:
             
             _query_params.append(('nextToken', next_token))
+            
+        if order is not None:
+            
+            _query_params.append(('order', order))
+            
+        if include_total is not None:
+            
+            _query_params.append(('includeTotal', include_total))
             
         # process the header parameters
         # process the form parameters

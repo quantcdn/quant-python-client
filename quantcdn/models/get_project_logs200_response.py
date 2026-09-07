@@ -19,18 +19,18 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from quantcdn.models.get_project_logs200_response_logs_inner import GetProjectLogs200ResponseLogsInner
 from typing import Optional, Set
 from typing_extensions import Self
 
-class GetEnvironmentLogs200ResponseLogEventsInner(BaseModel):
+class GetProjectLogs200Response(BaseModel):
     """
-    GetEnvironmentLogs200ResponseLogEventsInner
+    GetProjectLogs200Response
     """ # noqa: E501
-    timestamp: Optional[StrictInt] = Field(default=None, description="Unix timestamp in milliseconds")
-    message: Optional[StrictStr] = Field(default=None, description="Log message content")
-    ingestion_time: Optional[StrictInt] = Field(default=None, description="Unix timestamp in milliseconds when CloudWatch ingested the event", alias="ingestionTime")
-    log_stream_name: Optional[StrictStr] = Field(default=None, description="CloudWatch log stream, named container/container/taskId", alias="logStreamName")
-    __properties: ClassVar[List[str]] = ["timestamp", "message", "ingestionTime", "logStreamName"]
+    logs: Optional[List[GetProjectLogs200ResponseLogsInner]] = Field(default=None, description="Structured CloudFront access log entries. Each entry carries request, response, timing and cache fields as emitted by the edge.")
+    count: Optional[StrictInt] = Field(default=None, description="Number of entries in this response")
+    next_token: Optional[StrictStr] = Field(default=None, description="Token for the next page, or null when there are no more entries", alias="nextToken")
+    __properties: ClassVar[List[str]] = ["logs", "count", "nextToken"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,7 +50,7 @@ class GetEnvironmentLogs200ResponseLogEventsInner(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of GetEnvironmentLogs200ResponseLogEventsInner from a JSON string"""
+        """Create an instance of GetProjectLogs200Response from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,21 +71,23 @@ class GetEnvironmentLogs200ResponseLogEventsInner(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if ingestion_time (nullable) is None
+        # override the default output from pydantic by calling `to_dict()` of each item in logs (list)
+        _items = []
+        if self.logs:
+            for _item_logs in self.logs:
+                if _item_logs:
+                    _items.append(_item_logs.to_dict())
+            _dict['logs'] = _items
+        # set to None if next_token (nullable) is None
         # and model_fields_set contains the field
-        if self.ingestion_time is None and "ingestion_time" in self.model_fields_set:
-            _dict['ingestionTime'] = None
-
-        # set to None if log_stream_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.log_stream_name is None and "log_stream_name" in self.model_fields_set:
-            _dict['logStreamName'] = None
+        if self.next_token is None and "next_token" in self.model_fields_set:
+            _dict['nextToken'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GetEnvironmentLogs200ResponseLogEventsInner from a dict"""
+        """Create an instance of GetProjectLogs200Response from a dict"""
         if obj is None:
             return None
 
@@ -93,10 +95,9 @@ class GetEnvironmentLogs200ResponseLogEventsInner(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "timestamp": obj.get("timestamp"),
-            "message": obj.get("message"),
-            "ingestionTime": obj.get("ingestionTime"),
-            "logStreamName": obj.get("logStreamName")
+            "logs": [GetProjectLogs200ResponseLogsInner.from_dict(_item) for _item in obj["logs"]] if obj.get("logs") is not None else None,
+            "count": obj.get("count"),
+            "nextToken": obj.get("nextToken")
         })
         return _obj
 

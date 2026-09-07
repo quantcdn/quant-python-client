@@ -188,6 +188,7 @@ docs/GetDurableExecutionStatus200ResponseResultUsage.md
 docs/GetEcrLoginCredentials200Response.md
 docs/GetEnvironmentLogs200Response.md
 docs/GetEnvironmentLogs200ResponseLogEventsInner.md
+docs/GetEnvironmentLogs200ResponsePagination.md
 docs/GetFile200Response.md
 docs/GetGovernanceConfig200Response.md
 docs/GetGovernanceConfig200ResponseSpendLimits.md
@@ -205,6 +206,10 @@ docs/GetMyUsage200ResponseMonthly.md
 docs/GetMyUsage200ResponseQuota.md
 docs/GetMyUsage200ResponseQuotaDailyLimit.md
 docs/GetMyUsage200ResponseQuotaMonthlyLimit.md
+docs/GetOrgResourceCredentials200Response.md
+docs/GetProjectLogs200Response.md
+docs/GetProjectLogs200ResponseLogsInner.md
+docs/GetProjectLogs400Response.md
 docs/GetRestoreStatus200Response.md
 docs/GetScalingPolicyResponse.md
 docs/GetSkill200Response.md
@@ -235,8 +240,11 @@ docs/ImportSkillCollectionRequestSource.md
 docs/ImportSkillRequest.md
 docs/ImportSkillRequestSource.md
 docs/KVApi.md
+docs/KVDelete409Response.md
 docs/KVItemsCreate200Response.md
 docs/KVItemsDelete200Response.md
+docs/KVItemsPurge200Response.md
+docs/KVItemsPurge202Response.md
 docs/KVItemsShow200Response.md
 docs/KVItemsShow200ResponseValue.md
 docs/KVLinkToProject200Response.md
@@ -301,6 +309,8 @@ docs/PatchEnvironmentComposeRequestSpotConfiguration.md
 docs/ProjectsApi.md
 docs/PurgeApi.md
 docs/PurgeCreateRequest.md
+docs/PurgeOrgResource200Response.md
+docs/PurgeOrgResourceRequest.md
 docs/QueryVectorCollection200Response.md
 docs/QueryVectorCollection200ResponsePagination.md
 docs/QueryVectorCollection200ResponseResultsInner.md
@@ -685,6 +695,7 @@ quantcdn/models/get_durable_execution_status200_response_result_usage.py
 quantcdn/models/get_ecr_login_credentials200_response.py
 quantcdn/models/get_environment_logs200_response.py
 quantcdn/models/get_environment_logs200_response_log_events_inner.py
+quantcdn/models/get_environment_logs200_response_pagination.py
 quantcdn/models/get_file200_response.py
 quantcdn/models/get_governance_config200_response.py
 quantcdn/models/get_governance_config200_response_spend_limits.py
@@ -702,6 +713,10 @@ quantcdn/models/get_my_usage200_response_monthly.py
 quantcdn/models/get_my_usage200_response_quota.py
 quantcdn/models/get_my_usage200_response_quota_daily_limit.py
 quantcdn/models/get_my_usage200_response_quota_monthly_limit.py
+quantcdn/models/get_org_resource_credentials200_response.py
+quantcdn/models/get_project_logs200_response.py
+quantcdn/models/get_project_logs200_response_logs_inner.py
+quantcdn/models/get_project_logs400_response.py
 quantcdn/models/get_restore_status200_response.py
 quantcdn/models/get_scaling_policy_response.py
 quantcdn/models/get_skill200_response.py
@@ -729,8 +744,11 @@ quantcdn/models/import_skill_collection_request.py
 quantcdn/models/import_skill_collection_request_source.py
 quantcdn/models/import_skill_request.py
 quantcdn/models/import_skill_request_source.py
+quantcdn/models/kv_delete409_response.py
 quantcdn/models/kv_items_create200_response.py
 quantcdn/models/kv_items_delete200_response.py
+quantcdn/models/kv_items_purge200_response.py
+quantcdn/models/kv_items_purge202_response.py
 quantcdn/models/kv_items_show200_response.py
 quantcdn/models/kv_items_show200_response_value.py
 quantcdn/models/kv_link_to_project200_response.py
@@ -791,6 +809,8 @@ quantcdn/models/patch_environment_compose400_response.py
 quantcdn/models/patch_environment_compose_request.py
 quantcdn/models/patch_environment_compose_request_spot_configuration.py
 quantcdn/models/purge_create_request.py
+quantcdn/models/purge_org_resource200_response.py
+quantcdn/models/purge_org_resource_request.py
 quantcdn/models/query_vector_collection200_response.py
 quantcdn/models/query_vector_collection200_response_pagination.py
 quantcdn/models/query_vector_collection200_response_results_inner.py
@@ -1148,6 +1168,7 @@ test/test_get_durable_execution_status200_response_result_usage.py
 test/test_get_ecr_login_credentials200_response.py
 test/test_get_environment_logs200_response.py
 test/test_get_environment_logs200_response_log_events_inner.py
+test/test_get_environment_logs200_response_pagination.py
 test/test_get_file200_response.py
 test/test_get_governance_config200_response.py
 test/test_get_governance_config200_response_spend_limits.py
@@ -1165,6 +1186,10 @@ test/test_get_my_usage200_response_monthly.py
 test/test_get_my_usage200_response_quota.py
 test/test_get_my_usage200_response_quota_daily_limit.py
 test/test_get_my_usage200_response_quota_monthly_limit.py
+test/test_get_org_resource_credentials200_response.py
+test/test_get_project_logs200_response.py
+test/test_get_project_logs200_response_logs_inner.py
+test/test_get_project_logs400_response.py
 test/test_get_restore_status200_response.py
 test/test_get_scaling_policy_response.py
 test/test_get_skill200_response.py
@@ -1195,8 +1220,11 @@ test/test_import_skill_collection_request_source.py
 test/test_import_skill_request.py
 test/test_import_skill_request_source.py
 test/test_kv_api.py
+test/test_kv_delete409_response.py
 test/test_kv_items_create200_response.py
 test/test_kv_items_delete200_response.py
+test/test_kv_items_purge200_response.py
+test/test_kv_items_purge202_response.py
 test/test_kv_items_show200_response.py
 test/test_kv_items_show200_response_value.py
 test/test_kv_link_to_project200_response.py
@@ -1261,6 +1289,8 @@ test/test_patch_environment_compose_request_spot_configuration.py
 test/test_projects_api.py
 test/test_purge_api.py
 test/test_purge_create_request.py
+test/test_purge_org_resource200_response.py
+test/test_purge_org_resource_request.py
 test/test_query_vector_collection200_response.py
 test/test_query_vector_collection200_response_pagination.py
 test/test_query_vector_collection200_response_results_inner.py

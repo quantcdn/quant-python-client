@@ -39,6 +39,8 @@ class TestResourceAttachment(unittest.TestCase):
                 env_name = 'production',
                 env_var_prefix = 'MEDIA',
                 access_key_id = '',
+                cache_user_id = '',
+                access_level = 'scoped',
                 injected_keys = [
                     ''
                     ],

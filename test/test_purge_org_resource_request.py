@@ -14,10 +14,10 @@
 
 import unittest
 
-from quantcdn.models.attach_org_resource_request import AttachOrgResourceRequest
+from quantcdn.models.purge_org_resource_request import PurgeOrgResourceRequest
 
-class TestAttachOrgResourceRequest(unittest.TestCase):
-    """AttachOrgResourceRequest unit test stubs"""
+class TestPurgeOrgResourceRequest(unittest.TestCase):
+    """PurgeOrgResourceRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,30 +25,30 @@ class TestAttachOrgResourceRequest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> AttachOrgResourceRequest:
-        """Test AttachOrgResourceRequest
+    def make_instance(self, include_optional) -> PurgeOrgResourceRequest:
+        """Test PurgeOrgResourceRequest
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `AttachOrgResourceRequest`
+        # uncomment below to create an instance of `PurgeOrgResourceRequest`
         """
-        model = AttachOrgResourceRequest()
+        model = PurgeOrgResourceRequest()
         if include_optional:
-            return AttachOrgResourceRequest(
+            return PurgeOrgResourceRequest(
+                scope = 'environment',
                 application = 'test-app',
                 environment = 'production',
-                env_var_prefix = 'MEDIA',
-                access_level = 'scoped'
+                confirm = True,
+                cursor = ''
             )
         else:
-            return AttachOrgResourceRequest(
-                application = 'test-app',
-                environment = 'production',
+            return PurgeOrgResourceRequest(
+                scope = 'environment',
         )
         """
 
-    def testAttachOrgResourceRequest(self):
-        """Test AttachOrgResourceRequest"""
+    def testPurgeOrgResourceRequest(self):
+        """Test PurgeOrgResourceRequest"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
