@@ -4,19 +4,23 @@ All URIs are relative to *https://dashboard.quantcdn.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_ai_orchestration_status**](AIToolsApi.md#get_ai_orchestration_status) | **GET** /api/v3/organizations/{organisation}/ai/tools/orchestrations/{orchestrationId} | Get Orchestration Status
+[**get_ai_orchestration_status**](AIToolsApi.md#get_ai_orchestration_status) | **GET** /api/v3/organizations/{organisation}/ai/tools/orchestrations/{orchestrationId} | Get Tool Orchestration Status (Async Tool Polling)
 [**get_ai_tool_execution_status**](AIToolsApi.md#get_ai_tool_execution_status) | **GET** /api/v3/organizations/{organisation}/ai/tools/executions/{executionId} | Get async tool execution status and result
 [**list_ai_tool_executions**](AIToolsApi.md#list_ai_tool_executions) | **GET** /api/v3/organizations/{organisation}/ai/tools/executions | List tool executions for monitoring and debugging
 [**list_ai_tool_names**](AIToolsApi.md#list_ai_tool_names) | **GET** /api/v3/organizations/{organisation}/ai/tools/names | List tool names only (lightweight response)
 [**list_ai_tools**](AIToolsApi.md#list_ai_tools) | **GET** /api/v3/organizations/{organisation}/ai/tools | List available built-in tools for function calling
+[**list_mcp_servers**](AIToolsApi.md#list_mcp_servers) | **GET** /api/v3/organizations/{organisation}/ai/mcp-servers | List MCP servers with gateway URLs
 
 
 # **get_ai_orchestration_status**
 > GetAIOrchestrationStatus200Response get_ai_orchestration_status(organisation, orchestration_id)
 
-Get Orchestration Status
+Get Tool Orchestration Status (Async Tool Polling)
 
-Retrieves the status and synthesized result of a multi-tool orchestration.
+Retrieves the status and synthesized result of a multi-tool async execution orchestration.
+     *
+     * **Note:** This endpoint is for async tool execution polling (`/tools/orchestrations`).
+     * For durable batch processing orchestrations, see `GET /orchestrations` endpoints.
      *
      * **Orchestration Pattern:**
      * When the AI requests multiple async tools simultaneously, an orchestration is created
@@ -80,7 +84,7 @@ with quantcdn.ApiClient(configuration) as api_client:
     orchestration_id = 'orch_abc123def456789012345678901234' # str | Orchestration identifier for aggregated async tool executions
 
     try:
-        # Get Orchestration Status
+        # Get Tool Orchestration Status (Async Tool Polling)
         api_response = api_instance.get_ai_orchestration_status(organisation, orchestration_id)
         print("The response of AIToolsApi->get_ai_orchestration_status:\n")
         pprint(api_response)
@@ -515,6 +519,86 @@ Name | Type | Description  | Notes
 **200** | Available tools retrieved successfully |  -  |
 **403** | Access denied |  -  |
 **500** | Failed to fetch tools |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_mcp_servers**
+> ListMcpServers200Response list_mcp_servers(organisation)
+
+List MCP servers with gateway URLs
+
+Lists the organization's registered MCP servers for CLI sync (QuantCode). Each server's `url` is the FULL MCP gateway URL on the AI API host — clients connect there, never to the origin server. Credentials are never exposed.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.list_mcp_servers200_response import ListMcpServers200Response
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AIToolsApi(api_client)
+    organisation = 'organisation_example' # str | The organisation ID
+
+    try:
+        # List MCP servers with gateway URLs
+        api_response = api_instance.list_mcp_servers(organisation)
+        print("The response of AIToolsApi->list_mcp_servers:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AIToolsApi->list_mcp_servers: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**| The organisation ID | 
+
+### Return type
+
+[**ListMcpServers200Response**](ListMcpServers200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of MCP servers retrieved successfully |  -  |
+**403** | Access denied |  -  |
+**500** | Failed to fetch MCP servers |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

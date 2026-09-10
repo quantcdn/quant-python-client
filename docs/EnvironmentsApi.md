@@ -259,11 +259,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_environment_logs**
-> GetEnvironmentLogs200Response get_environment_logs(organisation, application, environment, start_time=start_time, end_time=end_time, container_name=container_name, filter_pattern=filter_pattern, limit=limit, next_token=next_token)
+> GetEnvironmentLogs200Response get_environment_logs(organisation, application, environment, start_time=start_time, end_time=end_time, container_name=container_name, filter_pattern=filter_pattern, limit=limit, next_token=next_token, order=order, include_total=include_total)
 
 Get the logs for an environment
 
-Retrieves logs from CloudWatch for the specified environment with optional filtering by time range, container, and pattern matching. Supports pagination via nextToken.
+Retrieves logs from CloudWatch for the specified environment with optional filtering by time range, container, and literal text. Newest-first by default; pass the nextToken from the previous response to fetch the next page.
 
 ### Example
 
@@ -301,13 +301,15 @@ with quantcdn.ApiClient(configuration) as api_client:
     start_time = 'start_time_example' # str | Start time for log retrieval (ISO 8601 format or Unix timestamp) (optional)
     end_time = 'end_time_example' # str | End time for log retrieval (ISO 8601 format or Unix timestamp) (optional)
     container_name = 'container_name_example' # str | Filter logs by specific container name (optional)
-    filter_pattern = 'filter_pattern_example' # str | CloudWatch Logs filter pattern for searching log content (optional)
-    limit = 56 # int | Maximum number of log entries to return per page (optional)
-    next_token = 'next_token_example' # str | Pagination token from previous response for retrieving next page of results (optional)
+    filter_pattern = 'filter_pattern_example' # str | Literal, case-sensitive text to match anywhere in the log message (optional)
+    limit = 50 # int | Maximum number of log entries to return per page (default 50) (optional) (default to 50)
+    next_token = 'next_token_example' # str | Opaque pagination token from the previous response. Pass back unchanged to fetch the next page. (optional)
+    order = desc # str | Sort order. desc returns newest first, asc returns oldest first. (optional) (default to desc)
+    include_total = False # bool | When true, the response pagination object includes the total log count for the time range. Adds 1-2 seconds of latency. (optional) (default to False)
 
     try:
         # Get the logs for an environment
-        api_response = api_instance.get_environment_logs(organisation, application, environment, start_time=start_time, end_time=end_time, container_name=container_name, filter_pattern=filter_pattern, limit=limit, next_token=next_token)
+        api_response = api_instance.get_environment_logs(organisation, application, environment, start_time=start_time, end_time=end_time, container_name=container_name, filter_pattern=filter_pattern, limit=limit, next_token=next_token, order=order, include_total=include_total)
         print("The response of EnvironmentsApi->get_environment_logs:\n")
         pprint(api_response)
     except Exception as e:
@@ -327,9 +329,11 @@ Name | Type | Description  | Notes
  **start_time** | **str**| Start time for log retrieval (ISO 8601 format or Unix timestamp) | [optional] 
  **end_time** | **str**| End time for log retrieval (ISO 8601 format or Unix timestamp) | [optional] 
  **container_name** | **str**| Filter logs by specific container name | [optional] 
- **filter_pattern** | **str**| CloudWatch Logs filter pattern for searching log content | [optional] 
- **limit** | **int**| Maximum number of log entries to return per page | [optional] 
- **next_token** | **str**| Pagination token from previous response for retrieving next page of results | [optional] 
+ **filter_pattern** | **str**| Literal, case-sensitive text to match anywhere in the log message | [optional] 
+ **limit** | **int**| Maximum number of log entries to return per page (default 50) | [optional] [default to 50]
+ **next_token** | **str**| Opaque pagination token from the previous response. Pass back unchanged to fetch the next page. | [optional] 
+ **order** | **str**| Sort order. desc returns newest first, asc returns oldest first. | [optional] [default to desc]
+ **include_total** | **bool**| When true, the response pagination object includes the total log count for the time range. Adds 1-2 seconds of latency. | [optional] [default to False]
 
 ### Return type
 
@@ -349,6 +353,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The logs |  -  |
+**400** | Invalid startTime or endTime |  -  |
 **404** | The environment not found |  -  |
 **422** | Validation error |  -  |
 
