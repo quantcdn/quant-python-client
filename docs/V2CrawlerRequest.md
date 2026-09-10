@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **status_ok** | **List[int]** | HTTP status codes that will result in content being captured and pushed to Quant | [optional] 
 **sitemap** | [**List[V2CrawlerSitemapInner]**](V2CrawlerSitemapInner.md) | Sitemap configuration | [optional] 
 **allowed_domains** | **List[str]** | Allowed domains for multi-domain crawling, automatically enables merge_domains | [optional] 
-**user_agent** | **str** | Custom user agent, only when browser_mode is false | [optional] 
+**user_agent** | **str** | Custom user agent. Valid with or without browser_mode. | [optional] 
 **assets** | [**V2CrawlerAssets**](V2CrawlerAssets.md) |  | [optional] 
 **max_errors** | **int** | Maximum errors before stopping crawl | [optional] 
 
