@@ -41,6 +41,7 @@ class V2Crawler(BaseModel):
     webhook_auth_header: Optional[StrictStr] = Field(default=None, description="Authorization header for webhook")
     webhook_extra_vars: Optional[StrictStr] = Field(default=None, description="Extra variables for webhook")
     browser_mode: Optional[StrictBool] = Field(default=None, description="Browser mode enabled")
+    tracking: Optional[StrictBool] = Field(default=None, description="Content tracking enabled: the crawl reports progress and page status to the project tracking site")
     workers: Optional[StrictInt] = Field(default=None, description="Number of concurrent workers")
     delay: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Delay between requests in seconds")
     depth: Optional[StrictInt] = Field(default=None, description="Maximum crawl depth")
@@ -60,7 +61,7 @@ class V2Crawler(BaseModel):
     created_at: Optional[datetime] = Field(default=None, description="Creation timestamp")
     updated_at: Optional[datetime] = Field(default=None, description="Last update timestamp")
     deleted_at: Optional[datetime] = Field(default=None, description="Deletion timestamp")
-    __properties: ClassVar[List[str]] = ["id", "name", "project_id", "uuid", "config", "domain", "domain_verified", "urls_list", "webhook_url", "webhook_auth_header", "webhook_extra_vars", "browser_mode", "workers", "delay", "depth", "max_hits", "max_html", "status_ok", "user_agent", "max_errors", "start_urls", "urls", "headers", "exclude", "include", "sitemap", "allowed_domains", "assets", "created_at", "updated_at", "deleted_at"]
+    __properties: ClassVar[List[str]] = ["id", "name", "project_id", "uuid", "config", "domain", "domain_verified", "urls_list", "webhook_url", "webhook_auth_header", "webhook_extra_vars", "browser_mode", "tracking", "workers", "delay", "depth", "max_hits", "max_html", "status_ok", "user_agent", "max_errors", "start_urls", "urls", "headers", "exclude", "include", "sitemap", "allowed_domains", "assets", "created_at", "updated_at", "deleted_at"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -140,6 +141,7 @@ class V2Crawler(BaseModel):
             "webhook_auth_header": obj.get("webhook_auth_header"),
             "webhook_extra_vars": obj.get("webhook_extra_vars"),
             "browser_mode": obj.get("browser_mode"),
+            "tracking": obj.get("tracking"),
             "workers": obj.get("workers"),
             "delay": obj.get("delay"),
             "depth": obj.get("depth"),

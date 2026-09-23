@@ -47,6 +47,7 @@ class TestV2Crawler(unittest.TestCase):
                 webhook_auth_header = 'Bearer token123',
                 webhook_extra_vars = 'key1=value1&key2=value2',
                 browser_mode = False,
+                tracking = False,
                 workers = 2,
                 delay = 4,
                 depth = -1,

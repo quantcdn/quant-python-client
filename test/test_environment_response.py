@@ -43,7 +43,7 @@ class TestEnvironmentResponse(unittest.TestCase):
                 max_capacity = 5,
                 public_ip_address = '54.123.45.67',
                 deployment_status = 'COMPLETED',
-                deployment_failure_type = '',
+                deployment_failure_type = 'IMAGE_NOT_FOUND',
                 deployment_failure_reason = '',
                 task_definition = None,
                 service = None,

@@ -37,7 +37,7 @@ class EnvironmentResponse(BaseModel):
     max_capacity: Optional[StrictInt] = Field(default=None, description="Maximum capacity for autoscaling", alias="maxCapacity")
     public_ip_address: Optional[StrictStr] = Field(default=None, description="Public IP address for SSH access", alias="publicIpAddress")
     deployment_status: Optional[StrictStr] = Field(default=None, description="Current deployment status", alias="deploymentStatus")
-    deployment_failure_type: Optional[StrictStr] = Field(default=None, description="Type of deployment failure", alias="deploymentFailureType")
+    deployment_failure_type: Optional[StrictStr] = Field(default=None, description="Why the most recent task stopped. SPOT_INTERRUPTION is informational: AWS reclaimed the task and ECS replaces it.", alias="deploymentFailureType")
     deployment_failure_reason: Optional[StrictStr] = Field(default=None, description="Reason for deployment failure", alias="deploymentFailureReason")
     task_definition: Optional[Dict[str, Any]] = Field(default=None, description="ECS task definition details", alias="taskDefinition")
     service: Optional[Dict[str, Any]] = Field(default=None, description="ECS service details")
@@ -61,6 +61,16 @@ class EnvironmentResponse(BaseModel):
 
         if value not in set(['COMPLETED', 'IN_PROGRESS', 'FAILED']):
             raise ValueError("must be one of enum values ('COMPLETED', 'IN_PROGRESS', 'FAILED')")
+        return value
+
+    @field_validator('deployment_failure_type')
+    def deployment_failure_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['IMAGE_NOT_FOUND', 'ACCESS_DENIED', 'ARCHITECTURE_MISMATCH', 'RESOURCE_LIMIT', 'SPOT_INTERRUPTION', 'OTHER']):
+            raise ValueError("must be one of enum values ('IMAGE_NOT_FOUND', 'ACCESS_DENIED', 'ARCHITECTURE_MISMATCH', 'RESOURCE_LIMIT', 'SPOT_INTERRUPTION', 'OTHER')")
         return value
 
     model_config = ConfigDict(

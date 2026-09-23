@@ -38,6 +38,7 @@ class TestV2CrawlerRequest(unittest.TestCase):
                 name = 'Test Crawler',
                 domain = 'test-domain.com',
                 browser_mode = False,
+                tracking = False,
                 urls = ["/","/about","/contact"],
                 start_urls = ["/","/blog"],
                 headers = {"Authorization":"Bearer token123","X-Custom-Header":"value"},

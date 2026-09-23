@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **max_capacity** | **int** | Maximum capacity for autoscaling | [optional] 
 **public_ip_address** | **str** | Public IP address for SSH access | [optional] [readonly] 
 **deployment_status** | **str** | Current deployment status | [optional] [readonly] 
-**deployment_failure_type** | **str** | Type of deployment failure | [optional] [readonly] 
+**deployment_failure_type** | **str** | Why the most recent task stopped. SPOT_INTERRUPTION is informational: AWS reclaimed the task and ECS replaces it. | [optional] [readonly] 
 **deployment_failure_reason** | **str** | Reason for deployment failure | [optional] [readonly] 
 **task_definition** | **object** | ECS task definition details | [optional] [readonly] 
 **service** | **object** | ECS service details | [optional] [readonly] 
