@@ -9,11 +9,12 @@ Name | Type | Description | Notes
 **status** | **str** | Current orchestration status | 
 **tool_count** | **int** | Total number of async tools in this orchestration | 
 **completed_tools** | **int** | Number of tools that have completed | [optional] 
-**synthesized_response** | **str** | AI-synthesized response combining all tool results (only present when status&#x3D;complete) | [optional] 
+**result** | **str** | AI-synthesized response combining all tool results (only present when status&#x3D;complete) | [optional] 
 **tools** | [**List[GetAIOrchestrationStatus200ResponseToolsInner]**](GetAIOrchestrationStatus200ResponseToolsInner.md) | Status of individual tool executions | [optional] 
 **error** | **str** | Error message (only present when status&#x3D;failed) | [optional] 
 **created_at** | **datetime** | When orchestration was created | 
 **completed_at** | **datetime** | When orchestration completed (if status in complete or failed) | [optional] 
+**duration** | **int** | Seconds from creation to completion (present only once completed) | [optional] 
 
 ## Example
 
