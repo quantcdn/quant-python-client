@@ -24,6 +24,11 @@ Method | HTTP request | Description
 [**rules_custom_response_list**](RulesApi.md#rules_custom_response_list) | **GET** /api/v2/organizations/{organization}/projects/{project}/rules/custom-response | List custom response rules
 [**rules_custom_response_read**](RulesApi.md#rules_custom_response_read) | **GET** /api/v2/organizations/{organization}/projects/{project}/rules/custom-response/{rule} | Get details of a custom response rule
 [**rules_custom_response_update**](RulesApi.md#rules_custom_response_update) | **PATCH** /api/v2/organizations/{organization}/projects/{project}/rules/custom-response/{rule} | Update a custom response rule
+[**rules_error_page_create**](RulesApi.md#rules_error_page_create) | **POST** /api/v2/organizations/{organization}/projects/{project}/rules/error-page | Create a custom error page rule
+[**rules_error_page_delete**](RulesApi.md#rules_error_page_delete) | **DELETE** /api/v2/organizations/{organization}/projects/{project}/rules/error-page/{rule} | Delete a custom error page rule
+[**rules_error_page_list**](RulesApi.md#rules_error_page_list) | **GET** /api/v2/organizations/{organization}/projects/{project}/rules/error-page | List custom error page rules
+[**rules_error_page_read**](RulesApi.md#rules_error_page_read) | **GET** /api/v2/organizations/{organization}/projects/{project}/rules/error-page/{rule} | Get details of a custom error page rule
+[**rules_error_page_update**](RulesApi.md#rules_error_page_update) | **PATCH** /api/v2/organizations/{organization}/projects/{project}/rules/error-page/{rule} | Update a custom error page rule
 [**rules_function_create**](RulesApi.md#rules_function_create) | **POST** /api/v2/organizations/{organization}/projects/{project}/rules/function | Create an edge function rule
 [**rules_function_delete**](RulesApi.md#rules_function_delete) | **DELETE** /api/v2/organizations/{organization}/projects/{project}/rules/function/{rule} | Delete an edge function rule
 [**rules_function_list**](RulesApi.md#rules_function_list) | **GET** /api/v2/organizations/{organization}/projects/{project}/rules/function | List edge function rules
@@ -1667,6 +1672,415 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**V2RuleCustomResponse**](V2RuleCustomResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The request has succeeded. |  -  |
+**400** | The server could not understand the request due to invalid syntax. |  -  |
+**403** | Access is forbidden. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **rules_error_page_create**
+> V2RuleErrorPage rules_error_page_create(organization, project, v2_rule_error_page_request)
+
+Create a custom error page rule
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.v2_rule_error_page import V2RuleErrorPage
+from quantcdn.models.v2_rule_error_page_request import V2RuleErrorPageRequest
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.RulesApi(api_client)
+    organization = 'organization_example' # str | Organization identifier
+    project = 'project_example' # str | Project identifier
+    v2_rule_error_page_request = quantcdn.V2RuleErrorPageRequest() # V2RuleErrorPageRequest | 
+
+    try:
+        # Create a custom error page rule
+        api_response = api_instance.rules_error_page_create(organization, project, v2_rule_error_page_request)
+        print("The response of RulesApi->rules_error_page_create:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RulesApi->rules_error_page_create: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
+ **v2_rule_error_page_request** | [**V2RuleErrorPageRequest**](V2RuleErrorPageRequest.md)|  | 
+
+### Return type
+
+[**V2RuleErrorPage**](V2RuleErrorPage.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The request has succeeded. |  -  |
+**400** | The server could not understand the request due to invalid syntax. |  -  |
+**403** | Access is forbidden. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **rules_error_page_delete**
+> rules_error_page_delete(organization, project, rule)
+
+Delete a custom error page rule
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.RulesApi(api_client)
+    organization = 'organization_example' # str | Organization identifier
+    project = 'project_example' # str | Project identifier
+    rule = 'rule_example' # str | Rule identifier
+
+    try:
+        # Delete a custom error page rule
+        api_instance.rules_error_page_delete(organization, project, rule)
+    except Exception as e:
+        print("Exception when calling RulesApi->rules_error_page_delete: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
+ **rule** | **str**| Rule identifier | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | The request has succeeded. |  -  |
+**400** | The server could not understand the request due to invalid syntax. |  -  |
+**403** | Access is forbidden. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **rules_error_page_list**
+> List[V2RuleErrorPage] rules_error_page_list(organization, project)
+
+List custom error page rules
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.v2_rule_error_page import V2RuleErrorPage
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.RulesApi(api_client)
+    organization = 'organization_example' # str | Organization identifier
+    project = 'project_example' # str | Project identifier
+
+    try:
+        # List custom error page rules
+        api_response = api_instance.rules_error_page_list(organization, project)
+        print("The response of RulesApi->rules_error_page_list:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RulesApi->rules_error_page_list: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
+
+### Return type
+
+[**List[V2RuleErrorPage]**](V2RuleErrorPage.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The request has succeeded. |  -  |
+**400** | The server could not understand the request due to invalid syntax. |  -  |
+**403** | Access is forbidden. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **rules_error_page_read**
+> V2RuleErrorPage rules_error_page_read(organization, project, rule)
+
+Get details of a custom error page rule
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.v2_rule_error_page import V2RuleErrorPage
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.RulesApi(api_client)
+    organization = 'organization_example' # str | Organization identifier
+    project = 'project_example' # str | Project identifier
+    rule = 'rule_example' # str | Rule identifier
+
+    try:
+        # Get details of a custom error page rule
+        api_response = api_instance.rules_error_page_read(organization, project, rule)
+        print("The response of RulesApi->rules_error_page_read:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RulesApi->rules_error_page_read: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
+ **rule** | **str**| Rule identifier | 
+
+### Return type
+
+[**V2RuleErrorPage**](V2RuleErrorPage.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The request has succeeded. |  -  |
+**400** | The server could not understand the request due to invalid syntax. |  -  |
+**403** | Access is forbidden. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **rules_error_page_update**
+> V2RuleErrorPage rules_error_page_update(organization, project, rule, v2_rule_error_page_request)
+
+Update a custom error page rule
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.v2_rule_error_page import V2RuleErrorPage
+from quantcdn.models.v2_rule_error_page_request import V2RuleErrorPageRequest
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.RulesApi(api_client)
+    organization = 'organization_example' # str | Organization identifier
+    project = 'project_example' # str | Project identifier
+    rule = 'rule_example' # str | Rule identifier
+    v2_rule_error_page_request = quantcdn.V2RuleErrorPageRequest() # V2RuleErrorPageRequest | 
+
+    try:
+        # Update a custom error page rule
+        api_response = api_instance.rules_error_page_update(organization, project, rule, v2_rule_error_page_request)
+        print("The response of RulesApi->rules_error_page_update:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RulesApi->rules_error_page_update: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
+ **rule** | **str**| Rule identifier | 
+ **v2_rule_error_page_request** | [**V2RuleErrorPageRequest**](V2RuleErrorPageRequest.md)|  | 
+
+### Return type
+
+[**V2RuleErrorPage**](V2RuleErrorPage.md)
 
 ### Authorization
 

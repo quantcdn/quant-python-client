@@ -4,13 +4,13 @@ All URIs are relative to *https://dashboard.quantcdn.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_command**](CommandsApi.md#create_command) | **POST** /api/v3/organizations/{organisation}/environments/{environment}/commands | Create a command for an environment
-[**get_command**](CommandsApi.md#get_command) | **GET** /api/v3/organizations/{organisation}/environments/{environment}/commands/{command} | Get a command
-[**list_commands**](CommandsApi.md#list_commands) | **GET** /api/v3/organizations/{organisation}/environments/{environment}/commands | Get all commands for an environment
+[**create_command**](CommandsApi.md#create_command) | **POST** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/commands | Create a command for an environment
+[**get_command**](CommandsApi.md#get_command) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/commands/{command} | Get a command
+[**list_commands**](CommandsApi.md#list_commands) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/commands | Get all commands for an environment
 
 
 # **create_command**
-> Command create_command(organisation, environment, create_command_request)
+> Command create_command(organisation, application, environment, create_command_request)
 
 Create a command for an environment
 
@@ -46,12 +46,13 @@ with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CommandsApi(api_client)
     organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
     environment = 'test-env' # str | The environment ID
     create_command_request = quantcdn.CreateCommandRequest() # CreateCommandRequest | 
 
     try:
         # Create a command for an environment
-        api_response = api_instance.create_command(organisation, environment, create_command_request)
+        api_response = api_instance.create_command(organisation, application, environment, create_command_request)
         print("The response of CommandsApi->create_command:\n")
         pprint(api_response)
     except Exception as e:
@@ -66,6 +67,7 @@ with quantcdn.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organisation** | **str**| The organisation ID | 
+ **application** | **str**| The application ID | 
  **environment** | **str**| The environment ID | 
  **create_command_request** | [**CreateCommandRequest**](CreateCommandRequest.md)|  | 
 
@@ -87,11 +89,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The command |  -  |
+**404** | The environment not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_command**
-> Command get_command(organisation, environment, command)
+> Command get_command(organisation, application, environment, command)
 
 Get a command
 
@@ -126,12 +129,13 @@ with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CommandsApi(api_client)
     organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
     environment = 'test-env' # str | The environment ID
-    command = 'test-cmd' # str | The command ID
+    command = 'test-cmd' # str | The command run ID
 
     try:
         # Get a command
-        api_response = api_instance.get_command(organisation, environment, command)
+        api_response = api_instance.get_command(organisation, application, environment, command)
         print("The response of CommandsApi->get_command:\n")
         pprint(api_response)
     except Exception as e:
@@ -146,8 +150,9 @@ with quantcdn.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organisation** | **str**| The organisation ID | 
+ **application** | **str**| The application ID | 
  **environment** | **str**| The environment ID | 
- **command** | **str**| The command ID | 
+ **command** | **str**| The command run ID | 
 
 ### Return type
 
@@ -167,11 +172,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The command |  -  |
+**404** | The command run not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_commands**
-> Command list_commands(organisation, environment)
+> list_commands(organisation, application, environment)
 
 Get all commands for an environment
 
@@ -181,7 +187,6 @@ Get all commands for an environment
 
 ```python
 import quantcdn
-from quantcdn.models.command import Command
 from quantcdn.rest import ApiException
 from pprint import pprint
 
@@ -206,13 +211,12 @@ with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.CommandsApi(api_client)
     organisation = 'test-org' # str | The organisation ID
+    application = 'test-app' # str | The application ID
     environment = 'test-env' # str | The environment ID
 
     try:
         # Get all commands for an environment
-        api_response = api_instance.list_commands(organisation, environment)
-        print("The response of CommandsApi->list_commands:\n")
-        pprint(api_response)
+        api_instance.list_commands(organisation, application, environment)
     except Exception as e:
         print("Exception when calling CommandsApi->list_commands: %s\n" % e)
 ```
@@ -225,11 +229,12 @@ with quantcdn.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organisation** | **str**| The organisation ID | 
+ **application** | **str**| The application ID | 
  **environment** | **str**| The environment ID | 
 
 ### Return type
 
-[**Command**](Command.md)
+void (empty response body)
 
 ### Authorization
 
@@ -238,13 +243,13 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The commands |  -  |
+**501** | Command history listing is not yet supported |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

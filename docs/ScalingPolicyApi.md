@@ -4,15 +4,17 @@ All URIs are relative to *https://dashboard.quantcdn.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_scaling_policy**](ScalingPolicyApi.md#delete_scaling_policy) | **DELETE** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/scaling-policies/{policyName} | Delete the scaling policy for an environment
-[**get_scaling_policies**](ScalingPolicyApi.md#get_scaling_policies) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/scaling-policies | Get the scaling policies for an environment
-[**update_scaling_policy**](ScalingPolicyApi.md#update_scaling_policy) | **PUT** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/scaling-policies | Update the scaling policy for an environment
+[**delete_scaling_policy**](ScalingPolicyApi.md#delete_scaling_policy) | **DELETE** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/scaling-policies | Delete Scaling Policy
+[**list_scaling_policies**](ScalingPolicyApi.md#list_scaling_policies) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/scaling-policies | List Scaling Policies
+[**upsert_scaling_policy**](ScalingPolicyApi.md#upsert_scaling_policy) | **PUT** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/scaling-policies | Upsert Scaling Policy
 
 
 # **delete_scaling_policy**
-> delete_scaling_policy(organisation, application, environment, policy_name)
+> delete_scaling_policy(organisation, application, environment, metric=metric, policy_name=policy_name)
 
-Delete the scaling policy for an environment
+Delete Scaling Policy
+
+Deletes a specific scaling policy for the environment. Specify the metric type or policy name to delete a single policy. If neither is provided, all policies will be deleted.
 
 ### Example
 
@@ -43,14 +45,15 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ScalingPolicyApi(api_client)
-    organisation = 'test-org' # str | The organisation ID
-    application = 'test-app' # str | The application ID
-    environment = 'test-env' # str | The environment ID
-    policy_name = 'policy_name_example' # str | The policy name
+    organisation = 'organisation_example' # str | 
+    application = 'application_example' # str | 
+    environment = 'environment_example' # str | 
+    metric = 'metric_example' # str | Optional. Delete by metric type. (optional)
+    policy_name = 'policy_name_example' # str | Optional. Delete by exact policy name. (optional)
 
     try:
-        # Delete the scaling policy for an environment
-        api_instance.delete_scaling_policy(organisation, application, environment, policy_name)
+        # Delete Scaling Policy
+        api_instance.delete_scaling_policy(organisation, application, environment, metric=metric, policy_name=policy_name)
     except Exception as e:
         print("Exception when calling ScalingPolicyApi->delete_scaling_policy: %s\n" % e)
 ```
@@ -62,10 +65,11 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation** | **str**| The organisation ID | 
- **application** | **str**| The application ID | 
- **environment** | **str**| The environment ID | 
- **policy_name** | **str**| The policy name | 
+ **organisation** | **str**|  | 
+ **application** | **str**|  | 
+ **environment** | **str**|  | 
+ **metric** | **str**| Optional. Delete by metric type. | [optional] 
+ **policy_name** | **str**| Optional. Delete by exact policy name. | [optional] 
 
 ### Return type
 
@@ -84,14 +88,16 @@ void (empty response body)
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | The scaling policy for the environment |  -  |
+**204** | Scaling policy deleted successfully. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **get_scaling_policies**
-> get_scaling_policies(organisation, application, environment)
+# **list_scaling_policies**
+> ScalingPolicyListResponse list_scaling_policies(organisation, application, environment, metric=metric, policy_name=policy_name)
 
-Get the scaling policies for an environment
+List Scaling Policies
+
+Retrieves all active target tracking scaling policies for the environment. Returns an array of policies, each with its metric, target value, cooldowns, and resource label (if applicable).
 
 ### Example
 
@@ -99,6 +105,7 @@ Get the scaling policies for an environment
 
 ```python
 import quantcdn
+from quantcdn.models.scaling_policy_list_response import ScalingPolicyListResponse
 from quantcdn.rest import ApiException
 from pprint import pprint
 
@@ -122,15 +129,19 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ScalingPolicyApi(api_client)
-    organisation = 'test-org' # str | The organisation ID
-    application = 'test-app' # str | The application ID
-    environment = 'test-env' # str | The environment ID
+    organisation = 'organisation_example' # str | 
+    application = 'application_example' # str | 
+    environment = 'environment_example' # str | 
+    metric = 'metric_example' # str | Optional. Filter policies by metric type. (optional)
+    policy_name = 'policy_name_example' # str | Optional. Filter policies by exact policy name. (optional)
 
     try:
-        # Get the scaling policies for an environment
-        api_instance.get_scaling_policies(organisation, application, environment)
+        # List Scaling Policies
+        api_response = api_instance.list_scaling_policies(organisation, application, environment, metric=metric, policy_name=policy_name)
+        print("The response of ScalingPolicyApi->list_scaling_policies:\n")
+        pprint(api_response)
     except Exception as e:
-        print("Exception when calling ScalingPolicyApi->get_scaling_policies: %s\n" % e)
+        print("Exception when calling ScalingPolicyApi->list_scaling_policies: %s\n" % e)
 ```
 
 
@@ -140,13 +151,15 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation** | **str**| The organisation ID | 
- **application** | **str**| The application ID | 
- **environment** | **str**| The environment ID | 
+ **organisation** | **str**|  | 
+ **application** | **str**|  | 
+ **environment** | **str**|  | 
+ **metric** | **str**| Optional. Filter policies by metric type. | [optional] 
+ **policy_name** | **str**| Optional. Filter policies by exact policy name. | [optional] 
 
 ### Return type
 
-void (empty response body)
+[**ScalingPolicyListResponse**](ScalingPolicyListResponse.md)
 
 ### Authorization
 
@@ -155,20 +168,22 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The scaling policy for the environment |  -  |
+**200** | List of scaling policies for the environment. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **update_scaling_policy**
-> update_scaling_policy(organisation, application, environment, scaling_policy)
+# **upsert_scaling_policy**
+> GetScalingPolicyResponse upsert_scaling_policy(organisation, application, environment, set_scaling_policy_request, policy_name=policy_name)
 
-Update the scaling policy for an environment
+Upsert Scaling Policy
+
+Creates or updates a target tracking scaling policy for the environment. Specify the metric type and target value. If a policy with the same metric or name exists, it will be updated. Optionally, provide a custom policy name via query.
 
 ### Example
 
@@ -176,7 +191,8 @@ Update the scaling policy for an environment
 
 ```python
 import quantcdn
-from quantcdn.models.scaling_policy import ScalingPolicy
+from quantcdn.models.get_scaling_policy_response import GetScalingPolicyResponse
+from quantcdn.models.set_scaling_policy_request import SetScalingPolicyRequest
 from quantcdn.rest import ApiException
 from pprint import pprint
 
@@ -200,16 +216,19 @@ configuration = quantcdn.Configuration(
 with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ScalingPolicyApi(api_client)
-    organisation = 'test-org' # str | The organisation ID
-    application = 'test-app' # str | The application ID
-    environment = 'test-env' # str | The environment ID
-    scaling_policy = quantcdn.ScalingPolicy() # ScalingPolicy | 
+    organisation = 'organisation_example' # str | 
+    application = 'application_example' # str | 
+    environment = 'environment_example' # str | 
+    set_scaling_policy_request = quantcdn.SetScalingPolicyRequest() # SetScalingPolicyRequest | 
+    policy_name = 'policy_name_example' # str | Optional. Specify a custom policy name to upsert. (optional)
 
     try:
-        # Update the scaling policy for an environment
-        api_instance.update_scaling_policy(organisation, application, environment, scaling_policy)
+        # Upsert Scaling Policy
+        api_response = api_instance.upsert_scaling_policy(organisation, application, environment, set_scaling_policy_request, policy_name=policy_name)
+        print("The response of ScalingPolicyApi->upsert_scaling_policy:\n")
+        pprint(api_response)
     except Exception as e:
-        print("Exception when calling ScalingPolicyApi->update_scaling_policy: %s\n" % e)
+        print("Exception when calling ScalingPolicyApi->upsert_scaling_policy: %s\n" % e)
 ```
 
 
@@ -219,14 +238,15 @@ with quantcdn.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organisation** | **str**| The organisation ID | 
- **application** | **str**| The application ID | 
- **environment** | **str**| The environment ID | 
- **scaling_policy** | [**ScalingPolicy**](ScalingPolicy.md)|  | 
+ **organisation** | **str**|  | 
+ **application** | **str**|  | 
+ **environment** | **str**|  | 
+ **set_scaling_policy_request** | [**SetScalingPolicyRequest**](SetScalingPolicyRequest.md)|  | 
+ **policy_name** | **str**| Optional. Specify a custom policy name to upsert. | [optional] 
 
 ### Return type
 
-void (empty response body)
+[**GetScalingPolicyResponse**](GetScalingPolicyResponse.md)
 
 ### Authorization
 
@@ -235,13 +255,13 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The scaling policy for the environment |  -  |
+**200** | Scaling policy created or updated successfully. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
