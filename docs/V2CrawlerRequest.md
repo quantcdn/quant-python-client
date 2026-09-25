@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **name** | **str** | Crawler name | [optional] 
 **domain** | **str** | Domain to crawl | 
 **browser_mode** | **bool** | Enable browser mode | [optional] [default to False]
+**tracking** | **bool** | Enable content tracking. Records crawl progress and per-page status against the project tracking site. Needs no domain verification. | [optional] [default to False]
 **urls** | **List[str]** | URLs to crawl | [optional] 
 **start_urls** | **List[str]** | Starting URLs for crawl | [optional] 
 **headers** | **Dict[str, str]** | Custom headers | [optional] 
@@ -24,7 +25,7 @@ Name | Type | Description | Notes
 **status_ok** | **List[int]** | HTTP status codes that will result in content being captured and pushed to Quant | [optional] 
 **sitemap** | [**List[V2CrawlerSitemapInner]**](V2CrawlerSitemapInner.md) | Sitemap configuration | [optional] 
 **allowed_domains** | **List[str]** | Allowed domains for multi-domain crawling, automatically enables merge_domains | [optional] 
-**user_agent** | **str** | Custom user agent, only when browser_mode is false | [optional] 
+**user_agent** | **str** | Custom user agent. Valid with or without browser_mode. | [optional] 
 **assets** | [**V2CrawlerAssets**](V2CrawlerAssets.md) |  | [optional] 
 **max_errors** | **int** | Maximum errors before stopping crawl | [optional] 
 

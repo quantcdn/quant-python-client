@@ -20,6 +20,9 @@ Name | Type | Description | Notes
 **ip** | **str** | IP filter type (ip_is, ip_is_not, any) | [optional] 
 **ip_is** | **List[str]** | Allowed IP addresses | [optional] 
 **ip_is_not** | **List[str]** | Excluded IP addresses | [optional] 
+**asn** | **str** | ASN filter type (asn_is, asn_is_not, any) | [optional] 
+**asn_is** | **List[str]** | Allowed AS numbers | [optional] 
+**asn_is_not** | **List[str]** | Excluded AS numbers | [optional] 
 **robot_challenge_type** | **str** | Challenge type (invisible or checkbox) | 
 **robot_challenge_verification_ttl** | **int** | Verification TTL in seconds | [optional] [default to 10800]
 **robot_challenge_challenge_ttl** | **int** | Challenge TTL in seconds | [optional] [default to 30]
