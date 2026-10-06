@@ -14,7 +14,11 @@ Name | Type | Description | Notes
 **max_tokens** | **int** |  | [optional] 
 **allowed_tools** | **List[str]** |  | [optional] 
 **allowed_collections** | **List[str]** |  | [optional] 
+**assigned_skills** | **List[str]** | Skill IDs to assign to this agent | [optional] 
 **created_by** | **str** | User identifier who created the agent | [optional] 
+**long_context** | **bool** | Enable 1M context window support | [optional] 
+**guardrail_preset** | **str** | Guardrail preset name | [optional] 
+**filter_policies** | **List[str]** | Filter policy IDs to apply to this agent&#39;s inference requests | [optional] 
 
 ## Example
 

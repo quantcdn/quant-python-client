@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **edge_function_url** | **str** |  | [optional] 
 **is_async** | **bool** |  | [optional] 
-**input_schema** | **object** |  | [optional] 
+**input_schema** | **str** |  | [optional] 
 **created_at** | **datetime** |  | [optional] 
 
 ## Example

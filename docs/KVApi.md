@@ -9,10 +9,13 @@ Method | HTTP request | Description
 [**k_v_items_create**](KVApi.md#k_v_items_create) | **POST** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items | Add an item to a kv store
 [**k_v_items_delete**](KVApi.md#k_v_items_delete) | **DELETE** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items/{key} | Delete an item from a kv store
 [**k_v_items_list**](KVApi.md#k_v_items_list) | **GET** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items | List items in a kv store
+[**k_v_items_purge**](KVApi.md#k_v_items_purge) | **DELETE** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items | Delete items in bulk by prefix and/or age
 [**k_v_items_show**](KVApi.md#k_v_items_show) | **GET** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items/{key} | Get an item from a kv store
 [**k_v_items_update**](KVApi.md#k_v_items_update) | **PUT** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/items/{key} | Update an item in a kv store
+[**k_v_link_to_project**](KVApi.md#k_v_link_to_project) | **POST** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/link | Link a KV store to another project
 [**k_v_list**](KVApi.md#k_v_list) | **GET** /api/v2/organizations/{organization}/projects/{project}/kv | List key-value stores
 [**k_v_show**](KVApi.md#k_v_show) | **GET** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id} | Get a kv store
+[**k_v_unlink_from_project**](KVApi.md#k_v_unlink_from_project) | **DELETE** /api/v2/organizations/{organization}/projects/{project}/kv/{store_id}/link | Unlink a KV store from this project
 
 
 # **k_v_create**
@@ -99,7 +102,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **k_v_delete**
-> k_v_delete(organization, project, store_id)
+> k_v_delete(organization, project, store_id, force=force)
 
 Delete a kv store
 
@@ -135,10 +138,11 @@ with quantcdn.ApiClient(configuration) as api_client:
     organization = 'test-org' # str | Organization identifier
     project = 'test-project' # str | Project identifier
     store_id = '0000' # str | 
+    force = False # bool | Delete the store even if it still holds keys. Without it a non-empty store returns 409. (optional) (default to False)
 
     try:
         # Delete a kv store
-        api_instance.k_v_delete(organization, project, store_id)
+        api_instance.k_v_delete(organization, project, store_id, force=force)
     except Exception as e:
         print("Exception when calling KVApi->k_v_delete: %s\n" % e)
 ```
@@ -153,6 +157,7 @@ Name | Type | Description  | Notes
  **organization** | **str**| Organization identifier | 
  **project** | **str**| Project identifier | 
  **store_id** | **str**|  | 
+ **force** | **bool**| Delete the store even if it still holds keys. Without it a non-empty store returns 409. | [optional] [default to False]
 
 ### Return type
 
@@ -173,6 +178,7 @@ void (empty response body)
 |-------------|-------------|------------------|
 **204** | The request has succeeded. |  -  |
 **400** | The server could not understand the request due to invalid syntax. |  -  |
+**409** | The store is not empty. Clear its keys in the dashboard or pass force&#x3D;true. |  -  |
 **403** | Access is forbidden. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -437,6 +443,95 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **k_v_items_purge**
+> KVItemsPurge200Response k_v_items_purge(organization, project, store_id, prefix=prefix, older_than=older_than)
+
+Delete items in bulk by prefix and/or age
+
+Deletes every item matching the filters. With no filters the whole store is cleared. A small purge finishes in the request and returns 200; a large one returns 202 with the counts so far and continues in the background. Idempotent.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.kv_items_purge200_response import KVItemsPurge200Response
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.KVApi(api_client)
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    store_id = '0000' # str | 
+    prefix = 'oauth_state:' # str | Only delete keys that start with this string. (optional)
+    older_than = '24h' # str | Only delete keys last updated before this instant. ISO 8601, or a duration with unit s, m, h or d. (optional)
+
+    try:
+        # Delete items in bulk by prefix and/or age
+        api_response = api_instance.k_v_items_purge(organization, project, store_id, prefix=prefix, older_than=older_than)
+        print("The response of KVApi->k_v_items_purge:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling KVApi->k_v_items_purge: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
+ **store_id** | **str**|  | 
+ **prefix** | **str**| Only delete keys that start with this string. | [optional] 
+ **older_than** | **str**| Only delete keys last updated before this instant. ISO 8601, or a duration with unit s, m, h or d. | [optional] 
+
+### Return type
+
+[**KVItemsPurge200Response**](KVItemsPurge200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The purge finished. |  -  |
+**202** | The purge continues in the background. |  -  |
+**400** | The server could not understand the request due to invalid syntax. |  -  |
+**403** | Insufficient permissions. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **k_v_items_show**
 > KVItemsShow200Response k_v_items_show(organization, project, store_id, key)
 
@@ -611,6 +706,94 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **k_v_link_to_project**
+> KVLinkToProject200Response k_v_link_to_project(organization, project, store_id, kv_link_to_project_request)
+
+Link a KV store to another project
+
+Share a KV store from the source project with a target project. The store will be accessible in the target project.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.kv_link_to_project200_response import KVLinkToProject200Response
+from quantcdn.models.kv_link_to_project_request import KVLinkToProjectRequest
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.KVApi(api_client)
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Source project identifier
+    store_id = 'store-123' # str | KV store identifier
+    kv_link_to_project_request = quantcdn.KVLinkToProjectRequest() # KVLinkToProjectRequest | 
+
+    try:
+        # Link a KV store to another project
+        api_response = api_instance.k_v_link_to_project(organization, project, store_id, kv_link_to_project_request)
+        print("The response of KVApi->k_v_link_to_project:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling KVApi->k_v_link_to_project: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Source project identifier | 
+ **store_id** | **str**| KV store identifier | 
+ **kv_link_to_project_request** | [**KVLinkToProjectRequest**](KVLinkToProjectRequest.md)|  | 
+
+### Return type
+
+[**KVLinkToProject200Response**](KVLinkToProject200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Store linked successfully |  -  |
+**400** | Store already linked or invalid request |  -  |
+**404** | Store or target project not found |  -  |
+**403** | Access forbidden |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **k_v_list**
 > List[V2Store] k_v_list(organization, project)
 
@@ -770,6 +953,90 @@ Name | Type | Description  | Notes
 **200** | The request has succeeded. |  -  |
 **404** | KV store not found. |  -  |
 **403** | Access is forbidden. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **k_v_unlink_from_project**
+> KVLinkToProject200Response k_v_unlink_from_project(organization, project, store_id)
+
+Unlink a KV store from this project
+
+Remove access to a linked KV store from this project. The store must be linked (not owned by this project).
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.kv_link_to_project200_response import KVLinkToProject200Response
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.KVApi(api_client)
+    organization = 'test-org' # str | Organization identifier
+    project = 'test-project' # str | Project identifier
+    store_id = 'store-123' # str | KV store identifier
+
+    try:
+        # Unlink a KV store from this project
+        api_response = api_instance.k_v_unlink_from_project(organization, project, store_id)
+        print("The response of KVApi->k_v_unlink_from_project:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling KVApi->k_v_unlink_from_project: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organization** | **str**| Organization identifier | 
+ **project** | **str**| Project identifier | 
+ **store_id** | **str**| KV store identifier | 
+
+### Return type
+
+[**KVLinkToProject200Response**](KVLinkToProject200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Store unlinked successfully |  -  |
+**400** | Store not linked or invalid request |  -  |
+**403** | Cannot unlink store owned by this project |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
