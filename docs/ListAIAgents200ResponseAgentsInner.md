@@ -13,6 +13,11 @@ Name | Type | Description | Notes
 **temperature** | **float** |  | [optional] 
 **max_tokens** | **int** |  | [optional] 
 **allowed_tools** | **List[str]** |  | [optional] 
+**assigned_skills** | **List[str]** |  | [optional] 
+**long_context** | **bool** |  | [optional] 
+**guardrail_preset** | **str** |  | [optional] 
+**is_global** | **bool** |  | [optional] 
+**has_overlay** | **bool** |  | [optional] 
 **created_at** | **datetime** |  | [optional] 
 **updated_at** | **datetime** |  | [optional] 
 

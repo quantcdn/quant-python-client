@@ -20,6 +20,9 @@ Name | Type | Description | Notes
 **ip** | **str** | IP filter type (ip_is, ip_is_not, any) | [optional] 
 **ip_is** | **List[str]** | Allowed IP addresses | [optional] 
 **ip_is_not** | **List[str]** | Excluded IP addresses | [optional] 
+**asn** | **str** | ASN filter type (asn_is, asn_is_not, any) | [optional] 
+**asn_is** | **List[str]** | Allowed AS numbers | [optional] 
+**asn_is_not** | **List[str]** | Excluded AS numbers | [optional] 
 **to** | **str** | Target URL to proxy to | 
 **host** | **str** | Host header override | [optional] 
 **auth_user** | **str** | Basic auth username | [optional] [default to '']

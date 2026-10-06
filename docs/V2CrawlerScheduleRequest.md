@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | Schedule name | 
-**schedule_cron_string** | **str** | Cron schedule string | 
+**name** | **str** | Schedule name. If not provided, defaults to &#39;Schedule {crawler_name}&#39;. | [optional] 
+**schedule_cron_string** | **str** | Standard Unix cron expression with 5 space-separated fields: minute, hour, day-of-month, month, day-of-week. Example: 0 2 * * * for daily at 2 AM. | 
 
 ## Example
 
