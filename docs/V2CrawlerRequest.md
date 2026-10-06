@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **allowed_domains** | **List[str]** | Allowed domains for multi-domain crawling, automatically enables merge_domains | [optional] 
 **user_agent** | **str** | Custom user agent. Valid with or without browser_mode. | [optional] 
 **assets** | [**V2CrawlerAssets**](V2CrawlerAssets.md) |  | [optional] 
+**browser_config** | [**V2CrawlerBrowserConfig**](V2CrawlerBrowserConfig.md) |  | [optional] 
 **max_errors** | **int** | Maximum errors before stopping crawl | [optional] 
 
 ## Example

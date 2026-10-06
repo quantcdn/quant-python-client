@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from quantcdn.models.v2_crawler_assets import V2CrawlerAssets
+from quantcdn.models.v2_crawler_browser_config import V2CrawlerBrowserConfig
 from quantcdn.models.v2_crawler_sitemap_inner import V2CrawlerSitemapInner
 from typing import Optional, Set
 from typing_extensions import Self
@@ -58,10 +59,11 @@ class V2Crawler(BaseModel):
     sitemap: Optional[List[V2CrawlerSitemapInner]] = Field(default=None, description="Sitemap configuration")
     allowed_domains: Optional[List[StrictStr]] = Field(default=None, description="Allowed domains")
     assets: Optional[V2CrawlerAssets] = None
+    browser_config: Optional[V2CrawlerBrowserConfig] = None
     created_at: Optional[datetime] = Field(default=None, description="Creation timestamp")
     updated_at: Optional[datetime] = Field(default=None, description="Last update timestamp")
     deleted_at: Optional[datetime] = Field(default=None, description="Deletion timestamp")
-    __properties: ClassVar[List[str]] = ["id", "name", "project_id", "uuid", "config", "domain", "domain_verified", "urls_list", "webhook_url", "webhook_auth_header", "webhook_extra_vars", "browser_mode", "tracking", "workers", "delay", "depth", "max_hits", "max_html", "status_ok", "user_agent", "max_errors", "start_urls", "urls", "headers", "exclude", "include", "sitemap", "allowed_domains", "assets", "created_at", "updated_at", "deleted_at"]
+    __properties: ClassVar[List[str]] = ["id", "name", "project_id", "uuid", "config", "domain", "domain_verified", "urls_list", "webhook_url", "webhook_auth_header", "webhook_extra_vars", "browser_mode", "tracking", "workers", "delay", "depth", "max_hits", "max_html", "status_ok", "user_agent", "max_errors", "start_urls", "urls", "headers", "exclude", "include", "sitemap", "allowed_domains", "assets", "browser_config", "created_at", "updated_at", "deleted_at"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -112,6 +114,9 @@ class V2Crawler(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of assets
         if self.assets:
             _dict['assets'] = self.assets.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of browser_config
+        if self.browser_config:
+            _dict['browser_config'] = self.browser_config.to_dict()
         # set to None if deleted_at (nullable) is None
         # and model_fields_set contains the field
         if self.deleted_at is None and "deleted_at" in self.model_fields_set:
@@ -158,6 +163,7 @@ class V2Crawler(BaseModel):
             "sitemap": [V2CrawlerSitemapInner.from_dict(_item) for _item in obj["sitemap"]] if obj.get("sitemap") is not None else None,
             "allowed_domains": obj.get("allowed_domains"),
             "assets": V2CrawlerAssets.from_dict(obj["assets"]) if obj.get("assets") is not None else None,
+            "browser_config": V2CrawlerBrowserConfig.from_dict(obj["browser_config"]) if obj.get("browser_config") is not None else None,
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at"),
             "deleted_at": obj.get("deleted_at")

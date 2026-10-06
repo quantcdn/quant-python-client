@@ -64,6 +64,7 @@ class TestV2Crawler(unittest.TestCase):
                 sitemap = [{"url":"/sitemap.xml","recursive":true}],
                 allowed_domains = ["example.com"],
                 assets = {"network_intercept":{"enabled":true,"timeout":30,"execute_js":false},"parser":{"enabled":true}},
+                browser_config = {"capture_api_responses":true},
                 created_at = '2024-01-20T09:15Z',
                 updated_at = '2024-10-11T16:45Z',
                 deleted_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')

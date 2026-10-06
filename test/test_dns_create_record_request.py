@@ -14,10 +14,10 @@
 
 import unittest
 
-from quantcdn.models.get_my_usage200_response_daily import GetMyUsage200ResponseDaily
+from quantcdn.models.dns_create_record_request import DNSCreateRecordRequest
 
-class TestGetMyUsage200ResponseDaily(unittest.TestCase):
-    """GetMyUsage200ResponseDaily unit test stubs"""
+class TestDNSCreateRecordRequest(unittest.TestCase):
+    """DNSCreateRecordRequest unit test stubs"""
 
     def setUp(self):
         pass
@@ -25,25 +25,31 @@ class TestGetMyUsage200ResponseDaily(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> GetMyUsage200ResponseDaily:
-        """Test GetMyUsage200ResponseDaily
+    def make_instance(self, include_optional) -> DNSCreateRecordRequest:
+        """Test DNSCreateRecordRequest
             include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `GetMyUsage200ResponseDaily`
+        # uncomment below to create an instance of `DNSCreateRecordRequest`
         """
-        model = GetMyUsage200ResponseDaily()
+        model = DNSCreateRecordRequest()
         if include_optional:
-            return GetMyUsage200ResponseDaily(
-                spend_cents = 1.337
+            return DNSCreateRecordRequest(
+                name = 'dragon-den',
+                type = 'A',
+                value = '203.0.113.10',
+                ttl = 1
             )
         else:
-            return GetMyUsage200ResponseDaily(
+            return DNSCreateRecordRequest(
+                name = 'dragon-den',
+                type = 'A',
+                value = '203.0.113.10',
         )
         """
 
-    def testGetMyUsage200ResponseDaily(self):
-        """Test GetMyUsage200ResponseDaily"""
+    def testDNSCreateRecordRequest(self):
+        """Test DNSCreateRecordRequest"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

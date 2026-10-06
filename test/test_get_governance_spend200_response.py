@@ -36,10 +36,10 @@ class TestGetGovernanceSpend200Response(unittest.TestCase):
         if include_optional:
             return GetGovernanceSpend200Response(
                 org_total = quantcdn.models.get_governance_spend_200_response_org_total.getGovernanceSpend_200_response_orgTotal(
-                    spend_cents = 56, 
+                    spend_cents = 1.337, 
                     request_count = 56, ),
                 today_total = quantcdn.models.get_governance_spend_200_response_today_total.getGovernanceSpend_200_response_todayTotal(
-                    spend_cents = 56, 
+                    spend_cents = 1.337, 
                     request_count = 56, ),
                 budget = quantcdn.models.get_governance_spend_200_response_budget.getGovernanceSpend_200_response_budget(
                     monthly_budget_cents = 56, 

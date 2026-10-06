@@ -35,7 +35,7 @@ class TestGetGovernanceSpend200ResponseTodayTotal(unittest.TestCase):
         model = GetGovernanceSpend200ResponseTodayTotal()
         if include_optional:
             return GetGovernanceSpend200ResponseTodayTotal(
-                spend_cents = 56,
+                spend_cents = 1.337,
                 request_count = 56
             )
         else:

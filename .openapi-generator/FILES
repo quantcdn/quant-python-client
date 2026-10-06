@@ -133,6 +133,7 @@ docs/CreateVolumeRequest.md
 docs/Cron.md
 docs/CronApi.md
 docs/CronRun.md
+docs/DNSCreateRecordRequest.md
 docs/DeleteAIAgent200Response.md
 docs/DeleteAISession200Response.md
 docs/DeleteAgentOverlay200Response.md
@@ -415,6 +416,7 @@ docs/V2Crawler.md
 docs/V2CrawlerAssets.md
 docs/V2CrawlerAssetsNetworkIntercept.md
 docs/V2CrawlerAssetsParser.md
+docs/V2CrawlerBrowserConfig.md
 docs/V2CrawlerRequest.md
 docs/V2CrawlerRun.md
 docs/V2CrawlerSchedule.md
@@ -659,6 +661,7 @@ quantcdn/models/delete_task409_response.py
 quantcdn/models/delete_vector_documents200_response.py
 quantcdn/models/delete_vector_documents_request.py
 quantcdn/models/delete_vector_documents_request_metadata.py
+quantcdn/models/dns_create_record_request.py
 quantcdn/models/download_backup200_response.py
 quantcdn/models/embeddings200_response.py
 quantcdn/models/embeddings200_response_embeddings.py
@@ -911,6 +914,7 @@ quantcdn/models/v2_crawler.py
 quantcdn/models/v2_crawler_assets.py
 quantcdn/models/v2_crawler_assets_network_intercept.py
 quantcdn/models/v2_crawler_assets_parser.py
+quantcdn/models/v2_crawler_browser_config.py
 quantcdn/models/v2_crawler_request.py
 quantcdn/models/v2_crawler_run.py
 quantcdn/models/v2_crawler_schedule.py
@@ -1133,6 +1137,7 @@ test/test_delete_task409_response.py
 test/test_delete_vector_documents200_response.py
 test/test_delete_vector_documents_request.py
 test/test_delete_vector_documents_request_metadata.py
+test/test_dns_create_record_request.py
 test/test_domains_api.py
 test/test_download_backup200_response.py
 test/test_embeddings200_response.py
@@ -1401,6 +1406,7 @@ test/test_v2_crawler.py
 test/test_v2_crawler_assets.py
 test/test_v2_crawler_assets_network_intercept.py
 test/test_v2_crawler_assets_parser.py
+test/test_v2_crawler_browser_config.py
 test/test_v2_crawler_request.py
 test/test_v2_crawler_run.py
 test/test_v2_crawler_schedule.py

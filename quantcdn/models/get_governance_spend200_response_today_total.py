@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -26,7 +26,7 @@ class GetGovernanceSpend200ResponseTodayTotal(BaseModel):
     """
     GetGovernanceSpend200ResponseTodayTotal
     """ # noqa: E501
-    spend_cents: Optional[StrictInt] = Field(default=None, description="Org spend today in US cents", alias="spendCents")
+    spend_cents: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Org spend today in US cents, exact to 6 decimal places", alias="spendCents")
     request_count: Optional[StrictInt] = Field(default=None, alias="requestCount")
     __properties: ClassVar[List[str]] = ["spendCents", "requestCount"]
 

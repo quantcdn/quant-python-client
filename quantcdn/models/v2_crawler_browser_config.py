@@ -17,17 +17,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
 
-class GetMyUsage200ResponseDaily(BaseModel):
+class V2CrawlerBrowserConfig(BaseModel):
     """
-    GetMyUsage200ResponseDaily
+    Browser-mode behaviour. Only applies when browser_mode is true.
     """ # noqa: E501
-    spend_cents: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="spendCents")
-    __properties: ClassVar[List[str]] = ["spendCents"]
+    capture_api_responses: Optional[StrictBool] = Field(default=None, description="Store XHR/fetch responses as files, so a static copy can serve a site whose navigation or content is rendered client-side from a JSON endpoint")
+    wait_for_network_idle: Optional[StrictInt] = Field(default=None, description="Wait for the network to settle before capture, in milliseconds. Useful for API-driven sites")
+    use_rendered_html: Optional[StrictBool] = Field(default=None, description="Store the JavaScript-modified DOM instead of the original HTML response")
+    __properties: ClassVar[List[str]] = ["capture_api_responses", "wait_for_network_idle", "use_rendered_html"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -47,7 +49,7 @@ class GetMyUsage200ResponseDaily(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of GetMyUsage200ResponseDaily from a JSON string"""
+        """Create an instance of V2CrawlerBrowserConfig from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,7 +74,7 @@ class GetMyUsage200ResponseDaily(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GetMyUsage200ResponseDaily from a dict"""
+        """Create an instance of V2CrawlerBrowserConfig from a dict"""
         if obj is None:
             return None
 
@@ -80,7 +82,9 @@ class GetMyUsage200ResponseDaily(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "spendCents": obj.get("spendCents")
+            "capture_api_responses": obj.get("capture_api_responses"),
+            "wait_for_network_idle": obj.get("wait_for_network_idle"),
+            "use_rendered_html": obj.get("use_rendered_html")
         })
         return _obj
 

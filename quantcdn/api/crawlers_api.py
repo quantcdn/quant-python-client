@@ -1898,6 +1898,7 @@ class CrawlersApi:
             '400': "V2Error",
             '403': "V2Error",
             '404': "V2Error",
+            '409': "V2Error",
             '500': "V2Error",
         }
         response_data = self.api_client.call_api(
@@ -1980,6 +1981,7 @@ class CrawlersApi:
             '400': "V2Error",
             '403': "V2Error",
             '404': "V2Error",
+            '409': "V2Error",
             '500': "V2Error",
         }
         response_data = self.api_client.call_api(
@@ -2062,6 +2064,7 @@ class CrawlersApi:
             '400': "V2Error",
             '403': "V2Error",
             '404': "V2Error",
+            '409': "V2Error",
             '500': "V2Error",
         }
         response_data = self.api_client.call_api(

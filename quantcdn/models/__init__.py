@@ -118,6 +118,7 @@ from quantcdn.models.create_vector_collection_request import CreateVectorCollect
 from quantcdn.models.create_volume_request import CreateVolumeRequest
 from quantcdn.models.cron import Cron
 from quantcdn.models.cron_run import CronRun
+from quantcdn.models.dns_create_record_request import DNSCreateRecordRequest
 from quantcdn.models.delete_ai_agent200_response import DeleteAIAgent200Response
 from quantcdn.models.delete_ai_session200_response import DeleteAISession200Response
 from quantcdn.models.delete_agent_overlay200_response import DeleteAgentOverlay200Response
@@ -384,6 +385,7 @@ from quantcdn.models.v2_crawler import V2Crawler
 from quantcdn.models.v2_crawler_assets import V2CrawlerAssets
 from quantcdn.models.v2_crawler_assets_network_intercept import V2CrawlerAssetsNetworkIntercept
 from quantcdn.models.v2_crawler_assets_parser import V2CrawlerAssetsParser
+from quantcdn.models.v2_crawler_browser_config import V2CrawlerBrowserConfig
 from quantcdn.models.v2_crawler_request import V2CrawlerRequest
 from quantcdn.models.v2_crawler_run import V2CrawlerRun
 from quantcdn.models.v2_crawler_schedule import V2CrawlerSchedule

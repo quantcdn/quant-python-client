@@ -17,17 +17,28 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 
-class GetMyUsage200ResponseDaily(BaseModel):
+class DNSCreateRecordRequest(BaseModel):
     """
-    GetMyUsage200ResponseDaily
+    DNSCreateRecordRequest
     """ # noqa: E501
-    spend_cents: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="spendCents")
-    __properties: ClassVar[List[str]] = ["spendCents"]
+    name: StrictStr = Field(description="Name relative to the zone; @ denotes the apex")
+    type: StrictStr
+    value: StrictStr
+    ttl: Optional[Annotated[int, Field(le=86400, strict=True, ge=1)]] = 300
+    __properties: ClassVar[List[str]] = ["name", "type", "value", "ttl"]
+
+    @field_validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(['A']):
+            raise ValueError("must be one of enum values ('A')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -47,7 +58,7 @@ class GetMyUsage200ResponseDaily(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of GetMyUsage200ResponseDaily from a JSON string"""
+        """Create an instance of DNSCreateRecordRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,7 +83,7 @@ class GetMyUsage200ResponseDaily(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GetMyUsage200ResponseDaily from a dict"""
+        """Create an instance of DNSCreateRecordRequest from a dict"""
         if obj is None:
             return None
 
@@ -80,7 +91,10 @@ class GetMyUsage200ResponseDaily(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "spendCents": obj.get("spendCents")
+            "name": obj.get("name"),
+            "type": obj.get("type"),
+            "value": obj.get("value"),
+            "ttl": obj.get("ttl") if obj.get("ttl") is not None else 300
         })
         return _obj
 

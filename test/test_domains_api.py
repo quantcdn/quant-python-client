@@ -26,6 +26,34 @@ class TestDomainsApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_d_ns_create_record(self) -> None:
+        """Test case for d_ns_create_record
+
+        Create an A record
+        """
+        pass
+
+    def test_d_ns_list_records(self) -> None:
+        """Test case for d_ns_list_records
+
+        List DNS records
+        """
+        pass
+
+    def test_d_ns_list_zones(self) -> None:
+        """Test case for d_ns_list_zones
+
+        List organization DNS zones
+        """
+        pass
+
+    def test_d_ns_show_zone(self) -> None:
+        """Test case for d_ns_show_zone
+
+        Get a DNS zone
+        """
+        pass
+
     def test_domains_create(self) -> None:
         """Test case for domains_create
 

@@ -57,6 +57,7 @@ class TestV2CrawlerRequest(unittest.TestCase):
                 allowed_domains = ["example.com","assets.example.com"],
                 user_agent = 'Mozilla/5.0...',
                 assets = {"network_intercept":{"enabled":true,"timeout":30,"execute_js":false},"parser":{"enabled":true}},
+                browser_config = {"capture_api_responses":true},
                 max_errors = 100
             )
         else:

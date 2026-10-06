@@ -34,6 +34,7 @@ Name | Type | Description | Notes
 **sitemap** | [**List[V2CrawlerSitemapInner]**](V2CrawlerSitemapInner.md) | Sitemap configuration | [optional] 
 **allowed_domains** | **List[str]** | Allowed domains | [optional] 
 **assets** | [**V2CrawlerAssets**](V2CrawlerAssets.md) |  | [optional] 
+**browser_config** | [**V2CrawlerBrowserConfig**](V2CrawlerBrowserConfig.md) |  | [optional] 
 **created_at** | **datetime** | Creation timestamp | [optional] 
 **updated_at** | **datetime** | Last update timestamp | [optional] 
 **deleted_at** | **datetime** | Deletion timestamp | [optional] 

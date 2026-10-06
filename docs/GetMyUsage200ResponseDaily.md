@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**spend_cents** | **int** |  | [optional] 
+**spend_cents** | **float** |  | [optional] 
 
 ## Example
 

@@ -38,10 +38,10 @@ class TestGetMyUsage200Response(unittest.TestCase):
                 user_id = '',
                 current_month = '2026-03',
                 monthly = quantcdn.models.get_my_usage_200_response_monthly.getMyUsage_200_response_monthly(
-                    spend_cents = 56, 
+                    spend_cents = 1.337, 
                     request_count = 56, ),
                 daily = quantcdn.models.get_my_usage_200_response_daily.getMyUsage_200_response_daily(
-                    spend_cents = 56, ),
+                    spend_cents = 1.337, ),
                 quota = quantcdn.models.get_my_usage_200_response_quota.getMyUsage_200_response_quota(
                     monthly_limit = quantcdn.models.get_my_usage_200_response_quota_monthly_limit.getMyUsage_200_response_quota_monthlyLimit(
                         limit_cents = 56, 

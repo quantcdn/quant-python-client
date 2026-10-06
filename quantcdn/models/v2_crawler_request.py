@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, Strict
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from quantcdn.models.v2_crawler_assets import V2CrawlerAssets
+from quantcdn.models.v2_crawler_browser_config import V2CrawlerBrowserConfig
 from quantcdn.models.v2_crawler_sitemap_inner import V2CrawlerSitemapInner
 from typing import Optional, Set
 from typing_extensions import Self
@@ -51,8 +52,9 @@ class V2CrawlerRequest(BaseModel):
     allowed_domains: Optional[List[StrictStr]] = Field(default=None, description="Allowed domains for multi-domain crawling, automatically enables merge_domains")
     user_agent: Optional[StrictStr] = Field(default=None, description="Custom user agent. Valid with or without browser_mode.")
     assets: Optional[V2CrawlerAssets] = None
+    browser_config: Optional[V2CrawlerBrowserConfig] = None
     max_errors: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Maximum errors before stopping crawl")
-    __properties: ClassVar[List[str]] = ["name", "domain", "browser_mode", "tracking", "urls", "start_urls", "headers", "exclude", "include", "webhook_url", "webhook_auth_header", "webhook_extra_vars", "workers", "delay", "depth", "max_hits", "max_html", "status_ok", "sitemap", "allowed_domains", "user_agent", "assets", "max_errors"]
+    __properties: ClassVar[List[str]] = ["name", "domain", "browser_mode", "tracking", "urls", "start_urls", "headers", "exclude", "include", "webhook_url", "webhook_auth_header", "webhook_extra_vars", "workers", "delay", "depth", "max_hits", "max_html", "status_ok", "sitemap", "allowed_domains", "user_agent", "assets", "browser_config", "max_errors"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -103,6 +105,9 @@ class V2CrawlerRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of assets
         if self.assets:
             _dict['assets'] = self.assets.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of browser_config
+        if self.browser_config:
+            _dict['browser_config'] = self.browser_config.to_dict()
         return _dict
 
     @classmethod
@@ -137,6 +142,7 @@ class V2CrawlerRequest(BaseModel):
             "allowed_domains": obj.get("allowed_domains"),
             "user_agent": obj.get("user_agent"),
             "assets": V2CrawlerAssets.from_dict(obj["assets"]) if obj.get("assets") is not None else None,
+            "browser_config": V2CrawlerBrowserConfig.from_dict(obj["browser_config"]) if obj.get("browser_config") is not None else None,
             "max_errors": obj.get("max_errors")
         })
         return _obj

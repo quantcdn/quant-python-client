@@ -35,7 +35,7 @@ class TestGetMyUsage200ResponseMonthly(unittest.TestCase):
         model = GetMyUsage200ResponseMonthly()
         if include_optional:
             return GetMyUsage200ResponseMonthly(
-                spend_cents = 56,
+                spend_cents = 1.337,
                 request_count = 56
             )
         else:
