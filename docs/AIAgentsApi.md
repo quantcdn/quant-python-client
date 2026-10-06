@@ -6,10 +6,13 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**chat_with_ai_agent**](AIAgentsApi.md#chat_with_ai_agent) | **POST** /api/v3/organizations/{organisation}/ai/agents/{agentId}/chat | Chat with AI Agent
 [**create_ai_agent**](AIAgentsApi.md#create_ai_agent) | **POST** /api/v3/organizations/{organisation}/ai/agents | Create AI Agent
+[**delete_agent_overlay**](AIAgentsApi.md#delete_agent_overlay) | **DELETE** /api/v3/organizations/{organisation}/ai/agents/{agentId}/overlay | Delete Agent Overlay
 [**delete_ai_agent**](AIAgentsApi.md#delete_ai_agent) | **DELETE** /api/v3/organizations/{organisation}/ai/agents/{agentId} | Delete Agent
+[**get_agent_overlay**](AIAgentsApi.md#get_agent_overlay) | **GET** /api/v3/organizations/{organisation}/ai/agents/{agentId}/overlay | Get Agent Overlay
 [**get_ai_agent**](AIAgentsApi.md#get_ai_agent) | **GET** /api/v3/organizations/{organisation}/ai/agents/{agentId} | Get Agent Details
 [**list_ai_agents**](AIAgentsApi.md#list_ai_agents) | **GET** /api/v3/organizations/{organisation}/ai/agents | List AI Agents
 [**update_ai_agent**](AIAgentsApi.md#update_ai_agent) | **PUT** /api/v3/organizations/{organisation}/ai/agents/{agentId} | Update Agent
+[**upsert_agent_overlay**](AIAgentsApi.md#upsert_agent_overlay) | **PUT** /api/v3/organizations/{organisation}/ai/agents/{agentId}/overlay | Upsert Agent Overlay
 
 
 # **chat_with_ai_agent**
@@ -223,6 +226,89 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_agent_overlay**
+> DeleteAgentOverlay200Response delete_agent_overlay(organisation, agent_id)
+
+Delete Agent Overlay
+
+Removes the per-organisation overlay for a global agent, reverting it to platform defaults.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.delete_agent_overlay200_response import DeleteAgentOverlay200Response
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AIAgentsApi(api_client)
+    organisation = 'organisation_example' # str | The organisation ID
+    agent_id = 'agent_id_example' # str | Global agent identifier
+
+    try:
+        # Delete Agent Overlay
+        api_response = api_instance.delete_agent_overlay(organisation, agent_id)
+        print("The response of AIAgentsApi->delete_agent_overlay:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AIAgentsApi->delete_agent_overlay: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**| The organisation ID | 
+ **agent_id** | **str**| Global agent identifier | 
+
+### Return type
+
+[**DeleteAgentOverlay200Response**](DeleteAgentOverlay200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Overlay deleted — agent reverted to defaults |  -  |
+**403** | Access denied |  -  |
+**404** | Not a global agent |  -  |
+**500** | Failed to reset overlay |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **delete_ai_agent**
 > DeleteAIAgent200Response delete_ai_agent(organisation, agent_id)
 
@@ -303,6 +389,89 @@ Name | Type | Description  | Notes
 **403** | Access denied |  -  |
 **404** | Agent not found |  -  |
 **500** | Failed to delete agent |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_agent_overlay**
+> GetAgentOverlay200Response get_agent_overlay(organisation, agent_id)
+
+Get Agent Overlay
+
+Returns the per-organisation overlay for a global agent, plus base agent metadata for UI context. If no overlay exists the response contains `overlay: null`. Overlays can only be created for global agents.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.get_agent_overlay200_response import GetAgentOverlay200Response
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AIAgentsApi(api_client)
+    organisation = 'organisation_example' # str | The organisation ID
+    agent_id = 'agent_id_example' # str | Global agent identifier (e.g., 'quantgov-code')
+
+    try:
+        # Get Agent Overlay
+        api_response = api_instance.get_agent_overlay(organisation, agent_id)
+        print("The response of AIAgentsApi->get_agent_overlay:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AIAgentsApi->get_agent_overlay: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**| The organisation ID | 
+ **agent_id** | **str**| Global agent identifier (e.g., &#39;quantgov-code&#39;) | 
+
+### Return type
+
+[**GetAgentOverlay200Response**](GetAgentOverlay200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Overlay retrieved (may be null if none set) |  -  |
+**403** | Access denied |  -  |
+**404** | Not a global agent |  -  |
+**500** | Failed to retrieve overlay |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -560,6 +729,94 @@ Name | Type | Description  | Notes
 **403** | Access denied |  -  |
 **404** | Agent not found |  -  |
 **500** | Failed to update agent |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **upsert_agent_overlay**
+> UpsertAgentOverlay200Response upsert_agent_overlay(organisation, agent_id, upsert_agent_overlay_request)
+
+Upsert Agent Overlay
+
+Creates or replaces the per-organisation overlay for a global agent. PUT is full replacement — omitted optional fields are removed. Include `version` from a prior GET to enable compare-and-swap (409 on conflict). Omit for last-writer-wins.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.upsert_agent_overlay200_response import UpsertAgentOverlay200Response
+from quantcdn.models.upsert_agent_overlay_request import UpsertAgentOverlayRequest
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AIAgentsApi(api_client)
+    organisation = 'organisation_example' # str | The organisation ID
+    agent_id = 'agent_id_example' # str | Global agent identifier
+    upsert_agent_overlay_request = quantcdn.UpsertAgentOverlayRequest() # UpsertAgentOverlayRequest | 
+
+    try:
+        # Upsert Agent Overlay
+        api_response = api_instance.upsert_agent_overlay(organisation, agent_id, upsert_agent_overlay_request)
+        print("The response of AIAgentsApi->upsert_agent_overlay:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AIAgentsApi->upsert_agent_overlay: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**| The organisation ID | 
+ **agent_id** | **str**| Global agent identifier | 
+ **upsert_agent_overlay_request** | [**UpsertAgentOverlayRequest**](UpsertAgentOverlayRequest.md)|  | 
+
+### Return type
+
+[**UpsertAgentOverlay200Response**](UpsertAgentOverlay200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Overlay created or updated |  -  |
+**400** | Invalid request parameters |  -  |
+**403** | Access denied |  -  |
+**404** | Not a global agent |  -  |
+**409** | Version conflict — overlay was modified concurrently |  -  |
+**500** | Failed to save overlay |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

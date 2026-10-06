@@ -7,6 +7,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **success** | **bool** |  | [optional] 
 **tool** | **object** |  | [optional] 
+**edge_function_url** | **str** | Computed edge function URL (read-only) | [optional] 
+**edge_function_code** | **str** | The deployed edge function code | [optional] 
+**is_update** | **bool** | Whether this was an update to an existing tool | [optional] 
 **message** | **str** |  | [optional] 
 
 ## Example

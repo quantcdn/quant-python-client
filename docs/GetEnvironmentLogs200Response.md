@@ -6,7 +6,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **log_events** | [**List[GetEnvironmentLogs200ResponseLogEventsInner]**](GetEnvironmentLogs200ResponseLogEventsInner.md) | Array of log events | [optional] 
-**next_token** | **str** | Token for fetching next page of results (null if no more pages) | [optional] 
+**log_group_name** | **str** | CloudWatch log group the events were read from | [optional] 
+**pagination** | [**GetEnvironmentLogs200ResponsePagination**](GetEnvironmentLogs200ResponsePagination.md) |  | [optional] 
+**next_token** | **str** | Same as pagination.nextToken; kept for backward compatibility | [optional] 
 
 ## Example
 

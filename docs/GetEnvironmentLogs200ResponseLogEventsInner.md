@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **timestamp** | **int** | Unix timestamp in milliseconds | [optional] 
 **message** | **str** | Log message content | [optional] 
+**ingestion_time** | **int** | Unix timestamp in milliseconds when CloudWatch ingested the event | [optional] 
+**log_stream_name** | **str** | CloudWatch log stream, named container/container/taskId | [optional] 
 
 ## Example
 

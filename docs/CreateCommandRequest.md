@@ -5,7 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**command** | **str** |  | [optional] 
+**command** | **str** |  | 
+**container_name** | **str** | Target container (defaults to the first container in the task definition) | [optional] 
 
 ## Example
 
