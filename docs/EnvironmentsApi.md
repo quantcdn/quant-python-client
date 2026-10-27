@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**get_environment**](EnvironmentsApi.md#get_environment) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment} | Get a single environment
 [**get_environment_logs**](EnvironmentsApi.md#get_environment_logs) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/logs | Get the logs for an environment
 [**get_environment_metrics**](EnvironmentsApi.md#get_environment_metrics) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/metrics | Get the metrics for an environment
+[**get_environment_slow_queries**](EnvironmentsApi.md#get_environment_slow_queries) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/slow-queries | Get MySQL slow queries for an environment
 [**list_environments**](EnvironmentsApi.md#list_environments) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments | Get all environments for an application
 [**list_sync_operations**](EnvironmentsApi.md#list_sync_operations) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/sync/{type} | List the sync operations for an environment
 [**sync_to_environment**](EnvironmentsApi.md#sync_to_environment) | **POST** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/sync/{type} | Perform a sync operation from a source environment to the current environment
@@ -259,11 +260,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_environment_logs**
-> GetEnvironmentLogs200Response get_environment_logs(organisation, application, environment, start_time=start_time, end_time=end_time, container_name=container_name, filter_pattern=filter_pattern, limit=limit, next_token=next_token)
+> GetEnvironmentLogs200Response get_environment_logs(organisation, application, environment, start_time=start_time, end_time=end_time, container_name=container_name, filter_pattern=filter_pattern, limit=limit, next_token=next_token, order=order, include_total=include_total)
 
 Get the logs for an environment
 
-Retrieves logs from CloudWatch for the specified environment with optional filtering by time range, container, and pattern matching. Supports pagination via nextToken.
+Retrieves platform logs for the specified environment with optional filtering by time range, container, and literal text. Newest-first by default; pass the nextToken from the previous response to fetch the next page.
 
 ### Example
 
@@ -301,13 +302,15 @@ with quantcdn.ApiClient(configuration) as api_client:
     start_time = 'start_time_example' # str | Start time for log retrieval (ISO 8601 format or Unix timestamp) (optional)
     end_time = 'end_time_example' # str | End time for log retrieval (ISO 8601 format or Unix timestamp) (optional)
     container_name = 'container_name_example' # str | Filter logs by specific container name (optional)
-    filter_pattern = 'filter_pattern_example' # str | CloudWatch Logs filter pattern for searching log content (optional)
-    limit = 56 # int | Maximum number of log entries to return per page (optional)
-    next_token = 'next_token_example' # str | Pagination token from previous response for retrieving next page of results (optional)
+    filter_pattern = 'filter_pattern_example' # str | Literal, case-sensitive text to match anywhere in the log message (optional)
+    limit = 50 # int | Maximum number of log entries to return per page (default 50) (optional) (default to 50)
+    next_token = 'next_token_example' # str | Opaque pagination token from the previous response. Pass back unchanged to fetch the next page. (optional)
+    order = desc # str | Sort order. desc returns newest first, asc returns oldest first. (optional) (default to desc)
+    include_total = False # bool | When true, the response pagination object includes the total log count for the time range. Adds 1-2 seconds of latency. (optional) (default to False)
 
     try:
         # Get the logs for an environment
-        api_response = api_instance.get_environment_logs(organisation, application, environment, start_time=start_time, end_time=end_time, container_name=container_name, filter_pattern=filter_pattern, limit=limit, next_token=next_token)
+        api_response = api_instance.get_environment_logs(organisation, application, environment, start_time=start_time, end_time=end_time, container_name=container_name, filter_pattern=filter_pattern, limit=limit, next_token=next_token, order=order, include_total=include_total)
         print("The response of EnvironmentsApi->get_environment_logs:\n")
         pprint(api_response)
     except Exception as e:
@@ -327,9 +330,11 @@ Name | Type | Description  | Notes
  **start_time** | **str**| Start time for log retrieval (ISO 8601 format or Unix timestamp) | [optional] 
  **end_time** | **str**| End time for log retrieval (ISO 8601 format or Unix timestamp) | [optional] 
  **container_name** | **str**| Filter logs by specific container name | [optional] 
- **filter_pattern** | **str**| CloudWatch Logs filter pattern for searching log content | [optional] 
- **limit** | **int**| Maximum number of log entries to return per page | [optional] 
- **next_token** | **str**| Pagination token from previous response for retrieving next page of results | [optional] 
+ **filter_pattern** | **str**| Literal, case-sensitive text to match anywhere in the log message | [optional] 
+ **limit** | **int**| Maximum number of log entries to return per page (default 50) | [optional] [default to 50]
+ **next_token** | **str**| Opaque pagination token from the previous response. Pass back unchanged to fetch the next page. | [optional] 
+ **order** | **str**| Sort order. desc returns newest first, asc returns oldest first. | [optional] [default to desc]
+ **include_total** | **bool**| When true, the response pagination object includes the total log count for the time range. Adds 1-2 seconds of latency. | [optional] [default to False]
 
 ### Return type
 
@@ -349,6 +354,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The logs |  -  |
+**400** | Invalid startTime or endTime |  -  |
 **404** | The environment not found |  -  |
 **422** | Validation error |  -  |
 
@@ -359,7 +365,7 @@ Name | Type | Description  | Notes
 
 Get the metrics for an environment
 
-Retrieves CloudWatch metrics for the specified environment with optional filtering by time range, container, and metric configuration.
+Retrieves platform metrics for the specified environment with optional filtering by time range, container, and metric configuration.
 
 ### Example
 
@@ -396,7 +402,7 @@ with quantcdn.ApiClient(configuration) as api_client:
     start_time = 56 # int | Start time for metrics retrieval (Unix timestamp in milliseconds) (optional)
     end_time = 56 # int | End time for metrics retrieval (Unix timestamp in milliseconds) (optional)
     period = 56 # int | Period in seconds for metric aggregation (e.g., 60 for 1 minute, 300 for 5 minutes) (optional)
-    statistics = 'statistics_example' # str | Comma-separated list of CloudWatch statistics (e.g., Average, Maximum, Minimum, Sum, SampleCount) (optional)
+    statistics = 'statistics_example' # str | Comma-separated list of metric statistics (e.g., Average, Maximum, Minimum, Sum, SampleCount) (optional)
     container_name = 'container_name_example' # str | Filter metrics by specific container name (optional)
 
     try:
@@ -421,7 +427,7 @@ Name | Type | Description  | Notes
  **start_time** | **int**| Start time for metrics retrieval (Unix timestamp in milliseconds) | [optional] 
  **end_time** | **int**| End time for metrics retrieval (Unix timestamp in milliseconds) | [optional] 
  **period** | **int**| Period in seconds for metric aggregation (e.g., 60 for 1 minute, 300 for 5 minutes) | [optional] 
- **statistics** | **str**| Comma-separated list of CloudWatch statistics (e.g., Average, Maximum, Minimum, Sum, SampleCount) | [optional] 
+ **statistics** | **str**| Comma-separated list of metric statistics (e.g., Average, Maximum, Minimum, Sum, SampleCount) | [optional] 
  **container_name** | **str**| Filter metrics by specific container name | [optional] 
 
 ### Return type
@@ -444,6 +450,97 @@ Name | Type | Description  | Notes
 **200** | The metrics |  -  |
 **404** | The environment not found |  -  |
 **422** | Validation error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_environment_slow_queries**
+> object get_environment_slow_queries(organisation, application, environment, start_time=start_time, end_time=end_time, view=view, limit=limit)
+
+Get MySQL slow queries for an environment
+
+Queries over 1 second from the environment's own database user. summary groups by query shape with literals replaced by ?. enabled=false means the slow query export is not turned on for this database.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.EnvironmentsApi(api_client)
+    organisation = 'organisation_example' # str | 
+    application = 'application_example' # str | 
+    environment = 'environment_example' # str | 
+    start_time = 'start_time_example' # str | ISO 8601 or Unix epoch ms. Default: 24 hours before endTime. (optional)
+    end_time = 'end_time_example' # str | ISO 8601 or Unix epoch ms. Default: now. Window max 30 days. (optional)
+    view = summary # str |  (optional) (default to summary)
+    limit = 50 # int | entries: 1-500; summary: 1-100 shapes (optional) (default to 50)
+
+    try:
+        # Get MySQL slow queries for an environment
+        api_response = api_instance.get_environment_slow_queries(organisation, application, environment, start_time=start_time, end_time=end_time, view=view, limit=limit)
+        print("The response of EnvironmentsApi->get_environment_slow_queries:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling EnvironmentsApi->get_environment_slow_queries: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**|  | 
+ **application** | **str**|  | 
+ **environment** | **str**|  | 
+ **start_time** | **str**| ISO 8601 or Unix epoch ms. Default: 24 hours before endTime. | [optional] 
+ **end_time** | **str**| ISO 8601 or Unix epoch ms. Default: now. Window max 30 days. | [optional] 
+ **view** | **str**|  | [optional] [default to summary]
+ **limit** | **int**| entries: 1-500; summary: 1-100 shapes | [optional] [default to 50]
+
+### Return type
+
+**object**
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Slow queries, or enabled&#x3D;false |  -  |
+**404** | No MySQL database, or no database user for the environment |  -  |
+**504** | Query took too long; use a shorter time range |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -698,7 +795,7 @@ Name | Type | Description  | Notes
 
 Update Environment Compose Definition
 
-Replaces the entire task definition for the environment based on the provided multi-container compose definition. This will create a new task definition revision and update the ECS service, triggering a redeployment. Optionally accepts minCapacity and maxCapacity at the root level for convenience.
+Replaces the entire task definition for the environment based on the provided multi-container compose definition. This will create a new task definition revision and update the container service, triggering a redeployment. Optionally accepts minCapacity and maxCapacity at the root level for convenience.
 
 ### Example
 

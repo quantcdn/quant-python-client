@@ -16,7 +16,14 @@ Name | Type | Description | Notes
 **response_format** | [**ChatInferenceRequestResponseFormat**](ChatInferenceRequestResponseFormat.md) |  | [optional] 
 **tool_config** | [**ChatInferenceRequestToolConfig**](ChatInferenceRequestToolConfig.md) |  | [optional] 
 **session_id** | **str** | Optional session ID for conversation continuity. Omit to use stateless mode, include to continue an existing session. | [optional] 
+**proposal_ids** | **List[str]** | Tool approval proposal ids this turn relates to. Forwarded to the AI API unchanged. | [optional] 
+**client_session_id** | **str** | Client session id used by the AI API to scope tool approval grants. Forwarded unchanged. | [optional] 
 **var_async** | **bool** | Enable async/durable execution mode. When true, returns 202 with pollUrl instead of waiting for completion. Use for long-running inference, client-executed tools, or operations &gt;30 seconds. | [optional] [default to False]
+**allowed_tools** | **List[str]** | Top-level convenience alias for toolConfig.allowedTools. Whitelists which tools can be auto-executed. | [optional] 
+**auto_execute** | [**ChatInferenceRequestAutoExecute**](ChatInferenceRequestAutoExecute.md) |  | [optional] 
+**max_tool_iterations** | **int** | Maximum tool auto-execution iterations for this request | [optional] 
+**guardrails** | [**ChatInferenceRequestGuardrails**](ChatInferenceRequestGuardrails.md) |  | [optional] 
+**long_context** | **bool** | Enable 1M context window support regardless of token estimation. Use when sending large payloads (&gt;200K tokens). | [optional] [default to False]
 
 ## Example
 

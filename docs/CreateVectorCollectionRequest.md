@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | Collection name (used for reference) | 
 **description** | **str** |  | [optional] 
-**embedding_model** | **str** | Embedding model to use (default: amazon.titan-embed-text-v2:0) | [optional] 
+**embedding_model** | **str** | Embedding model to use. Supported: amazon.titan-embed-text-v2:0, cohere.embed-english-v3, cohere.embed-multilingual-v3 | 
 **dimensions** | **int** | Embedding dimensions (default: 1024) | [optional] 
 
 ## Example

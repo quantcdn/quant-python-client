@@ -7,10 +7,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **message** | **str** | The user&#39;s message to the agent | 
 **session_id** | **str** | Optional session ID to continue a conversation | [optional] 
-**user_id** | **str** | Optional user identifier for session isolation | [optional] 
+**user_id** | **str** | Ignored by the API since 4.28.0; the portal sets the requester. | [optional] 
+**allowed_collections** | **List[str]** | Ignored by the API since 4.28.0; the portal sets the requester. | [optional] 
 **stream** | **bool** | Whether to stream the response (SSE) | [optional] [default to False]
 **var_async** | **bool** | Enable async/durable execution mode. When true, returns 202 with pollUrl. Use for long-running agent tasks. | [optional] [default to False]
 **system** | **str** | Optional additional system prompt (appended to agent&#39;s configured prompt) | [optional] 
+**long_context** | **bool** | Per-request override to force 1M context window routing | [optional] [default to False]
+**proposal_ids** | **List[str]** | Tool approval proposal ids this turn relates to. Forwarded unchanged. | [optional] 
+**client_session_id** | **str** | Client session id used to scope tool approval grants. Forwarded unchanged. | [optional] 
+**max_tool_iterations** | **int** | Maximum tool auto-execution iterations for this request | [optional] 
 
 ## Example
 

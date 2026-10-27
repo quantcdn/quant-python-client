@@ -6,10 +6,10 @@ Database configuration
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**rds_instance_identifier** | **str** | RDS instance identifier | [optional] 
-**rds_instance_endpoint** | **str** | RDS instance endpoint address | [optional] 
+**rds_instance_identifier** | **str** | Database instance identifier | [optional] 
+**rds_instance_endpoint** | **str** | Database instance endpoint address | [optional] 
 **rds_instance_engine** | **str** | Database engine | [optional] 
-**rds_instance_status** | **str** | RDS instance status | [optional] 
+**rds_instance_status** | **str** | Database instance status | [optional] 
 
 ## Example
 

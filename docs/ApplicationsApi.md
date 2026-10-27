@@ -7,8 +7,10 @@ Method | HTTP request | Description
 [**create_application**](ApplicationsApi.md#create_application) | **POST** /api/v3/organizations/{organisation}/applications | Create a new application
 [**delete_application**](ApplicationsApi.md#delete_application) | **DELETE** /api/v3/organizations/{organisation}/applications/{application} | Delete an application
 [**get_application**](ApplicationsApi.md#get_application) | **GET** /api/v3/organizations/{organisation}/applications/{application} | Get a single application
-[**get_ecr_login_credentials**](ApplicationsApi.md#get_ecr_login_credentials) | **GET** /api/v3/organizations/{organisation}/applications/ecr-login | Get ECR login credentials
+[**get_ecr_login_credentials**](ApplicationsApi.md#get_ecr_login_credentials) | **GET** /api/v3/organizations/{organisation}/applications/ecr-login | Get container registry login credentials
 [**list_applications**](ApplicationsApi.md#list_applications) | **GET** /api/v3/organizations/{organisation}/applications | Get all applications for an organisation
+[**patch_application_metadata**](ApplicationsApi.md#patch_application_metadata) | **PATCH** /api/v3/organizations/{organisation}/applications/{application}/metadata | Merge-patch application metadata
+[**put_application_metadata**](ApplicationsApi.md#put_application_metadata) | **PUT** /api/v3/organizations/{organisation}/applications/{application}/metadata | Replace application metadata
 
 
 # **create_application**
@@ -250,7 +252,7 @@ Name | Type | Description  | Notes
 # **get_ecr_login_credentials**
 > GetEcrLoginCredentials200Response get_ecr_login_credentials(organisation)
 
-Get ECR login credentials
+Get container registry login credentials
 
 ### Example
 
@@ -285,7 +287,7 @@ with quantcdn.ApiClient(configuration) as api_client:
     organisation = 'organisation_example' # str | The organisation ID
 
     try:
-        # Get ECR login credentials
+        # Get container registry login credentials
         api_response = api_instance.get_ecr_login_credentials(organisation)
         print("The response of ApplicationsApi->get_ecr_login_credentials:\n")
         pprint(api_response)
@@ -319,12 +321,12 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The ECR login credentials |  -  |
+**200** | The container registry login credentials |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_applications**
-> List[Application] list_applications(organisation)
+> List[Application] list_applications(organisation, metadata=metadata)
 
 Get all applications for an organisation
 
@@ -359,10 +361,11 @@ with quantcdn.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = quantcdn.ApplicationsApi(api_client)
     organisation = 'organisation_example' # str | The organisation ID
+    metadata = {'key': 'metadata_example'} # Dict[str, str] | Filter by metadata, e.g. metadata[team]=web. Exact, case-sensitive match; multiple pairs are ANDed. (optional)
 
     try:
         # Get all applications for an organisation
-        api_response = api_instance.list_applications(organisation)
+        api_response = api_instance.list_applications(organisation, metadata=metadata)
         print("The response of ApplicationsApi->list_applications:\n")
         pprint(api_response)
     except Exception as e:
@@ -377,6 +380,7 @@ with quantcdn.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **organisation** | **str**| The organisation ID | 
+ **metadata** | [**Dict[str, str]**](str.md)| Filter by metadata, e.g. metadata[team]&#x3D;web. Exact, case-sensitive match; multiple pairs are ANDed. | [optional] 
 
 ### Return type
 
@@ -396,6 +400,178 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A list of applications |  -  |
+**422** | The metadata filter is not a map of strings |  -  |
+**503** | Metadata is temporarily unavailable, so a filtered list cannot be returned |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **patch_application_metadata**
+> ApplicationMetadataResponse patch_application_metadata(organisation, application, request_body)
+
+Merge-patch application metadata
+
+Sets the given keys and removes keys whose value is null. A request that breaks any rule is rejected whole.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.application_metadata_response import ApplicationMetadataResponse
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.ApplicationsApi(api_client)
+    organisation = 'organisation_example' # str | 
+    application = 'application_example' # str | 
+    request_body = {'key': 'request_body_example'} # Dict[str, Optional[str]] | 
+
+    try:
+        # Merge-patch application metadata
+        api_response = api_instance.patch_application_metadata(organisation, application, request_body)
+        print("The response of ApplicationsApi->patch_application_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ApplicationsApi->patch_application_metadata: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**|  | 
+ **application** | **str**|  | 
+ **request_body** | [**Dict[str, Optional[str]]**](str.md)|  | 
+
+### Return type
+
+[**ApplicationMetadataResponse**](ApplicationMetadataResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The resulting metadata |  -  |
+**400** | Invalid metadata |  -  |
+**404** | The application was not found |  -  |
+**409** | The write conflicts with the current metadata |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **put_application_metadata**
+> ApplicationMetadataResponse put_application_metadata(organisation, application, request_body)
+
+Replace application metadata
+
+Replaces the whole metadata set. An empty object removes all metadata.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.application_metadata_response import ApplicationMetadataResponse
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.ApplicationsApi(api_client)
+    organisation = 'organisation_example' # str | 
+    application = 'application_example' # str | 
+    request_body = {'key': 'request_body_example'} # Dict[str, str] | 
+
+    try:
+        # Replace application metadata
+        api_response = api_instance.put_application_metadata(organisation, application, request_body)
+        print("The response of ApplicationsApi->put_application_metadata:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ApplicationsApi->put_application_metadata: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**|  | 
+ **application** | **str**|  | 
+ **request_body** | [**Dict[str, str]**](str.md)|  | 
+
+### Return type
+
+[**ApplicationMetadataResponse**](ApplicationMetadataResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The resulting metadata |  -  |
+**400** | Invalid metadata |  -  |
+**404** | The application was not found |  -  |
+**409** | The write conflicts with the current metadata |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

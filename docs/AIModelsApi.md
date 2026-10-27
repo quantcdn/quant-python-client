@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 Get AI Model Details
 
-Retrieves detailed information about a specific Bedrock model from the catalog.
+Retrieves detailed information about a specific model from the catalog.
      *
      * **Features:**
      * - Complete pricing breakdown (input/output per million tokens)

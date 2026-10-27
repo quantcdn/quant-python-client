@@ -5,10 +5,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**domain** | **List[str]** | Domain patterns (default: any) | 
+**domain** | **List[str]** | Exact hostnames the rule matches, or &#39;any&#39; (the default). Wildcards such as *.example.com are not supported. | 
 **name** | **str** | Rule name | [optional] 
 **uuid** | **str** | Rule UUID | [optional] 
-**weight** | **int** | Rule weight | [optional] [default to 0]
+**weight** | **int** | Rule order. Must be 0 or greater; lower weights are processed first. If omitted on create, the rule is placed last. | [optional] 
 **disabled** | **bool** | Whether rule is disabled | [optional] [default to False]
 **url** | **List[str]** | URL patterns | 
 **country** | **str** | Country filter type (country_is, country_is_not, any) | [optional] 
@@ -20,6 +20,16 @@ Name | Type | Description | Notes
 **ip** | **str** | IP filter type (ip_is, ip_is_not, any) | [optional] 
 **ip_is** | **List[str]** | Allowed IP addresses | [optional] 
 **ip_is_not** | **List[str]** | Excluded IP addresses | [optional] 
+**asn** | **str** | ASN filter type (asn_is, asn_is_not, any). A PATCH that omits it keeps the current value. Invalid values return 422. | [optional] 
+**asn_is** | **List[str]** | Allowed AS numbers. Positive integers up to 4294967295, stored as strings. A PATCH replaces the list. | [optional] 
+**asn_is_not** | **List[str]** | Excluded AS numbers. Positive integers up to 4294967295, stored as strings. A PATCH replaces the list. | [optional] 
+**ua** | **str** | User agent filter type (ua_is, ua_is_not, any). Invalid values return 422. | [optional] 
+**ua_is** | **List[str]** | User agent strings to match. Each item has at most 255 characters. A PATCH replaces the list. | [optional] 
+**ua_is_not** | **List[str]** | User agent strings to exclude. Each item has at most 255 characters. A PATCH replaces the list. | [optional] 
+**traffic_source** | **str** | Traffic source filter type (traffic_source_is, traffic_source_is_not, any). Invalid values return 422. | [optional] 
+**traffic_source_is** | **List[str]** | Traffic sources to match. A PATCH replaces the list. | [optional] 
+**traffic_source_is_not** | **List[str]** | Traffic sources to exclude. A PATCH replaces the list. | [optional] 
+**cookie_name** | **str** | Write name of only_with_cookie: the rule applies only when this cookie is present. Empty string clears it. | [optional] 
 **robot_challenge_type** | **str** | Challenge type (invisible or checkbox) | 
 **robot_challenge_verification_ttl** | **int** | Verification TTL in seconds | [optional] [default to 10800]
 **robot_challenge_challenge_ttl** | **int** | Challenge TTL in seconds | [optional] [default to 30]

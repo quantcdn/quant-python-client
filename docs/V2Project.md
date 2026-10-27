@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **name** | **str** | Project name | 
 **machine_name** | **str** | Project machine name | 
 **write_token** | **str** | Write token for API access | [optional] 
+**search_enabled** | **bool** | Whether the project&#39;s search index is enabled. Requires an organisation search subscription. | [optional] 
+**search_config** | [**V2SearchConfig**](V2SearchConfig.md) |  | [optional] 
 
 ## Example
 

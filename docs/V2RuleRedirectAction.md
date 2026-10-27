@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **to** | **str** | Redirect destination URL | 
-**status_code** | **str** | HTTP status code for redirect | [optional] [default to '301']
+**status_code** | **str** | HTTP status code for the redirect: 301, 302, 303, 307 or 308. Defaults to 301 when omitted on create. | [optional] [default to '301']
 
 ## Example
 

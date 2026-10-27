@@ -1,14 +1,15 @@
 # PurgeCreateRequest
 
+Send cache_keys, urls, or both. At least one of them must be non-empty.
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**cache_keys** | **List[str]** | Cache keys to purge | 
-**urls** | **List[str]** | URLs to purge | [optional] 
-**scope** | **str** | Purge scope (org or project) | [default to 'project']
-**soft** | **bool** | Soft purge | [optional] [default to True]
+**cache_keys** | **List[str]** | Cache keys to purge. Optional when urls is set. | [optional] 
+**urls** | **List[str]** | URL paths to purge, each starting with a slash (for example /contact). Use /* to purge the whole project. At most 100 per request; a single string is also accepted. The whole list is validated before any purge is sent. Optional when cache_keys is set. | [optional] 
+**scope** | **str** | Purge scope for cache_keys (project or org). Not used for urls. | [optional] [default to 'project']
+**soft** | **bool** | Soft purge: mark cached content stale instead of removing it. When omitted, the purge is soft (true). Send false for a hard purge. | [optional] [default to True]
 
 ## Example
 
