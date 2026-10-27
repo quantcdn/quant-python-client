@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **basic_auth_username** | **str** | Basic auth username | [optional] 
 **basic_auth_password** | **str** | Basic auth password | [optional] 
 **basic_auth_preview_only** | **bool** | Apply basic auth to preview domain only | [optional] [default to False]
+**search_enabled** | **bool** | Enable the project&#39;s search index. Rejected when the organisation has no search subscription. | [optional] 
+**search_config** | [**V2SearchConfig**](V2SearchConfig.md) |  | [optional] 
 
 ## Example
 

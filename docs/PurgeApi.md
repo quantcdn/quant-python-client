@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **purge_create**
-> str purge_create(organization, project, purge_create_request)
+> PurgeCreate200Response purge_create(organization, project, purge_create_request)
 
 Purge cache via URL or cache keys
 
@@ -18,6 +18,7 @@ Purge cache via URL or cache keys
 
 ```python
 import quantcdn
+from quantcdn.models.purge_create200_response import PurgeCreate200Response
 from quantcdn.models.purge_create_request import PurgeCreateRequest
 from quantcdn.rest import ApiException
 from pprint import pprint
@@ -68,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**str**
+[**PurgeCreate200Response**](PurgeCreate200Response.md)
 
 ### Authorization
 
@@ -83,9 +84,10 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The request has succeeded. |  -  |
-**400** | The server could not understand the request due to invalid syntax. |  -  |
+**200** | The purge was accepted. |  -  |
+**400** | Invalid request: no urls or cache_keys, an invalid scope, more than 100 URLs, or a URL that is not a string path starting with a slash. Nothing is purged. |  -  |
 **403** | Access is forbidden. |  -  |
+**502** | The content API did not accept the purge for one or more URLs. The message names those paths; the other URLs were purged. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**download_url** | **str** | Pre-signed S3 URL for download | [optional] 
+**download_url** | **str** | Pre-signed URL for download | [optional] 
 **expires_at** | **datetime** | URL expiration time | [optional] 
 **filename** | **str** | Suggested filename for download | [optional] 
 

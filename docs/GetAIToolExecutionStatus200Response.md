@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **execution_id** | **str** |  | 
 **tool_name** | **str** |  | 
 **status** | **str** | Execution status: pending, running, complete, or failed | 
-**result** | [**GetAIToolExecutionStatus200ResponseResult**](GetAIToolExecutionStatus200ResponseResult.md) |  | [optional] 
+**result** | **object** | Tool execution result (only present when status&#x3D;&#39;complete&#39;). Structure varies by tool type. | [optional] 
 **error** | **str** | Error message (only present when status&#x3D;&#39;failed&#39;) | [optional] 
 **created_at** | **int** | Unix timestamp when execution was created | 
 **started_at** | **int** | Unix timestamp when execution started (if status &gt;&#x3D; &#39;running&#39;) | [optional] 

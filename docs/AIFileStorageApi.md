@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**delete_file**](AIFileStorageApi.md#delete_file) | **DELETE** /api/v3/organizations/{organisation}/ai/files/{fileId} | Delete File
 [**get_file**](AIFileStorageApi.md#get_file) | **GET** /api/v3/organizations/{organisation}/ai/files/{fileId} | Get File
 [**list_files**](AIFileStorageApi.md#list_files) | **GET** /api/v3/organizations/{organisation}/ai/files | List Files
-[**upload_file**](AIFileStorageApi.md#upload_file) | **POST** /api/v3/organizations/{organisation}/ai/files | Upload File to S3
+[**upload_file**](AIFileStorageApi.md#upload_file) | **POST** /api/v3/organizations/{organisation}/ai/files | Upload File to object storage
 
 
 # **delete_file**
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 Delete File
 
-Deletes a file from S3 storage.
+Deletes a file from object storage.
 
 ### Example
 
@@ -181,7 +181,7 @@ Name | Type | Description  | Notes
 
 List Files
 
-Lists files stored in S3 for this organization with optional metadata filtering and pagination.
+Lists files stored in object storage for this organization with optional metadata filtering and pagination.
 
 ### Example
 
@@ -266,15 +266,15 @@ Name | Type | Description  | Notes
 # **upload_file**
 > UploadFile201Response upload_file(organisation, upload_file_request)
 
-Upload File to S3
+Upload File to object storage
 
-Uploads a file to S3 storage for later retrieval.
+Uploads a file to object storage for later retrieval.
      *
      * **Two Upload Modes:**
      *
      * 1. **Direct Upload (≤7MB):** Send base64-encoded content in request body.
      *
-     * 2. **Presigned URL Upload (any size):** Set `requestUploadUrl: true` to get a presigned S3 PUT URL, then upload directly to S3.
+     * 2. **Presigned URL Upload (any size):** Set `requestUploadUrl: true` to get a presigned PUT URL, then upload directly to object storage.
      *
      * **Supported Content Types:**
      * - Images: image/png, image/jpeg, image/gif, image/webp, image/svg+xml
@@ -321,7 +321,7 @@ with quantcdn.ApiClient(configuration) as api_client:
     upload_file_request = quantcdn.UploadFileRequest() # UploadFileRequest | 
 
     try:
-        # Upload File to S3
+        # Upload File to object storage
         api_response = api_instance.upload_file(organisation, upload_file_request)
         print("The response of AIFileStorageApi->upload_file:\n")
         pprint(api_response)

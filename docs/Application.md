@@ -9,16 +9,19 @@ Name | Type | Description | Notes
 **organisation** | **str** | Organisation machine name | 
 **database** | [**ApplicationDatabase**](ApplicationDatabase.md) |  | [optional] 
 **filesystem** | [**ApplicationFilesystem**](ApplicationFilesystem.md) |  | [optional] 
+**cache** | [**ApplicationCache**](ApplicationCache.md) |  | [optional] 
 **compose_definition** | [**Compose**](Compose.md) |  | [optional] 
-**status** | **str** | Application status | [optional] 
-**deployment_information** | [**List[ApplicationDeploymentInformationInner]**](ApplicationDeploymentInformationInner.md) | Deployment history | [optional] 
+**metadata** | **Dict[str, str]** | Free-form key/value metadata. Maximum 50 pairs. Keys are 1-128 characters, values 0-256 characters. Letters, digits, space and + - &#x3D; . _ : / @ only. Keys starting with &#39;quant:&#39; are reserved. | [optional] 
+**metadata_available** | **bool** | Present on the detail response; false when metadata could not be read | [optional] [readonly] 
+**status** | **str** | Application status | [optional] [readonly] 
+**deployment_information** | [**List[ApplicationDeploymentInformationInner]**](ApplicationDeploymentInformationInner.md) | Deployment history | [optional] [readonly] 
 **image_reference** | [**ApplicationImageReference**](ApplicationImageReference.md) |  | [optional] 
-**container_names** | **List[str]** | List of container names | [optional] 
+**container_names** | **List[str]** | List of container names | [optional] [readonly] 
 **min_capacity** | **int** | Minimum task count for auto-scaling | [optional] 
 **max_capacity** | **int** | Maximum task count for auto-scaling | [optional] 
 **desired_count** | **int** | Desired task count | [optional] 
 **running_count** | **int** | Currently running task count | [optional] 
-**environments** | [**List[ApplicationEnvironmentsInner]**](ApplicationEnvironmentsInner.md) | List of environments | [optional] 
+**environment_names** | **List[str]** | List of environment names (read-only) | [optional] [readonly] 
 
 ## Example
 

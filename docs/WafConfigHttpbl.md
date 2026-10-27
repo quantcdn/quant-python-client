@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **block_harvester** | **bool** | Block email harvesters | [optional] [default to False]
 **block_spam** | **bool** | Block spam sources | [optional] [default to False]
 **block_search_engine** | **bool** | Block search engines | [optional] [default to False]
-**httpbl_key** | **str** | HTTP:BL API key | [optional] 
+**httpbl_key** | **str** | HTTP:BL API key. The deprecated write alias api_key is still accepted. | [optional] 
 
 ## Example
 
