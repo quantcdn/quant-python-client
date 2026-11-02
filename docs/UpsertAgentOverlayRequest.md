@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **system_prompt_append** | **str** | Text appended to base system prompt | [optional] 
 **allowed_collections** | **List[str]** | Vector DB collections | [optional] 
 **guardrail_preset** | **str** | Guardrail preset | [optional] 
+**reasoning_effort** | **str** | Override the reasoning effort. Must be one of the levels the effective model lists in capabilities.effortLevels. Omit or null to use the global agent value. | [optional] 
 **version** | **int** | Current version for optimistic concurrency | [optional] 
 
 ## Example
