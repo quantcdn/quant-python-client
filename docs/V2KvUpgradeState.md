@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **format** | **int** |  | 
 **state** | **str** | migrating while writes are frozen (an upgrade copy or a rollback). | 
-**table** | **str** | The table that serves the store. | 
 **upgrade** | [**V2KvUpgradeStatus**](V2KvUpgradeStatus.md) | Null when the store was never upgraded. | 
 
 ## Example

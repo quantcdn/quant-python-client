@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **command** | **List[str]** |  | [optional] 
 **target_container_name** | **str** |  | [optional] 
 **is_enabled** | **bool** |  | [optional] 
+**last_run** | [**CronLastRun**](CronLastRun.md) | The newest run of the job. Null when the job has never run. Sent by the cron list. | [optional] 
+**consecutive_failures** | **int** | Failed runs (FAILED or FAILED_TO_START) from the newest run back to the first run that did not fail, counted over the latest 10 runs. 0 when the newest run did not fail. Sent by the cron list. | [optional] 
 
 ## Example
 

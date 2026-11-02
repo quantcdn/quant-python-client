@@ -4,18 +4,101 @@ All URIs are relative to *https://dashboard.quantcdn.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**cancel_slack_interaction**](AISlackBotsApi.md#cancel_slack_interaction) | **POST** /api/v3/organizations/{organisation}/ai/slack-bots/{botId}/interactions/{interactionId}/cancel | Cancel an unanswered Slack interaction
 [**create_slack_bot**](AISlackBotsApi.md#create_slack_bot) | **POST** /api/v3/organizations/{organisation}/ai/slack-bots | Create Slack Bot
+[**create_slack_interaction**](AISlackBotsApi.md#create_slack_interaction) | **POST** /api/v3/organizations/{organisation}/ai/slack-bots/{botId}/interactions | Ask for a single Slack button response
 [**delete_slack_bot**](AISlackBotsApi.md#delete_slack_bot) | **DELETE** /api/v3/organizations/{organisation}/ai/slack-bots/{botId} | Delete Slack Bot
 [**get_slack_bot**](AISlackBotsApi.md#get_slack_bot) | **GET** /api/v3/organizations/{organisation}/ai/slack-bots/{botId} | Get Slack Bot
 [**get_slack_bot_thread**](AISlackBotsApi.md#get_slack_bot_thread) | **GET** /api/v3/organizations/{organisation}/ai/slack-bots/{botId}/threads/{channel}/{threadTs} | Read a thread
+[**get_slack_interaction**](AISlackBotsApi.md#get_slack_interaction) | **GET** /api/v3/organizations/{organisation}/ai/slack-bots/{botId}/interactions/{interactionId} | Read an external Slack interaction
 [**list_slack_bot_channel_messages**](AISlackBotsApi.md#list_slack_bot_channel_messages) | **GET** /api/v3/organizations/{organisation}/ai/slack-bots/{botId}/channels/{channel}/messages | Read recent channel messages
 [**list_slack_bots**](AISlackBotsApi.md#list_slack_bots) | **GET** /api/v3/organizations/{organisation}/ai/slack-bots | List Slack Bots
 [**list_slack_bots_api_enabled**](AISlackBotsApi.md#list_slack_bots_api_enabled) | **GET** /api/v3/organizations/{organisation}/ai/slack-bots/api-enabled | List API-enabled Slack bots
+[**post_slack_bot_file**](AISlackBotsApi.md#post_slack_bot_file) | **POST** /api/v3/organizations/{organisation}/ai/slack-bots/{botId}/files | Post an image as the bot
 [**post_slack_bot_message**](AISlackBotsApi.md#post_slack_bot_message) | **POST** /api/v3/organizations/{organisation}/ai/slack-bots/{botId}/messages | Post a message as the bot
 [**search_slack_workspace_channels**](AISlackBotsApi.md#search_slack_workspace_channels) | **GET** /api/v3/organizations/{organisation}/ai/slack-bots/{botId}/workspace/channels | Search Slack Workspace Channels
 [**search_slack_workspace_users**](AISlackBotsApi.md#search_slack_workspace_users) | **GET** /api/v3/organizations/{organisation}/ai/slack-bots/{botId}/workspace/users | Search Slack Workspace Users
 [**update_slack_bot**](AISlackBotsApi.md#update_slack_bot) | **PUT** /api/v3/organizations/{organisation}/ai/slack-bots/{botId} | Update Slack Bot
 
+
+# **cancel_slack_interaction**
+> cancel_slack_interaction(organisation, bot_id, interaction_id)
+
+Cancel an unanswered Slack interaction
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AISlackBotsApi(api_client)
+    organisation = 'organisation_example' # str | 
+    bot_id = 'bot_id_example' # str | 
+    interaction_id = 'interaction_id_example' # str | 
+
+    try:
+        # Cancel an unanswered Slack interaction
+        api_instance.cancel_slack_interaction(organisation, bot_id, interaction_id)
+    except Exception as e:
+        print("Exception when calling AISlackBotsApi->cancel_slack_interaction: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**|  | 
+ **bot_id** | **str**|  | 
+ **interaction_id** | **str**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Cancelled; repeated cancellation is idempotent |  -  |
+**409** | A response or expiry already won |  -  |
+**404** | Unknown, foreign or disabled |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_slack_bot**
 > CreateSlackBot201Response create_slack_bot(organisation, create_slack_bot_request)
@@ -102,6 +185,93 @@ Name | Type | Description  | Notes
 **400** | Invalid request parameters |  -  |
 **403** | Access denied |  -  |
 **500** | Failed to create Slack bot |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_slack_interaction**
+> create_slack_interaction(organisation, bot_id, idempotency_key, create_slack_interaction_request)
+
+Ask for a single Slack button response
+
+External-agent interaction, not a platform tool approval. Requires explicit ai:slack, verified email and use_ai_services. The caller owns the meaning of the response. Feature must be enabled on this environment.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.create_slack_interaction_request import CreateSlackInteractionRequest
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AISlackBotsApi(api_client)
+    organisation = 'organisation_example' # str | 
+    bot_id = 'bot_id_example' # str | 
+    idempotency_key = 'idempotency_key_example' # str | 
+    create_slack_interaction_request = quantcdn.CreateSlackInteractionRequest() # CreateSlackInteractionRequest | 
+
+    try:
+        # Ask for a single Slack button response
+        api_instance.create_slack_interaction(organisation, bot_id, idempotency_key, create_slack_interaction_request)
+    except Exception as e:
+        print("Exception when calling AISlackBotsApi->create_slack_interaction: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**|  | 
+ **bot_id** | **str**|  | 
+ **idempotency_key** | **str**|  | 
+ **create_slack_interaction_request** | [**CreateSlackInteractionRequest**](CreateSlackInteractionRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Card delivered; interaction awaits a response |  -  |
+**202** | Read returned interactionId to obtain delivery or recorded response state |  -  |
+**400** | Invalid request |  -  |
+**403** | Access denied |  -  |
+**422** | Idempotency key reused with a different request |  -  |
+**503** | Audit persistence unavailable; retry with the same key |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -368,6 +538,87 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_slack_interaction**
+> get_slack_interaction(organisation, bot_id, interaction_id)
+
+Read an external Slack interaction
+
+Owner-bound to the creating org, bot, user and token. Recorded responses identify Slack workspace/user and actionId. Silence, expiry and intermediate states do not mean approval.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AISlackBotsApi(api_client)
+    organisation = 'organisation_example' # str | 
+    bot_id = 'bot_id_example' # str | 
+    interaction_id = 'interaction_id_example' # str | 
+
+    try:
+        # Read an external Slack interaction
+        api_instance.get_slack_interaction(organisation, bot_id, interaction_id)
+    except Exception as e:
+        print("Exception when calling AISlackBotsApi->get_slack_interaction: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**|  | 
+ **bot_id** | **str**|  | 
+ **interaction_id** | **str**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Current state, immutable request, expiry and audited response when terminal |  -  |
+**404** | Unknown, foreign or disabled |  -  |
+**503** | Audit unavailable |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **list_slack_bot_channel_messages**
 > ListSlackBotChannelMessages200Response list_slack_bot_channel_messages(organisation, bot_id, channel, since=since, limit=limit, cursor=cursor)
 
@@ -623,6 +874,99 @@ Name | Type | Description  | Notes
 **404** | NOT_FOUND: the Slack bot API is not enabled |  -  |
 **429** | RATE_LIMITED. See the Retry-After header. |  * Retry-After -  <br>  |
 **502** | SLACK_ERROR |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_slack_bot_file**
+> PostSlackBotFile201Response post_slack_bot_file(organisation, bot_id, post_slack_bot_file_request, idempotency_key=idempotency_key)
+
+Post an image as the bot
+
+The bot uploads one image in an allowed channel or thread, with an attribution line that shows your name. The type comes from the bytes: PNG, JPEG, GIF or WebP, at most 4 MiB decoded. Counts as one write. Needs the explicit `ai:slack` scope, `use_ai_services` and a verified email.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.post_slack_bot_file201_response import PostSlackBotFile201Response
+from quantcdn.models.post_slack_bot_file_request import PostSlackBotFileRequest
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.AISlackBotsApi(api_client)
+    organisation = 'organisation_example' # str | The organisation machine name
+    bot_id = 'bot_id_example' # str | 
+    post_slack_bot_file_request = quantcdn.PostSlackBotFileRequest() # PostSlackBotFileRequest | 
+    idempotency_key = 'idempotency_key_example' # str | 8-128 visible ASCII characters. The same key and body within 10 minutes returns the first result and does not upload again. (optional)
+
+    try:
+        # Post an image as the bot
+        api_response = api_instance.post_slack_bot_file(organisation, bot_id, post_slack_bot_file_request, idempotency_key=idempotency_key)
+        print("The response of AISlackBotsApi->post_slack_bot_file:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling AISlackBotsApi->post_slack_bot_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organisation** | **str**| The organisation machine name | 
+ **bot_id** | **str**|  | 
+ **post_slack_bot_file_request** | [**PostSlackBotFileRequest**](PostSlackBotFileRequest.md)|  | 
+ **idempotency_key** | **str**| 8-128 visible ASCII characters. The same key and body within 10 minutes returns the first result and does not upload again. | [optional] 
+
+### Return type
+
+[**PostSlackBotFile201Response**](PostSlackBotFile201Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Uploaded |  -  |
+**400** | INVALID_REQUEST: the body is not a JSON object, has an unknown field or a field that is not valid, the content is not a PNG, JPEG, GIF or WebP image or is larger than 4 MiB, or the Idempotency-Key is not valid |  -  |
+**401** | Invalid or expired token |  -  |
+**403** | SCOPE_REQUIRED, EMAIL_NOT_VERIFIED, IDENTITY_REQUIRED, CHANNEL_NOT_ALLOWED, USER_NOT_ALLOWED, PERMISSION_DENIED, or AI is off for the organisation |  -  |
+**404** | BOT_NOT_FOUND, or NOT_FOUND when the Slack bot API is not enabled |  -  |
+**409** | BOT_INACTIVE, or REQUEST_IN_PROGRESS (retryable) while the first call with this Idempotency-Key runs |  -  |
+**422** | IDEMPOTENCY_KEY_MISMATCH: the Idempotency-Key was used with a different body |  -  |
+**429** | RATE_LIMITED. See the Retry-After header. |  * Retry-After -  <br>  |
+**502** | SLACK_ERROR. slackError carries the Slack error string. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

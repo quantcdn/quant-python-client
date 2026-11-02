@@ -3,6 +3,7 @@
 # import apis into api package
 from quantcdn.api.ai_api import AIApi
 from quantcdn.api.ai_agents_api import AIAgentsApi
+from quantcdn.api.ai_audit_api import AIAuditApi
 from quantcdn.api.ai_custom_tools_api import AICustomToolsApi
 from quantcdn.api.ai_file_storage_api import AIFileStorageApi
 from quantcdn.api.ai_filter_policies_api import AIFilterPoliciesApi
@@ -42,6 +43,7 @@ from quantcdn.api.restore_management_api import RestoreManagementApi
 from quantcdn.api.rules_api import RulesApi
 from quantcdn.api.ssh_access_api import SSHAccessApi
 from quantcdn.api.scaling_policy_api import ScalingPolicyApi
+from quantcdn.api.secrets_api import SecretsApi
 from quantcdn.api.subscription_api import SubscriptionApi
 from quantcdn.api.tokens_api import TokensApi
 from quantcdn.api.variables_api import VariablesApi

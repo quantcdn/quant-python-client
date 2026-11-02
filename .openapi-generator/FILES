@@ -5,6 +5,7 @@
 README.md
 docs/AIAgentsApi.md
 docs/AIApi.md
+docs/AIAuditApi.md
 docs/AICustomToolsApi.md
 docs/AIFileStorageApi.md
 docs/AIFilterPoliciesApi.md
@@ -21,6 +22,11 @@ docs/AIToolApprovalApi.md
 docs/AIToolsApi.md
 docs/AIUsageApi.md
 docs/AIVectorDatabaseApi.md
+docs/AiAuditError.md
+docs/AiAuditRecordGet200Response.md
+docs/AiAuditRecordRow.md
+docs/AiAuditRecordSummary.md
+docs/AiAuditRecordsPage.md
 docs/AiSearchChatRequest.md
 docs/AiSearchDeletePagesRequest.md
 docs/AiSearchEnableRequest.md
@@ -131,6 +137,8 @@ docs/CreateSkill201Response.md
 docs/CreateSkillRequest.md
 docs/CreateSlackBot201Response.md
 docs/CreateSlackBotRequest.md
+docs/CreateSlackInteractionRequest.md
+docs/CreateSlackInteractionRequestActionsInner.md
 docs/CreateTask201Response.md
 docs/CreateTaskRequest.md
 docs/CreateVectorCollection201Response.md
@@ -139,6 +147,7 @@ docs/CreateVectorCollectionRequest.md
 docs/CreateVolumeRequest.md
 docs/Cron.md
 docs/CronApi.md
+docs/CronLastRun.md
 docs/CronRun.md
 docs/DNSCreateRecordRequest.md
 docs/DecideToolProposalRequest.md
@@ -147,6 +156,7 @@ docs/DeleteAISession200Response.md
 docs/DeleteAgentOverlay200Response.md
 docs/DeleteBackup200Response.md
 docs/DeleteCustomTool200Response.md
+docs/DeleteEnvironmentSecret200Response.md
 docs/DeleteFile200Response.md
 docs/DeleteSkill200Response.md
 docs/DeleteSkillCollection200Response.md
@@ -312,9 +322,13 @@ docs/PatchEnvironmentCompose202ResponseSpotConfiguration.md
 docs/PatchEnvironmentCompose400Response.md
 docs/PatchEnvironmentComposeRequest.md
 docs/PatchEnvironmentComposeRequestSpotConfiguration.md
+docs/PostSlackBotFile201Response.md
+docs/PostSlackBotFileRequest.md
 docs/PostSlackBotMessage201Response.md
 docs/PostSlackBotMessageRequest.md
 docs/ProjectsApi.md
+docs/ProjectsDelete409Response.md
+docs/ProjectsDelete503Response.md
 docs/PurgeApi.md
 docs/PurgeCreate200Response.md
 docs/PurgeCreateRequest.md
@@ -334,6 +348,7 @@ docs/RestoreFilesystem202Response.md
 docs/RestoreFilesystemRequest.md
 docs/RestoreManagementApi.md
 docs/RulesApi.md
+docs/RulesIndexList200ResponseInner.md
 docs/SSHAccessApi.md
 docs/ScalingPolicyApi.md
 docs/ScalingPolicyListResponse.md
@@ -341,6 +356,10 @@ docs/SearchSlackWorkspaceChannels200Response.md
 docs/SearchSlackWorkspaceChannels200ResponseResultsInner.md
 docs/SearchSlackWorkspaceUsers200Response.md
 docs/SearchSlackWorkspaceUsers200ResponseResultsInner.md
+docs/SecretError.md
+docs/SecretKey.md
+docs/SecretWriteResult.md
+docs/SecretsApi.md
 docs/SetIdleSleepRequest.md
 docs/SetScalingPolicyRequest.md
 docs/SpotConfiguration.md
@@ -363,6 +382,7 @@ docs/UpdateAISessionRequest.md
 docs/UpdateAISessionRequestNewMessagesInner.md
 docs/UpdateCronJobRequest.md
 docs/UpdateEnvironmentRequest.md
+docs/UpdateEnvironmentSecretRequest.md
 docs/UpdateEnvironmentStateRequest.md
 docs/UpdateEnvironmentVariableRequest.md
 docs/UpdateFilterPolicyRequest.md
@@ -609,6 +629,7 @@ quantcdn/__init__.py
 quantcdn/api/__init__.py
 quantcdn/api/ai_agents_api.py
 quantcdn/api/ai_api.py
+quantcdn/api/ai_audit_api.py
 quantcdn/api/ai_custom_tools_api.py
 quantcdn/api/ai_file_storage_api.py
 quantcdn/api/ai_filter_policies_api.py
@@ -647,6 +668,7 @@ quantcdn/api/resources_api.py
 quantcdn/api/restore_management_api.py
 quantcdn/api/rules_api.py
 quantcdn/api/scaling_policy_api.py
+quantcdn/api/secrets_api.py
 quantcdn/api/ssh_access_api.py
 quantcdn/api/subscription_api.py
 quantcdn/api/tokens_api.py
@@ -657,6 +679,11 @@ quantcdn/api_response.py
 quantcdn/configuration.py
 quantcdn/exceptions.py
 quantcdn/models/__init__.py
+quantcdn/models/ai_audit_error.py
+quantcdn/models/ai_audit_record_get200_response.py
+quantcdn/models/ai_audit_record_row.py
+quantcdn/models/ai_audit_record_summary.py
+quantcdn/models/ai_audit_records_page.py
 quantcdn/models/ai_search_chat_request.py
 quantcdn/models/ai_search_delete_pages_request.py
 quantcdn/models/ai_search_enable_request.py
@@ -759,6 +786,8 @@ quantcdn/models/create_skill201_response.py
 quantcdn/models/create_skill_request.py
 quantcdn/models/create_slack_bot201_response.py
 quantcdn/models/create_slack_bot_request.py
+quantcdn/models/create_slack_interaction_request.py
+quantcdn/models/create_slack_interaction_request_actions_inner.py
 quantcdn/models/create_task201_response.py
 quantcdn/models/create_task_request.py
 quantcdn/models/create_vector_collection201_response.py
@@ -766,6 +795,7 @@ quantcdn/models/create_vector_collection201_response_collection.py
 quantcdn/models/create_vector_collection_request.py
 quantcdn/models/create_volume_request.py
 quantcdn/models/cron.py
+quantcdn/models/cron_last_run.py
 quantcdn/models/cron_run.py
 quantcdn/models/decide_tool_proposal_request.py
 quantcdn/models/delete_agent_overlay200_response.py
@@ -773,6 +803,7 @@ quantcdn/models/delete_ai_agent200_response.py
 quantcdn/models/delete_ai_session200_response.py
 quantcdn/models/delete_backup200_response.py
 quantcdn/models/delete_custom_tool200_response.py
+quantcdn/models/delete_environment_secret200_response.py
 quantcdn/models/delete_file200_response.py
 quantcdn/models/delete_skill200_response.py
 quantcdn/models/delete_skill_collection200_response.py
@@ -932,8 +963,12 @@ quantcdn/models/patch_environment_compose202_response_spot_configuration.py
 quantcdn/models/patch_environment_compose400_response.py
 quantcdn/models/patch_environment_compose_request.py
 quantcdn/models/patch_environment_compose_request_spot_configuration.py
+quantcdn/models/post_slack_bot_file201_response.py
+quantcdn/models/post_slack_bot_file_request.py
 quantcdn/models/post_slack_bot_message201_response.py
 quantcdn/models/post_slack_bot_message_request.py
+quantcdn/models/projects_delete409_response.py
+quantcdn/models/projects_delete503_response.py
 quantcdn/models/purge_create200_response.py
 quantcdn/models/purge_create_request.py
 quantcdn/models/purge_org_resource200_response.py
@@ -949,11 +984,15 @@ quantcdn/models/restore_database202_response.py
 quantcdn/models/restore_database_request.py
 quantcdn/models/restore_filesystem202_response.py
 quantcdn/models/restore_filesystem_request.py
+quantcdn/models/rules_index_list200_response_inner.py
 quantcdn/models/scaling_policy_list_response.py
 quantcdn/models/search_slack_workspace_channels200_response.py
 quantcdn/models/search_slack_workspace_channels200_response_results_inner.py
 quantcdn/models/search_slack_workspace_users200_response.py
 quantcdn/models/search_slack_workspace_users200_response_results_inner.py
+quantcdn/models/secret_error.py
+quantcdn/models/secret_key.py
+quantcdn/models/secret_write_result.py
 quantcdn/models/set_idle_sleep_request.py
 quantcdn/models/set_scaling_policy_request.py
 quantcdn/models/spot_configuration.py
@@ -974,6 +1013,7 @@ quantcdn/models/update_ai_session_request.py
 quantcdn/models/update_ai_session_request_new_messages_inner.py
 quantcdn/models/update_cron_job_request.py
 quantcdn/models/update_environment_request.py
+quantcdn/models/update_environment_secret_request.py
 quantcdn/models/update_environment_state_request.py
 quantcdn/models/update_environment_variable_request.py
 quantcdn/models/update_filter_policy_request.py
@@ -1221,6 +1261,12 @@ test-requirements.txt
 test/__init__.py
 test/test_ai_agents_api.py
 test/test_ai_api.py
+test/test_ai_audit_api.py
+test/test_ai_audit_error.py
+test/test_ai_audit_record_get200_response.py
+test/test_ai_audit_record_row.py
+test/test_ai_audit_record_summary.py
+test/test_ai_audit_records_page.py
 test/test_ai_custom_tools_api.py
 test/test_ai_file_storage_api.py
 test/test_ai_filter_policies_api.py
@@ -1347,6 +1393,8 @@ test/test_create_skill201_response.py
 test/test_create_skill_request.py
 test/test_create_slack_bot201_response.py
 test/test_create_slack_bot_request.py
+test/test_create_slack_interaction_request.py
+test/test_create_slack_interaction_request_actions_inner.py
 test/test_create_task201_response.py
 test/test_create_task_request.py
 test/test_create_vector_collection201_response.py
@@ -1355,6 +1403,7 @@ test/test_create_vector_collection_request.py
 test/test_create_volume_request.py
 test/test_cron.py
 test/test_cron_api.py
+test/test_cron_last_run.py
 test/test_cron_run.py
 test/test_decide_tool_proposal_request.py
 test/test_delete_agent_overlay200_response.py
@@ -1362,6 +1411,7 @@ test/test_delete_ai_agent200_response.py
 test/test_delete_ai_session200_response.py
 test/test_delete_backup200_response.py
 test/test_delete_custom_tool200_response.py
+test/test_delete_environment_secret200_response.py
 test/test_delete_file200_response.py
 test/test_delete_skill200_response.py
 test/test_delete_skill_collection200_response.py
@@ -1528,9 +1578,13 @@ test/test_patch_environment_compose202_response_spot_configuration.py
 test/test_patch_environment_compose400_response.py
 test/test_patch_environment_compose_request.py
 test/test_patch_environment_compose_request_spot_configuration.py
+test/test_post_slack_bot_file201_response.py
+test/test_post_slack_bot_file_request.py
 test/test_post_slack_bot_message201_response.py
 test/test_post_slack_bot_message_request.py
 test/test_projects_api.py
+test/test_projects_delete409_response.py
+test/test_projects_delete503_response.py
 test/test_purge_api.py
 test/test_purge_create200_response.py
 test/test_purge_create_request.py
@@ -1550,12 +1604,17 @@ test/test_restore_filesystem202_response.py
 test/test_restore_filesystem_request.py
 test/test_restore_management_api.py
 test/test_rules_api.py
+test/test_rules_index_list200_response_inner.py
 test/test_scaling_policy_api.py
 test/test_scaling_policy_list_response.py
 test/test_search_slack_workspace_channels200_response.py
 test/test_search_slack_workspace_channels200_response_results_inner.py
 test/test_search_slack_workspace_users200_response.py
 test/test_search_slack_workspace_users200_response_results_inner.py
+test/test_secret_error.py
+test/test_secret_key.py
+test/test_secret_write_result.py
+test/test_secrets_api.py
 test/test_set_idle_sleep_request.py
 test/test_set_scaling_policy_request.py
 test/test_spot_configuration.py
@@ -1579,6 +1638,7 @@ test/test_update_ai_session_request.py
 test/test_update_ai_session_request_new_messages_inner.py
 test/test_update_cron_job_request.py
 test/test_update_environment_request.py
+test/test_update_environment_secret_request.py
 test/test_update_environment_state_request.py
 test/test_update_environment_variable_request.py
 test/test_update_filter_policy_request.py
