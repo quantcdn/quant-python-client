@@ -43,6 +43,7 @@ class GetSlackBot200ResponseBot(BaseModel):
     guardrail_preset: Optional[StrictStr] = Field(default=None, alias="guardrailPreset")
     filter_policies: Optional[List[StrictStr]] = Field(default=None, alias="filterPolicies")
     long_context: Optional[StrictBool] = Field(default=None, alias="longContext")
+    reasoning_effort: Optional[StrictStr] = Field(default=None, description="Reasoning effort (Anthropic effort). Must be one of the levels the model lists in capabilities.effortLevels. Unset uses the caller or model default.", alias="reasoningEffort")
     session_ttl_days: Optional[StrictInt] = Field(default=None, alias="sessionTtlDays")
     allowed_channels: Optional[List[StrictStr]] = Field(default=None, alias="allowedChannels")
     allowed_users: Optional[List[StrictStr]] = Field(default=None, alias="allowedUsers")
@@ -54,7 +55,7 @@ class GetSlackBot200ResponseBot(BaseModel):
     keywords: Optional[List[StrictStr]] = None
     created_at: Optional[datetime] = Field(default=None, alias="createdAt")
     updated_at: Optional[datetime] = Field(default=None, alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["botId", "name", "setupType", "status", "connected", "systemPrompt", "modelId", "temperature", "maxTokens", "allowedTools", "assignedSkills", "allowedCollections", "allowedSubAgents", "guardrailPreset", "filterPolicies", "longContext", "sessionTtlDays", "allowedChannels", "allowedUsers", "deniedUsers", "allowGuests", "homeTabContent", "agentAccessControl", "keywordsEnabled", "keywords", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["botId", "name", "setupType", "status", "connected", "systemPrompt", "modelId", "temperature", "maxTokens", "allowedTools", "assignedSkills", "allowedCollections", "allowedSubAgents", "guardrailPreset", "filterPolicies", "longContext", "reasoningEffort", "sessionTtlDays", "allowedChannels", "allowedUsers", "deniedUsers", "allowGuests", "homeTabContent", "agentAccessControl", "keywordsEnabled", "keywords", "createdAt", "updatedAt"]
 
     @field_validator('setup_type')
     def setup_type_validate_enum(cls, value):
@@ -74,6 +75,16 @@ class GetSlackBot200ResponseBot(BaseModel):
 
         if value not in set(['active', 'inactive']):
             raise ValueError("must be one of enum values ('active', 'inactive')")
+        return value
+
+    @field_validator('reasoning_effort')
+    def reasoning_effort_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['low', 'medium', 'high', 'xhigh', 'max']):
+            raise ValueError("must be one of enum values ('low', 'medium', 'high', 'xhigh', 'max')")
         return value
 
     model_config = ConfigDict(
@@ -115,6 +126,11 @@ class GetSlackBot200ResponseBot(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoningEffort'] = None
+
         return _dict
 
     @classmethod
@@ -143,6 +159,7 @@ class GetSlackBot200ResponseBot(BaseModel):
             "guardrailPreset": obj.get("guardrailPreset"),
             "filterPolicies": obj.get("filterPolicies"),
             "longContext": obj.get("longContext"),
+            "reasoningEffort": obj.get("reasoningEffort"),
             "sessionTtlDays": obj.get("sessionTtlDays"),
             "allowedChannels": obj.get("allowedChannels"),
             "allowedUsers": obj.get("allowedUsers"),

@@ -1605,7 +1605,7 @@ class CronApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Cron:
+    ) -> List[Cron]:
         """Get all cron jobs for an environment
 
 
@@ -1648,7 +1648,7 @@ class CronApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Cron",
+            '200': "List[Cron]",
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -1680,7 +1680,7 @@ class CronApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Cron]:
+    ) -> ApiResponse[List[Cron]]:
         """Get all cron jobs for an environment
 
 
@@ -1723,7 +1723,7 @@ class CronApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Cron",
+            '200': "List[Cron]",
             '404': None,
         }
         response_data = self.api_client.call_api(
@@ -1798,7 +1798,7 @@ class CronApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Cron",
+            '200': "List[Cron]",
             '404': None,
         }
         response_data = self.api_client.call_api(

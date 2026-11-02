@@ -37,8 +37,9 @@ class UpsertAgentOverlayRequest(BaseModel):
     system_prompt_append: Optional[StrictStr] = Field(default=None, description="Text appended to base system prompt", alias="systemPromptAppend")
     allowed_collections: Optional[List[StrictStr]] = Field(default=None, description="Vector DB collections", alias="allowedCollections")
     guardrail_preset: Optional[StrictStr] = Field(default=None, description="Guardrail preset", alias="guardrailPreset")
+    reasoning_effort: Optional[StrictStr] = Field(default=None, description="Override the reasoning effort. Must be one of the levels the effective model lists in capabilities.effortLevels. Omit or null to use the global agent value.", alias="reasoningEffort")
     version: Optional[StrictInt] = Field(default=None, description="Current version for optimistic concurrency")
-    __properties: ClassVar[List[str]] = ["modelId", "temperature", "maxTokens", "disabledSkills", "additionalSkills", "additionalTools", "disabledTools", "systemPromptAppend", "allowedCollections", "guardrailPreset", "version"]
+    __properties: ClassVar[List[str]] = ["modelId", "temperature", "maxTokens", "disabledSkills", "additionalSkills", "additionalTools", "disabledTools", "systemPromptAppend", "allowedCollections", "guardrailPreset", "reasoningEffort", "version"]
 
     @field_validator('guardrail_preset')
     def guardrail_preset_validate_enum(cls, value):
@@ -48,6 +49,16 @@ class UpsertAgentOverlayRequest(BaseModel):
 
         if value not in set(['official', 'official-sensitive', 'protected']):
             raise ValueError("must be one of enum values ('official', 'official-sensitive', 'protected')")
+        return value
+
+    @field_validator('reasoning_effort')
+    def reasoning_effort_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['low', 'medium', 'high', 'xhigh', 'max']):
+            raise ValueError("must be one of enum values ('low', 'medium', 'high', 'xhigh', 'max')")
         return value
 
     model_config = ConfigDict(
@@ -94,6 +105,11 @@ class UpsertAgentOverlayRequest(BaseModel):
         if self.guardrail_preset is None and "guardrail_preset" in self.model_fields_set:
             _dict['guardrailPreset'] = None
 
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoningEffort'] = None
+
         return _dict
 
     @classmethod
@@ -116,6 +132,7 @@ class UpsertAgentOverlayRequest(BaseModel):
             "systemPromptAppend": obj.get("systemPromptAppend"),
             "allowedCollections": obj.get("allowedCollections"),
             "guardrailPreset": obj.get("guardrailPreset"),
+            "reasoningEffort": obj.get("reasoningEffort"),
             "version": obj.get("version")
         })
         return _obj

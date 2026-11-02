@@ -427,7 +427,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_cron_jobs**
-> Cron list_cron_jobs(organisation, application, environment)
+> List[Cron] list_cron_jobs(organisation, application, environment)
 
 Get all cron jobs for an environment
 
@@ -487,7 +487,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Cron**](Cron.md)
+[**List[Cron]**](Cron.md)
 
 ### Authorization
 

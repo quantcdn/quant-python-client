@@ -61,6 +61,7 @@ class TestGetSlackBot200ResponseBot(unittest.TestCase):
                     ''
                     ],
                 long_context = True,
+                reasoning_effort = 'low',
                 session_ttl_days = 56,
                 allowed_channels = [
                     ''

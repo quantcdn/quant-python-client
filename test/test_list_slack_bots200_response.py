@@ -63,6 +63,7 @@ class TestListSlackBots200Response(unittest.TestCase):
                             ''
                             ], 
                         long_context = True, 
+                        reasoning_effort = 'low', 
                         session_ttl_days = 56, 
                         keywords_enabled = True, 
                         created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )

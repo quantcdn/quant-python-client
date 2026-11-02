@@ -55,6 +55,7 @@ class TestGetAgentOverlay200ResponseOverlay(unittest.TestCase):
                     ''
                     ],
                 guardrail_preset = '',
+                reasoning_effort = 'low',
                 version = 56
             )
         else:

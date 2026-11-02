@@ -40,6 +40,7 @@ class CreateSlackBotRequest(BaseModel):
     guardrail_preset: Optional[StrictStr] = Field(default=None, description="Guardrail preset name", alias="guardrailPreset")
     filter_policies: Optional[List[StrictStr]] = Field(default=None, description="Content filter policies", alias="filterPolicies")
     long_context: Optional[StrictBool] = Field(default=None, description="Enable long context mode", alias="longContext")
+    reasoning_effort: Optional[StrictStr] = Field(default=None, description="Reasoning effort (Anthropic effort). Must be one of the levels the model lists in capabilities.effortLevels. Unset uses the caller or model default.", alias="reasoningEffort")
     session_ttl_days: Optional[Annotated[int, Field(le=90, strict=True, ge=1)]] = Field(default=None, description="Session TTL in days", alias="sessionTtlDays")
     allowed_channels: Optional[List[StrictStr]] = Field(default=None, description="Slack channel IDs the bot may respond in", alias="allowedChannels")
     allowed_users: Optional[List[StrictStr]] = Field(default=None, description="Slack user IDs allowed to interact with the bot", alias="allowedUsers")
@@ -49,13 +50,23 @@ class CreateSlackBotRequest(BaseModel):
     agent_access_control: Optional[Dict[str, Any]] = Field(default=None, description="Agent-level access control settings", alias="agentAccessControl")
     keywords_enabled: Optional[StrictBool] = Field(default=None, description="Whether keyword triggers are enabled", alias="keywordsEnabled")
     keywords: Optional[List[StrictStr]] = Field(default=None, description="Keywords that trigger the bot")
-    __properties: ClassVar[List[str]] = ["name", "setupType", "systemPrompt", "modelId", "temperature", "maxTokens", "allowedTools", "assignedSkills", "allowedCollections", "allowedSubAgents", "guardrailPreset", "filterPolicies", "longContext", "sessionTtlDays", "allowedChannels", "allowedUsers", "deniedUsers", "allowGuests", "homeTabContent", "agentAccessControl", "keywordsEnabled", "keywords"]
+    __properties: ClassVar[List[str]] = ["name", "setupType", "systemPrompt", "modelId", "temperature", "maxTokens", "allowedTools", "assignedSkills", "allowedCollections", "allowedSubAgents", "guardrailPreset", "filterPolicies", "longContext", "reasoningEffort", "sessionTtlDays", "allowedChannels", "allowedUsers", "deniedUsers", "allowGuests", "homeTabContent", "agentAccessControl", "keywordsEnabled", "keywords"]
 
     @field_validator('setup_type')
     def setup_type_validate_enum(cls, value):
         """Validates the enum"""
         if value not in set(['quant', 'byo']):
             raise ValueError("must be one of enum values ('quant', 'byo')")
+        return value
+
+    @field_validator('reasoning_effort')
+    def reasoning_effort_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['low', 'medium', 'high', 'xhigh', 'max']):
+            raise ValueError("must be one of enum values ('low', 'medium', 'high', 'xhigh', 'max')")
         return value
 
     model_config = ConfigDict(
@@ -97,6 +108,11 @@ class CreateSlackBotRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoningEffort'] = None
+
         return _dict
 
     @classmethod
@@ -122,6 +138,7 @@ class CreateSlackBotRequest(BaseModel):
             "guardrailPreset": obj.get("guardrailPreset"),
             "filterPolicies": obj.get("filterPolicies"),
             "longContext": obj.get("longContext"),
+            "reasoningEffort": obj.get("reasoningEffort"),
             "sessionTtlDays": obj.get("sessionTtlDays"),
             "allowedChannels": obj.get("allowedChannels"),
             "allowedUsers": obj.get("allowedUsers"),

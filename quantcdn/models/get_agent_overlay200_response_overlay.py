@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
@@ -36,8 +36,19 @@ class GetAgentOverlay200ResponseOverlay(BaseModel):
     system_prompt_append: Optional[StrictStr] = Field(default=None, alias="systemPromptAppend")
     allowed_collections: Optional[List[StrictStr]] = Field(default=None, alias="allowedCollections")
     guardrail_preset: Optional[StrictStr] = Field(default=None, alias="guardrailPreset")
+    reasoning_effort: Optional[StrictStr] = Field(default=None, description="Reasoning effort for this organisation. Overrides the global agent value.", alias="reasoningEffort")
     version: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["modelId", "temperature", "maxTokens", "disabledSkills", "additionalSkills", "additionalTools", "disabledTools", "systemPromptAppend", "allowedCollections", "guardrailPreset", "version"]
+    __properties: ClassVar[List[str]] = ["modelId", "temperature", "maxTokens", "disabledSkills", "additionalSkills", "additionalTools", "disabledTools", "systemPromptAppend", "allowedCollections", "guardrailPreset", "reasoningEffort", "version"]
+
+    @field_validator('reasoning_effort')
+    def reasoning_effort_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['low', 'medium', 'high', 'xhigh', 'max']):
+            raise ValueError("must be one of enum values ('low', 'medium', 'high', 'xhigh', 'max')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -78,6 +89,11 @@ class GetAgentOverlay200ResponseOverlay(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoningEffort'] = None
+
         return _dict
 
     @classmethod
@@ -100,6 +116,7 @@ class GetAgentOverlay200ResponseOverlay(BaseModel):
             "systemPromptAppend": obj.get("systemPromptAppend"),
             "allowedCollections": obj.get("allowedCollections"),
             "guardrailPreset": obj.get("guardrailPreset"),
+            "reasoningEffort": obj.get("reasoningEffort"),
             "version": obj.get("version")
         })
         return _obj

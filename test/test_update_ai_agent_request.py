@@ -52,6 +52,7 @@ class TestUpdateAIAgentRequest(unittest.TestCase):
                     ''
                     ],
                 long_context = True,
+                reasoning_effort = 'low',
                 guardrail_preset = 'official',
                 filter_policies = [
                     ''

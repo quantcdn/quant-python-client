@@ -53,6 +53,7 @@ class TestGetAIAgent200ResponseAgent(unittest.TestCase):
                     ''
                     ],
                 long_context = True,
+                reasoning_effort = 'low',
                 guardrail_preset = '',
                 is_global = True,
                 has_overlay = True,

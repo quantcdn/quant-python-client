@@ -55,6 +55,7 @@ class TestUpsertAgentOverlayRequest(unittest.TestCase):
                     ''
                     ],
                 guardrail_preset = 'official',
+                reasoning_effort = 'low',
                 version = 56
             )
         else:

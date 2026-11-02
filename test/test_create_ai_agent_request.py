@@ -51,6 +51,7 @@ class TestCreateAIAgentRequest(unittest.TestCase):
                     ],
                 created_by = '',
                 long_context = True,
+                reasoning_effort = 'low',
                 guardrail_preset = 'official',
                 filter_policies = [
                     ''

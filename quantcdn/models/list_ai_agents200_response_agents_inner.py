@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
@@ -37,12 +37,23 @@ class ListAIAgents200ResponseAgentsInner(BaseModel):
     allowed_tools: Optional[List[StrictStr]] = Field(default=None, alias="allowedTools")
     assigned_skills: Optional[List[StrictStr]] = Field(default=None, alias="assignedSkills")
     long_context: Optional[StrictBool] = Field(default=None, alias="longContext")
+    reasoning_effort: Optional[StrictStr] = Field(default=None, description="Reasoning effort (Anthropic effort). Must be one of the levels the model lists in capabilities.effortLevels. Unset uses the caller or model default.", alias="reasoningEffort")
     guardrail_preset: Optional[StrictStr] = Field(default=None, alias="guardrailPreset")
     is_global: Optional[StrictBool] = Field(default=None, alias="isGlobal")
     has_overlay: Optional[StrictBool] = Field(default=None, alias="hasOverlay")
     created_at: Optional[datetime] = Field(default=None, alias="createdAt")
     updated_at: Optional[datetime] = Field(default=None, alias="updatedAt")
-    __properties: ClassVar[List[str]] = ["agentId", "name", "description", "group", "modelId", "temperature", "maxTokens", "allowedTools", "assignedSkills", "longContext", "guardrailPreset", "isGlobal", "hasOverlay", "createdAt", "updatedAt"]
+    __properties: ClassVar[List[str]] = ["agentId", "name", "description", "group", "modelId", "temperature", "maxTokens", "allowedTools", "assignedSkills", "longContext", "reasoningEffort", "guardrailPreset", "isGlobal", "hasOverlay", "createdAt", "updatedAt"]
+
+    @field_validator('reasoning_effort')
+    def reasoning_effort_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['low', 'medium', 'high', 'xhigh', 'max']):
+            raise ValueError("must be one of enum values ('low', 'medium', 'high', 'xhigh', 'max')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,6 +94,11 @@ class ListAIAgents200ResponseAgentsInner(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoningEffort'] = None
+
         return _dict
 
     @classmethod
@@ -105,6 +121,7 @@ class ListAIAgents200ResponseAgentsInner(BaseModel):
             "allowedTools": obj.get("allowedTools"),
             "assignedSkills": obj.get("assignedSkills"),
             "longContext": obj.get("longContext"),
+            "reasoningEffort": obj.get("reasoningEffort"),
             "guardrailPreset": obj.get("guardrailPreset"),
             "isGlobal": obj.get("isGlobal"),
             "hasOverlay": obj.get("hasOverlay"),

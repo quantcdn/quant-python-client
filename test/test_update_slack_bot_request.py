@@ -58,6 +58,7 @@ class TestUpdateSlackBotRequest(unittest.TestCase):
                     ''
                     ],
                 long_context = True,
+                reasoning_effort = 'low',
                 session_ttl_days = 1,
                 allowed_channels = [
                     ''

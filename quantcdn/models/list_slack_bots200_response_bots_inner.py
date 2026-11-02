@@ -43,10 +43,11 @@ class ListSlackBots200ResponseBotsInner(BaseModel):
     guardrail_preset: Optional[StrictStr] = Field(default=None, alias="guardrailPreset")
     filter_policies: Optional[List[StrictStr]] = Field(default=None, alias="filterPolicies")
     long_context: Optional[StrictBool] = Field(default=None, alias="longContext")
+    reasoning_effort: Optional[StrictStr] = Field(default=None, description="Reasoning effort (Anthropic effort). Must be one of the levels the model lists in capabilities.effortLevels. Unset uses the caller or model default.", alias="reasoningEffort")
     session_ttl_days: Optional[StrictInt] = Field(default=None, alias="sessionTtlDays")
     keywords_enabled: Optional[StrictBool] = Field(default=None, alias="keywordsEnabled")
     created_at: Optional[datetime] = Field(default=None, alias="createdAt")
-    __properties: ClassVar[List[str]] = ["botId", "name", "setupType", "status", "connected", "systemPrompt", "modelId", "temperature", "maxTokens", "allowedTools", "assignedSkills", "allowedCollections", "allowedSubAgents", "guardrailPreset", "filterPolicies", "longContext", "sessionTtlDays", "keywordsEnabled", "createdAt"]
+    __properties: ClassVar[List[str]] = ["botId", "name", "setupType", "status", "connected", "systemPrompt", "modelId", "temperature", "maxTokens", "allowedTools", "assignedSkills", "allowedCollections", "allowedSubAgents", "guardrailPreset", "filterPolicies", "longContext", "reasoningEffort", "sessionTtlDays", "keywordsEnabled", "createdAt"]
 
     @field_validator('setup_type')
     def setup_type_validate_enum(cls, value):
@@ -66,6 +67,16 @@ class ListSlackBots200ResponseBotsInner(BaseModel):
 
         if value not in set(['active', 'inactive']):
             raise ValueError("must be one of enum values ('active', 'inactive')")
+        return value
+
+    @field_validator('reasoning_effort')
+    def reasoning_effort_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['low', 'medium', 'high', 'xhigh', 'max']):
+            raise ValueError("must be one of enum values ('low', 'medium', 'high', 'xhigh', 'max')")
         return value
 
     model_config = ConfigDict(
@@ -107,6 +118,11 @@ class ListSlackBots200ResponseBotsInner(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoningEffort'] = None
+
         return _dict
 
     @classmethod
@@ -135,6 +151,7 @@ class ListSlackBots200ResponseBotsInner(BaseModel):
             "guardrailPreset": obj.get("guardrailPreset"),
             "filterPolicies": obj.get("filterPolicies"),
             "longContext": obj.get("longContext"),
+            "reasoningEffort": obj.get("reasoningEffort"),
             "sessionTtlDays": obj.get("sessionTtlDays"),
             "keywordsEnabled": obj.get("keywordsEnabled"),
             "createdAt": obj.get("createdAt")

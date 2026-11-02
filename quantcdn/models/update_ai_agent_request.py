@@ -38,9 +38,20 @@ class UpdateAIAgentRequest(BaseModel):
     allowed_collections: Optional[List[StrictStr]] = Field(default=None, alias="allowedCollections")
     assigned_skills: Optional[List[StrictStr]] = Field(default=None, description="Skill IDs to assign to this agent", alias="assignedSkills")
     long_context: Optional[StrictBool] = Field(default=None, description="Enable 1M context window support", alias="longContext")
+    reasoning_effort: Optional[StrictStr] = Field(default=None, description="Reasoning effort (Anthropic effort). Must be one of the levels the model lists in capabilities.effortLevels. Unset uses the caller or model default. null clears it.", alias="reasoningEffort")
     guardrail_preset: Optional[StrictStr] = Field(default=None, description="Guardrail preset name", alias="guardrailPreset")
     filter_policies: Optional[List[StrictStr]] = Field(default=None, description="Filter policy IDs to apply to this agent's inference requests", alias="filterPolicies")
-    __properties: ClassVar[List[str]] = ["name", "description", "group", "systemPrompt", "temperature", "modelId", "maxTokens", "allowedTools", "allowedCollections", "assignedSkills", "longContext", "guardrailPreset", "filterPolicies"]
+    __properties: ClassVar[List[str]] = ["name", "description", "group", "systemPrompt", "temperature", "modelId", "maxTokens", "allowedTools", "allowedCollections", "assignedSkills", "longContext", "reasoningEffort", "guardrailPreset", "filterPolicies"]
+
+    @field_validator('reasoning_effort')
+    def reasoning_effort_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['low', 'medium', 'high', 'xhigh', 'max']):
+            raise ValueError("must be one of enum values ('low', 'medium', 'high', 'xhigh', 'max')")
+        return value
 
     @field_validator('guardrail_preset')
     def guardrail_preset_validate_enum(cls, value):
@@ -91,6 +102,11 @@ class UpdateAIAgentRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if reasoning_effort (nullable) is None
+        # and model_fields_set contains the field
+        if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
+            _dict['reasoningEffort'] = None
+
         # set to None if guardrail_preset (nullable) is None
         # and model_fields_set contains the field
         if self.guardrail_preset is None and "guardrail_preset" in self.model_fields_set:
@@ -119,6 +135,7 @@ class UpdateAIAgentRequest(BaseModel):
             "allowedCollections": obj.get("allowedCollections"),
             "assignedSkills": obj.get("assignedSkills"),
             "longContext": obj.get("longContext"),
+            "reasoningEffort": obj.get("reasoningEffort"),
             "guardrailPreset": obj.get("guardrailPreset"),
             "filterPolicies": obj.get("filterPolicies")
         })

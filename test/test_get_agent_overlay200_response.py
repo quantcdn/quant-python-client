@@ -56,6 +56,7 @@ class TestGetAgentOverlay200Response(unittest.TestCase):
                         ''
                         ], 
                     guardrail_preset = '', 
+                    reasoning_effort = 'low', 
                     version = 56, ),
                 base = quantcdn.models.get_agent_overlay_200_response_base.getAgentOverlay_200_response_base(
                     agent_id = '', 
