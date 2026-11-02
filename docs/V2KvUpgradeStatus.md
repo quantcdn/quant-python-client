@@ -8,8 +8,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **phase** | **str** | The current upgrade phase. | 
 **dry_run** | **bool** |  | 
-**v1_table** | **str** |  | 
-**v2_table** | **str** |  | 
 **started_at** | **datetime** |  | 
 **frozen_at** | **datetime** | When writes were last frozen. | [optional] 
 **switched_at** | **datetime** |  | [optional] 

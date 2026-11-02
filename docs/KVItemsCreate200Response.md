@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **success** | **bool** |  | [optional] 
 **key** | **str** |  | [optional] 
-**value** | **str** |  | [optional] 
+**value** | **str** | The value written. &#39;[ENCRYPTED]&#39; when secret is true: secret values are write-only through the API. | [optional] 
 
 ## Example
 

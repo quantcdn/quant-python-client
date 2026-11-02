@@ -6,7 +6,6 @@ Only while an upgrade keeps the format 1 table after the switch.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | 
 **size_bytes** | **int** |  | 
 
 ## Example

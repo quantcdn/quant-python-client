@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 Get CDN access logs for a project
 
-Retrieves CDN access log entries for a QuantGov Cloud project. Results are always scoped to the project; the optional filter can only narrow them. Entries are returned oldest first; pass nextToken from the previous response to fetch the next page. Logs are retained for 30 days.
+Retrieves CDN access log entries for a project. Results are always scoped to the project; the optional filter can only narrow them. Entries are returned oldest first; pass nextToken from the previous response to fetch the next page. Logs are retained for 30 days. For QuantCDN (Fastly) projects, entries are up to about 30 minutes behind, and a slow query can return an empty page with a nextToken: call again with it to collect the entries.
 
 ### Example
 
@@ -104,7 +104,7 @@ Name | Type | Description  | Notes
 **400** | Invalid filter or time range |  -  |
 **401** | Unauthenticated |  -  |
 **403** | Token lacks the projects:read scope or the user lacks browse_projects |  -  |
-**404** | The project is not a QuantGov Cloud project, or its access logs are not enabled yet |  -  |
+**404** | Access logs are not available for this project, or are not enabled yet |  -  |
 **422** | Validation error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -264,6 +264,8 @@ void (empty response body)
 **204** | The request has succeeded. |  -  |
 **400** | The server could not understand the request due to invalid syntax. |  -  |
 **403** | Access is forbidden. |  -  |
+**409** | KV_LEDGER_PRESENT: a KV store of the project has a ledger, and a ledger cannot be deleted before its retention ends. Nothing is deleted. The body lists the store IDs in stores. Otherwise every KV store of the project is deleted with the project, and a store linked from another project is only unlinked. |  -  |
+**503** | KV_STORES_UNREADABLE: the KV stores or their ledgers could not be read, so nothing is deleted. KV_STORE_DELETE_FAILED: a KV store could not be deleted, so the project is kept (the message names the stores already deleted). Both are retryable. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

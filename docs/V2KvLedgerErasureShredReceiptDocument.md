@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **var_json** | **str** | The RFC 8785 (JCS) text of the receipt that was signed. | 
 **signature** | **str** | Base64 DER ECDSA P-256 signature over the SHA-256 of the UTF-8 bytes of json. | 
-**key_id** | **str** | The KMS key ARN of the ledger key. | 
+**key_id** | **str** | The public id of the ledger signing key: the KMS key id (a UUID). It holds no account id or region. Documents signed before 2026-10-29 may name the full key ARN inside their signed json; a verifier matches the key id at the end of that ARN. | 
 **algorithm** | **str** |  | 
 **receipt** | [**V2KvLedgerErasureShredReceiptBody**](V2KvLedgerErasureShredReceiptBody.md) |  | 
 

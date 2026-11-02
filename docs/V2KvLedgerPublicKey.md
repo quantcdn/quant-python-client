@@ -6,7 +6,7 @@ The public half of the KMS key that signs ledger digests, verification reports a
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key_id** | **str** | The KMS key ARN. | 
+**key_id** | **str** | The public id of the ledger signing key: the KMS key id (a UUID). It holds no account id or region. Documents signed before 2026-10-29 may name the full key ARN inside their signed json; a verifier matches the key id at the end of that ARN. | 
 **algorithm** | **str** |  | 
 **curve** | **str** |  | 
 **public_key_pem** | **str** | SubjectPublicKeyInfo, PEM. | 

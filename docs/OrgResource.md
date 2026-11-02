@@ -9,10 +9,10 @@ Name | Type | Description | Notes
 **resource_id** | **str** |  | [optional] 
 **type** | **str** |  | [optional] 
 **name** | **str** |  | [optional] 
-**status** | **str** |  | [optional] 
+**status** | **str** | creating and updating apply to a CI runner pool | [optional] 
 **scope** | **str** | org for resources managed by these endpoints. app rows are compatibility records for an application-managed cache and cannot be mutated here. | [optional] 
 **config** | **object** | Type-specific settings, such as dataStorageMaxGb for a cache | [optional] 
-**physical** | **object** | Provisioned detail: bucket and region for object storage, cache identifier and endpoint for a cache | [optional] 
+**physical** | **object** | Provisioned detail: bucket and region for object storage, cache identifier and endpoint for a cache. Not returned for a CI runner pool. | [optional] 
 **created_at** | **datetime** |  | [optional] 
 
 ## Example
