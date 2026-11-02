@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **system_prompt_append** | **str** |  | [optional] 
 **allowed_collections** | **List[str]** |  | [optional] 
 **guardrail_preset** | **str** |  | [optional] 
+**reasoning_effort** | **str** | Reasoning effort for this organisation. Overrides the global agent value. | [optional] 
 **version** | **int** |  | [optional] 
 
 ## Example
