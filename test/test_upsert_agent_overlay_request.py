@@ -54,7 +54,18 @@ class TestUpsertAgentOverlayRequest(unittest.TestCase):
                 allowed_collections = [
                     ''
                     ],
+                mcp_servers = [
+                    quantcdn.models.create_ai_agent_request_mcp_servers_inner.createAIAgent_request_mcpServers_inner(
+                        server = 'wr1c2v7s6djuy1zmet', 
+                        tools = [
+                            ''
+                            ], )
+                    ],
                 guardrail_preset = 'official',
+                long_context = True,
+                filter_policies = [
+                    ''
+                    ],
                 reasoning_effort = 'low',
                 version = 56
             )

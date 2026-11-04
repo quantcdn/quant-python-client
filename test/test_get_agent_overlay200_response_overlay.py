@@ -54,8 +54,19 @@ class TestGetAgentOverlay200ResponseOverlay(unittest.TestCase):
                 allowed_collections = [
                     ''
                     ],
+                mcp_servers = [
+                    quantcdn.models.get_agent_overlay_200_response_overlay_mcp_servers_inner.getAgentOverlay_200_response_overlay_mcpServers_inner(
+                        server = '', 
+                        tools = [
+                            ''
+                            ], )
+                    ],
                 guardrail_preset = '',
                 reasoning_effort = 'low',
+                long_context = True,
+                filter_policies = [
+                    ''
+                    ],
                 version = 56
             )
         else:

@@ -17,9 +17,10 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
+from quantcdn.models.create_ai_agent_request_mcp_servers_inner import CreateAIAgentRequestMcpServersInner
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -36,10 +37,13 @@ class UpsertAgentOverlayRequest(BaseModel):
     disabled_tools: Optional[List[StrictStr]] = Field(default=None, description="Tool names to remove", alias="disabledTools")
     system_prompt_append: Optional[StrictStr] = Field(default=None, description="Text appended to base system prompt", alias="systemPromptAppend")
     allowed_collections: Optional[List[StrictStr]] = Field(default=None, description="Vector DB collections", alias="allowedCollections")
+    mcp_servers: Optional[List[CreateAIAgentRequestMcpServersInner]] = Field(default=None, description="Registered MCP servers to attach. The agent gets the tools of each server in dashboard chat and in QuantCode. The overlay PUT replaces the whole overlay: omit the field or send an empty array to remove every attachment.", alias="mcpServers")
     guardrail_preset: Optional[StrictStr] = Field(default=None, description="Guardrail preset", alias="guardrailPreset")
+    long_context: Optional[StrictBool] = Field(default=None, description="Force the 1M context window on (true) or off (false) for this organisation. Omit or null to use the platform default.", alias="longContext")
+    filter_policies: Optional[List[StrictStr]] = Field(default=None, description="Filter policy IDs applied to this agent's requests for this organisation, with any organisation-wide mandatory policies", alias="filterPolicies")
     reasoning_effort: Optional[StrictStr] = Field(default=None, description="Override the reasoning effort. Must be one of the levels the effective model lists in capabilities.effortLevels. Omit or null to use the global agent value.", alias="reasoningEffort")
     version: Optional[StrictInt] = Field(default=None, description="Current version for optimistic concurrency")
-    __properties: ClassVar[List[str]] = ["modelId", "temperature", "maxTokens", "disabledSkills", "additionalSkills", "additionalTools", "disabledTools", "systemPromptAppend", "allowedCollections", "guardrailPreset", "reasoningEffort", "version"]
+    __properties: ClassVar[List[str]] = ["modelId", "temperature", "maxTokens", "disabledSkills", "additionalSkills", "additionalTools", "disabledTools", "systemPromptAppend", "allowedCollections", "mcpServers", "guardrailPreset", "longContext", "filterPolicies", "reasoningEffort", "version"]
 
     @field_validator('guardrail_preset')
     def guardrail_preset_validate_enum(cls, value):
@@ -100,10 +104,22 @@ class UpsertAgentOverlayRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in mcp_servers (list)
+        _items = []
+        if self.mcp_servers:
+            for _item_mcp_servers in self.mcp_servers:
+                if _item_mcp_servers:
+                    _items.append(_item_mcp_servers.to_dict())
+            _dict['mcpServers'] = _items
         # set to None if guardrail_preset (nullable) is None
         # and model_fields_set contains the field
         if self.guardrail_preset is None and "guardrail_preset" in self.model_fields_set:
             _dict['guardrailPreset'] = None
+
+        # set to None if long_context (nullable) is None
+        # and model_fields_set contains the field
+        if self.long_context is None and "long_context" in self.model_fields_set:
+            _dict['longContext'] = None
 
         # set to None if reasoning_effort (nullable) is None
         # and model_fields_set contains the field
@@ -131,7 +147,10 @@ class UpsertAgentOverlayRequest(BaseModel):
             "disabledTools": obj.get("disabledTools"),
             "systemPromptAppend": obj.get("systemPromptAppend"),
             "allowedCollections": obj.get("allowedCollections"),
+            "mcpServers": [CreateAIAgentRequestMcpServersInner.from_dict(_item) for _item in obj["mcpServers"]] if obj.get("mcpServers") is not None else None,
             "guardrailPreset": obj.get("guardrailPreset"),
+            "longContext": obj.get("longContext"),
+            "filterPolicies": obj.get("filterPolicies"),
             "reasoningEffort": obj.get("reasoningEffort"),
             "version": obj.get("version")
         })

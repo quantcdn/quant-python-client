@@ -20,6 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
+from quantcdn.models.create_ai_agent_request_mcp_servers_inner import CreateAIAgentRequestMcpServersInner
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -40,8 +41,9 @@ class UpdateAIAgentRequest(BaseModel):
     long_context: Optional[StrictBool] = Field(default=None, description="Enable 1M context window support", alias="longContext")
     reasoning_effort: Optional[StrictStr] = Field(default=None, description="Reasoning effort (Anthropic effort). Must be one of the levels the model lists in capabilities.effortLevels. Unset uses the caller or model default. null clears it.", alias="reasoningEffort")
     guardrail_preset: Optional[StrictStr] = Field(default=None, description="Guardrail preset name", alias="guardrailPreset")
+    mcp_servers: Optional[List[CreateAIAgentRequestMcpServersInner]] = Field(default=None, description="Registered MCP servers to attach. The agent gets the tools of each server in dashboard chat and in QuantCode. On update, an empty array removes every attachment.", alias="mcpServers")
     filter_policies: Optional[List[StrictStr]] = Field(default=None, description="Filter policy IDs to apply to this agent's inference requests", alias="filterPolicies")
-    __properties: ClassVar[List[str]] = ["name", "description", "group", "systemPrompt", "temperature", "modelId", "maxTokens", "allowedTools", "allowedCollections", "assignedSkills", "longContext", "reasoningEffort", "guardrailPreset", "filterPolicies"]
+    __properties: ClassVar[List[str]] = ["name", "description", "group", "systemPrompt", "temperature", "modelId", "maxTokens", "allowedTools", "allowedCollections", "assignedSkills", "longContext", "reasoningEffort", "guardrailPreset", "mcpServers", "filterPolicies"]
 
     @field_validator('reasoning_effort')
     def reasoning_effort_validate_enum(cls, value):
@@ -102,6 +104,13 @@ class UpdateAIAgentRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in mcp_servers (list)
+        _items = []
+        if self.mcp_servers:
+            for _item_mcp_servers in self.mcp_servers:
+                if _item_mcp_servers:
+                    _items.append(_item_mcp_servers.to_dict())
+            _dict['mcpServers'] = _items
         # set to None if reasoning_effort (nullable) is None
         # and model_fields_set contains the field
         if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
@@ -137,6 +146,7 @@ class UpdateAIAgentRequest(BaseModel):
             "longContext": obj.get("longContext"),
             "reasoningEffort": obj.get("reasoningEffort"),
             "guardrailPreset": obj.get("guardrailPreset"),
+            "mcpServers": [CreateAIAgentRequestMcpServersInner.from_dict(_item) for _item in obj["mcpServers"]] if obj.get("mcpServers") is not None else None,
             "filterPolicies": obj.get("filterPolicies")
         })
         return _obj

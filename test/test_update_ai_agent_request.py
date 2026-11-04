@@ -54,6 +54,13 @@ class TestUpdateAIAgentRequest(unittest.TestCase):
                 long_context = True,
                 reasoning_effort = 'low',
                 guardrail_preset = 'official',
+                mcp_servers = [
+                    quantcdn.models.create_ai_agent_request_mcp_servers_inner.createAIAgent_request_mcpServers_inner(
+                        server = 'wr1c2v7s6djuy1zmet', 
+                        tools = [
+                            ''
+                            ], )
+                    ],
                 filter_policies = [
                     ''
                     ]

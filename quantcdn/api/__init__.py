@@ -23,6 +23,7 @@ from quantcdn.api.ai_vector_database_api import AIVectorDatabaseApi
 from quantcdn.api.applications_api import ApplicationsApi
 from quantcdn.api.backup_management_api import BackupManagementApi
 from quantcdn.api.cdn_metrics_api import CDNMetricsApi
+from quantcdn.api.ci_values_api import CIValuesApi
 from quantcdn.api.commands_api import CommandsApi
 from quantcdn.api.compose_api import ComposeApi
 from quantcdn.api.containers_api import ContainersApi
