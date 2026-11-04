@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 **long_context** | **bool** |  | [optional] 
 **reasoning_effort** | **str** | Reasoning effort (Anthropic effort). Must be one of the levels the model lists in capabilities.effortLevels. Unset uses the caller or model default. | [optional] 
 **guardrail_preset** | **str** |  | [optional] 
+**filter_policies** | **List[str]** | Filter policy IDs applied to this agent&#39;s requests (organisation agents) | [optional] 
+**mcp_servers** | [**List[ListAIAgents200ResponseAgentsInnerMcpServersInner]**](ListAIAgents200ResponseAgentsInnerMcpServersInner.md) | Attached MCP servers. A platform agent shows its organisation overlay&#39;s attachments. | [optional] 
 **is_global** | **bool** |  | [optional] 
 **has_overlay** | **bool** |  | [optional] 
 **created_at** | **datetime** |  | [optional] 

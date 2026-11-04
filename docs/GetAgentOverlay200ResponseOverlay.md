@@ -14,8 +14,11 @@ Name | Type | Description | Notes
 **disabled_tools** | **List[str]** |  | [optional] 
 **system_prompt_append** | **str** |  | [optional] 
 **allowed_collections** | **List[str]** |  | [optional] 
+**mcp_servers** | [**List[GetAgentOverlay200ResponseOverlayMcpServersInner]**](GetAgentOverlay200ResponseOverlayMcpServersInner.md) |  | [optional] 
 **guardrail_preset** | **str** |  | [optional] 
 **reasoning_effort** | **str** | Reasoning effort for this organisation. Overrides the global agent value. | [optional] 
+**long_context** | **bool** |  | [optional] 
+**filter_policies** | **List[str]** |  | [optional] 
 **version** | **int** |  | [optional] 
 
 ## Example
