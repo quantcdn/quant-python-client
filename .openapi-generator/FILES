@@ -52,6 +52,7 @@ docs/BackupManagementApi.md
 docs/BulkSetEnvironmentVariablesRequest.md
 docs/BulkSetEnvironmentVariablesRequestEnvironmentInner.md
 docs/CDNMetricsApi.md
+docs/CIValuesApi.md
 docs/ChatInference200Response.md
 docs/ChatInference200ResponseResponse.md
 docs/ChatInference200ResponseResponseToolUse.md
@@ -89,6 +90,9 @@ docs/ChatWithAIAgent200ResponseResponse.md
 docs/ChatWithAIAgent200ResponseResponseUsage.md
 docs/ChatWithAIAgent202Response.md
 docs/ChatWithAIAgentRequest.md
+docs/CiValue.md
+docs/CiValueError.md
+docs/CiValueWriteResult.md
 docs/Command.md
 docs/CommandsApi.md
 docs/Compose.md
@@ -108,6 +112,7 @@ docs/CrawlersRun200Response.md
 docs/CrawlersRunRequest.md
 docs/CreateAIAgent201Response.md
 docs/CreateAIAgentRequest.md
+docs/CreateAIAgentRequestMcpServersInner.md
 docs/CreateAISession201Response.md
 docs/CreateAISessionRequest.md
 docs/CreateAISessionRequestInitialMessagesInner.md
@@ -194,6 +199,7 @@ docs/GetAIToolExecutionStatus404Response.md
 docs/GetAgentOverlay200Response.md
 docs/GetAgentOverlay200ResponseBase.md
 docs/GetAgentOverlay200ResponseOverlay.md
+docs/GetAgentOverlay200ResponseOverlayMcpServersInner.md
 docs/GetCustomTool200Response.md
 docs/GetCustomTool200ResponseTool.md
 docs/GetDependencyGraph200Response.md
@@ -225,6 +231,8 @@ docs/GetMyUsage200ResponseQuota.md
 docs/GetMyUsage200ResponseQuotaDailyLimit.md
 docs/GetMyUsage200ResponseQuotaMonthlyLimit.md
 docs/GetOrgResourceCredentials200Response.md
+docs/GetProjectEdgeEvents200Response.md
+docs/GetProjectEdgeEvents200ResponseEventsInner.md
 docs/GetProjectLogs200Response.md
 docs/GetProjectLogs200ResponseLogsInner.md
 docs/GetProjectLogs400Response.md
@@ -262,6 +270,7 @@ docs/KVLinkToProject200Response.md
 docs/KVLinkToProjectRequest.md
 docs/ListAIAgents200Response.md
 docs/ListAIAgents200ResponseAgentsInner.md
+docs/ListAIAgents200ResponseAgentsInnerMcpServersInner.md
 docs/ListAIModels200Response.md
 docs/ListAIModels200ResponseModelsInner.md
 docs/ListAIModels200ResponseModelsInnerCapabilities.md
@@ -277,6 +286,7 @@ docs/ListApplications503Response.md
 docs/ListBackups200Response.md
 docs/ListBackups200ResponseBackupsInner.md
 docs/ListBackups422Response.md
+docs/ListCiValues200Response.md
 docs/ListCustomTools200Response.md
 docs/ListCustomTools200ResponseToolsInner.md
 docs/ListFiles200Response.md
@@ -335,6 +345,7 @@ docs/PurgeCreateRequest.md
 docs/PurgeOrgResource200Response.md
 docs/PurgeOrgResourceRequest.md
 docs/PutApplicationMetadata400Response.md
+docs/PutCiValueRequest.md
 docs/QueryVectorCollection200Response.md
 docs/QueryVectorCollection200ResponsePagination.md
 docs/QueryVectorCollection200ResponseResultsInner.md
@@ -649,6 +660,7 @@ quantcdn/api/ai_vector_database_api.py
 quantcdn/api/applications_api.py
 quantcdn/api/backup_management_api.py
 quantcdn/api/cdn_metrics_api.py
+quantcdn/api/ci_values_api.py
 quantcdn/api/commands_api.py
 quantcdn/api/compose_api.py
 quantcdn/api/containers_api.py
@@ -743,6 +755,9 @@ quantcdn/models/chat_with_ai_agent200_response_response.py
 quantcdn/models/chat_with_ai_agent200_response_response_usage.py
 quantcdn/models/chat_with_ai_agent202_response.py
 quantcdn/models/chat_with_ai_agent_request.py
+quantcdn/models/ci_value.py
+quantcdn/models/ci_value_error.py
+quantcdn/models/ci_value_write_result.py
 quantcdn/models/command.py
 quantcdn/models/compose.py
 quantcdn/models/container.py
@@ -757,6 +772,7 @@ quantcdn/models/crawlers_run200_response.py
 quantcdn/models/crawlers_run_request.py
 quantcdn/models/create_ai_agent201_response.py
 quantcdn/models/create_ai_agent_request.py
+quantcdn/models/create_ai_agent_request_mcp_servers_inner.py
 quantcdn/models/create_ai_session201_response.py
 quantcdn/models/create_ai_session_request.py
 quantcdn/models/create_ai_session_request_initial_messages_inner.py
@@ -828,6 +844,7 @@ quantcdn/models/extend_ai_session_request.py
 quantcdn/models/get_agent_overlay200_response.py
 quantcdn/models/get_agent_overlay200_response_base.py
 quantcdn/models/get_agent_overlay200_response_overlay.py
+quantcdn/models/get_agent_overlay200_response_overlay_mcp_servers_inner.py
 quantcdn/models/get_ai_agent200_response.py
 quantcdn/models/get_ai_agent200_response_agent.py
 quantcdn/models/get_ai_model200_response.py
@@ -871,6 +888,8 @@ quantcdn/models/get_my_usage200_response_quota.py
 quantcdn/models/get_my_usage200_response_quota_daily_limit.py
 quantcdn/models/get_my_usage200_response_quota_monthly_limit.py
 quantcdn/models/get_org_resource_credentials200_response.py
+quantcdn/models/get_project_edge_events200_response.py
+quantcdn/models/get_project_edge_events200_response_events_inner.py
 quantcdn/models/get_project_logs200_response.py
 quantcdn/models/get_project_logs200_response_logs_inner.py
 quantcdn/models/get_project_logs400_response.py
@@ -905,6 +924,7 @@ quantcdn/models/kv_link_to_project200_response.py
 quantcdn/models/kv_link_to_project_request.py
 quantcdn/models/list_ai_agents200_response.py
 quantcdn/models/list_ai_agents200_response_agents_inner.py
+quantcdn/models/list_ai_agents200_response_agents_inner_mcp_servers_inner.py
 quantcdn/models/list_ai_models200_response.py
 quantcdn/models/list_ai_models200_response_models_inner.py
 quantcdn/models/list_ai_models200_response_models_inner_capabilities.py
@@ -920,6 +940,7 @@ quantcdn/models/list_applications503_response.py
 quantcdn/models/list_backups200_response.py
 quantcdn/models/list_backups200_response_backups_inner.py
 quantcdn/models/list_backups422_response.py
+quantcdn/models/list_ci_values200_response.py
 quantcdn/models/list_custom_tools200_response.py
 quantcdn/models/list_custom_tools200_response_tools_inner.py
 quantcdn/models/list_files200_response.py
@@ -974,6 +995,7 @@ quantcdn/models/purge_create_request.py
 quantcdn/models/purge_org_resource200_response.py
 quantcdn/models/purge_org_resource_request.py
 quantcdn/models/put_application_metadata400_response.py
+quantcdn/models/put_ci_value_request.py
 quantcdn/models/query_vector_collection200_response.py
 quantcdn/models/query_vector_collection200_response_pagination.py
 quantcdn/models/query_vector_collection200_response_results_inner.py
@@ -1345,6 +1367,10 @@ test/test_chat_with_ai_agent200_response_response.py
 test/test_chat_with_ai_agent200_response_response_usage.py
 test/test_chat_with_ai_agent202_response.py
 test/test_chat_with_ai_agent_request.py
+test/test_ci_value.py
+test/test_ci_value_error.py
+test/test_ci_value_write_result.py
+test/test_ci_values_api.py
 test/test_command.py
 test/test_commands_api.py
 test/test_compose.py
@@ -1364,6 +1390,7 @@ test/test_crawlers_run200_response.py
 test/test_crawlers_run_request.py
 test/test_create_ai_agent201_response.py
 test/test_create_ai_agent_request.py
+test/test_create_ai_agent_request_mcp_servers_inner.py
 test/test_create_ai_session201_response.py
 test/test_create_ai_session_request.py
 test/test_create_ai_session_request_initial_messages_inner.py
@@ -1438,6 +1465,7 @@ test/test_extend_ai_session_request.py
 test/test_get_agent_overlay200_response.py
 test/test_get_agent_overlay200_response_base.py
 test/test_get_agent_overlay200_response_overlay.py
+test/test_get_agent_overlay200_response_overlay_mcp_servers_inner.py
 test/test_get_ai_agent200_response.py
 test/test_get_ai_agent200_response_agent.py
 test/test_get_ai_model200_response.py
@@ -1481,6 +1509,8 @@ test/test_get_my_usage200_response_quota.py
 test/test_get_my_usage200_response_quota_daily_limit.py
 test/test_get_my_usage200_response_quota_monthly_limit.py
 test/test_get_org_resource_credentials200_response.py
+test/test_get_project_edge_events200_response.py
+test/test_get_project_edge_events200_response_events_inner.py
 test/test_get_project_logs200_response.py
 test/test_get_project_logs200_response_logs_inner.py
 test/test_get_project_logs400_response.py
@@ -1518,6 +1548,7 @@ test/test_kv_link_to_project200_response.py
 test/test_kv_link_to_project_request.py
 test/test_list_ai_agents200_response.py
 test/test_list_ai_agents200_response_agents_inner.py
+test/test_list_ai_agents200_response_agents_inner_mcp_servers_inner.py
 test/test_list_ai_models200_response.py
 test/test_list_ai_models200_response_models_inner.py
 test/test_list_ai_models200_response_models_inner_capabilities.py
@@ -1533,6 +1564,7 @@ test/test_list_applications503_response.py
 test/test_list_backups200_response.py
 test/test_list_backups200_response_backups_inner.py
 test/test_list_backups422_response.py
+test/test_list_ci_values200_response.py
 test/test_list_custom_tools200_response.py
 test/test_list_custom_tools200_response_tools_inner.py
 test/test_list_files200_response.py
@@ -1591,6 +1623,7 @@ test/test_purge_create_request.py
 test/test_purge_org_resource200_response.py
 test/test_purge_org_resource_request.py
 test/test_put_application_metadata400_response.py
+test/test_put_ci_value_request.py
 test/test_query_vector_collection200_response.py
 test/test_query_vector_collection200_response_pagination.py
 test/test_query_vector_collection200_response_results_inner.py

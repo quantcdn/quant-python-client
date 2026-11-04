@@ -19,6 +19,8 @@ Name | Type | Description | Notes
 **long_context** | **bool** | Whether 1M context window is enabled | [optional] 
 **reasoning_effort** | **str** | Reasoning effort (Anthropic effort). Must be one of the levels the model lists in capabilities.effortLevels. Unset uses the caller or model default. | [optional] 
 **guardrail_preset** | **str** | Guardrail preset name | [optional] 
+**filter_policies** | **List[str]** | Filter policy IDs applied to this agent&#39;s requests (organisation agents) | [optional] 
+**mcp_servers** | [**List[ListAIAgents200ResponseAgentsInnerMcpServersInner]**](ListAIAgents200ResponseAgentsInnerMcpServersInner.md) | Attached MCP servers. A platform agent shows its organisation overlay&#39;s attachments. | [optional] 
 **is_global** | **bool** | Whether this is a platform-managed global agent | [optional] 
 **has_overlay** | **bool** | Whether the requesting org has a per-org overlay for this global agent | [optional] 
 **created_by** | **str** |  | [optional] 
