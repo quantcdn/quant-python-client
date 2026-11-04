@@ -17,8 +17,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from quantcdn.models.get_agent_overlay200_response_overlay_mcp_servers_inner import GetAgentOverlay200ResponseOverlayMcpServersInner
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -35,10 +36,13 @@ class GetAgentOverlay200ResponseOverlay(BaseModel):
     disabled_tools: Optional[List[StrictStr]] = Field(default=None, alias="disabledTools")
     system_prompt_append: Optional[StrictStr] = Field(default=None, alias="systemPromptAppend")
     allowed_collections: Optional[List[StrictStr]] = Field(default=None, alias="allowedCollections")
+    mcp_servers: Optional[List[GetAgentOverlay200ResponseOverlayMcpServersInner]] = Field(default=None, alias="mcpServers")
     guardrail_preset: Optional[StrictStr] = Field(default=None, alias="guardrailPreset")
     reasoning_effort: Optional[StrictStr] = Field(default=None, description="Reasoning effort for this organisation. Overrides the global agent value.", alias="reasoningEffort")
+    long_context: Optional[StrictBool] = Field(default=None, alias="longContext")
+    filter_policies: Optional[List[StrictStr]] = Field(default=None, alias="filterPolicies")
     version: Optional[StrictInt] = None
-    __properties: ClassVar[List[str]] = ["modelId", "temperature", "maxTokens", "disabledSkills", "additionalSkills", "additionalTools", "disabledTools", "systemPromptAppend", "allowedCollections", "guardrailPreset", "reasoningEffort", "version"]
+    __properties: ClassVar[List[str]] = ["modelId", "temperature", "maxTokens", "disabledSkills", "additionalSkills", "additionalTools", "disabledTools", "systemPromptAppend", "allowedCollections", "mcpServers", "guardrailPreset", "reasoningEffort", "longContext", "filterPolicies", "version"]
 
     @field_validator('reasoning_effort')
     def reasoning_effort_validate_enum(cls, value):
@@ -89,6 +93,13 @@ class GetAgentOverlay200ResponseOverlay(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in mcp_servers (list)
+        _items = []
+        if self.mcp_servers:
+            for _item_mcp_servers in self.mcp_servers:
+                if _item_mcp_servers:
+                    _items.append(_item_mcp_servers.to_dict())
+            _dict['mcpServers'] = _items
         # set to None if reasoning_effort (nullable) is None
         # and model_fields_set contains the field
         if self.reasoning_effort is None and "reasoning_effort" in self.model_fields_set:
@@ -115,8 +126,11 @@ class GetAgentOverlay200ResponseOverlay(BaseModel):
             "disabledTools": obj.get("disabledTools"),
             "systemPromptAppend": obj.get("systemPromptAppend"),
             "allowedCollections": obj.get("allowedCollections"),
+            "mcpServers": [GetAgentOverlay200ResponseOverlayMcpServersInner.from_dict(_item) for _item in obj["mcpServers"]] if obj.get("mcpServers") is not None else None,
             "guardrailPreset": obj.get("guardrailPreset"),
             "reasoningEffort": obj.get("reasoningEffort"),
+            "longContext": obj.get("longContext"),
+            "filterPolicies": obj.get("filterPolicies"),
             "version": obj.get("version")
         })
         return _obj
