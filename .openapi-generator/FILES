@@ -412,6 +412,7 @@ docs/UpdateAutoMode400Response.md
 docs/UpdateAutoMode409Response.md
 docs/UpdateContainer400Response.md
 docs/UpdateCronJobRequest.md
+docs/UpdateEnvironmentRequest.md
 docs/UpdateEnvironmentSecretRequest.md
 docs/UpdateEnvironmentStateRequest.md
 docs/UpdateEnvironmentVariableRequest.md
@@ -1073,6 +1074,7 @@ quantcdn/models/update_auto_mode400_response.py
 quantcdn/models/update_auto_mode409_response.py
 quantcdn/models/update_container400_response.py
 quantcdn/models/update_cron_job_request.py
+quantcdn/models/update_environment_request.py
 quantcdn/models/update_environment_secret_request.py
 quantcdn/models/update_environment_state_request.py
 quantcdn/models/update_environment_variable_request.py
@@ -1728,6 +1730,7 @@ test/test_update_auto_mode400_response.py
 test/test_update_auto_mode409_response.py
 test/test_update_container400_response.py
 test/test_update_cron_job_request.py
+test/test_update_environment_request.py
 test/test_update_environment_secret_request.py
 test/test_update_environment_state_request.py
 test/test_update_environment_variable_request.py
