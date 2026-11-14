@@ -13,7 +13,6 @@ Method | HTTP request | Description
 [**list_environments**](EnvironmentsApi.md#list_environments) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments | Get all environments for an application
 [**list_sync_operations**](EnvironmentsApi.md#list_sync_operations) | **GET** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/sync/{type} | List the sync operations for an environment
 [**sync_to_environment**](EnvironmentsApi.md#sync_to_environment) | **POST** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/sync/{type} | Perform a sync operation from a source environment to the current environment
-[**update_environment**](EnvironmentsApi.md#update_environment) | **PUT** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment} | Update Environment Compose Definition
 [**update_environment_state**](EnvironmentsApi.md#update_environment_state) | **PUT** /api/v3/organizations/{organisation}/applications/{application}/environments/{environment}/state | Update the state of an environment
 
 
@@ -787,90 +786,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The sync operation details |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **update_environment**
-> update_environment(organisation, application, environment, update_environment_request)
-
-Update Environment Compose Definition
-
-Replaces the entire task definition for the environment based on the provided multi-container compose definition. This will create a new task definition revision and update the container service, triggering a redeployment. Optionally accepts minCapacity and maxCapacity at the root level for convenience.
-
-### Example
-
-* Bearer (JWT) Authentication (BearerAuth):
-
-```python
-import quantcdn
-from quantcdn.models.update_environment_request import UpdateEnvironmentRequest
-from quantcdn.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://dashboard.quantcdn.io
-# See configuration.py for a list of all supported configuration parameters.
-configuration = quantcdn.Configuration(
-    host = "https://dashboard.quantcdn.io"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization (JWT): BearerAuth
-configuration = quantcdn.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with quantcdn.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = quantcdn.EnvironmentsApi(api_client)
-    organisation = 'organisation_example' # str | The organisation ID
-    application = 'application_example' # str | The application ID
-    environment = 'environment_example' # str | The environment ID
-    update_environment_request = quantcdn.UpdateEnvironmentRequest() # UpdateEnvironmentRequest | 
-
-    try:
-        # Update Environment Compose Definition
-        api_instance.update_environment(organisation, application, environment, update_environment_request)
-    except Exception as e:
-        print("Exception when calling EnvironmentsApi->update_environment: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **organisation** | **str**| The organisation ID | 
- **application** | **str**| The application ID | 
- **environment** | **str**| The environment ID | 
- **update_environment_request** | [**UpdateEnvironmentRequest**](UpdateEnvironmentRequest.md)|  | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[BearerAuth](../README.md#BearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**202** | Request accepted, compose definition update is processing. |  -  |
-**400** | Invalid compose definition or validation failed. |  -  |
-**404** | Application or environment not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

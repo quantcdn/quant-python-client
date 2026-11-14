@@ -4,6 +4,7 @@ All URIs are relative to *https://dashboard.quantcdn.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**get_project_edge_events**](ProjectsApi.md#get_project_edge_events) | **GET** /api/v2/organizations/{organization}/projects/{project}/edge-events | Get edge events for a project
 [**get_project_logs**](ProjectsApi.md#get_project_logs) | **GET** /api/v2/organizations/{organization}/projects/{project}/logs | Get CDN access logs for a project
 [**projects_create**](ProjectsApi.md#projects_create) | **POST** /api/v2/organizations/{organization}/projects | Create a new project
 [**projects_delete**](ProjectsApi.md#projects_delete) | **DELETE** /api/v2/organizations/{organization}/projects/{project} | Delete a project
@@ -11,6 +12,107 @@ Method | HTTP request | Description
 [**projects_read**](ProjectsApi.md#projects_read) | **GET** /api/v2/organizations/{organization}/projects/{project} | Get details of a single project
 [**projects_update**](ProjectsApi.md#projects_update) | **PATCH** /api/v2/organizations/{organization}/projects/{project} | Update a project
 
+
+# **get_project_edge_events**
+> GetProjectEdgeEvents200Response get_project_edge_events(organization, project, type=type, function=function, level=level, search=search, limit=limit, start_time=start_time, end_time=end_time, next_token=next_token)
+
+Get edge events for a project
+
+Output of the project's edge functions and content filters (console.* as type console, quantLog() as type function), WAF hits and static failover. Entries are returned oldest first, up to about 10 minutes behind, kept 31 days; pass nextToken from the previous response, with the same filters, to fetch the next page. A slow query can return an empty page with a nextToken. An edge function invocation keeps at most 100 console lines of up to 8 KB each.
+
+### Example
+
+* Bearer (JWT) Authentication (BearerAuth):
+
+```python
+import quantcdn
+from quantcdn.models.get_project_edge_events200_response import GetProjectEdgeEvents200Response
+from quantcdn.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://dashboard.quantcdn.io
+# See configuration.py for a list of all supported configuration parameters.
+configuration = quantcdn.Configuration(
+    host = "https://dashboard.quantcdn.io"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization (JWT): BearerAuth
+configuration = quantcdn.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with quantcdn.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = quantcdn.ProjectsApi(api_client)
+    organization = 'organization_example' # str | The organization machine name
+    project = 'project_example' # str | The project machine name
+    type = 'console,function' # str | Comma-separated event types: console, function, waf-hit, static-failover (optional)
+    function = 'function_example' # str | Only events from this edge function (UUID) (optional)
+    level = 'level_example' # str | Only console events at this level (optional)
+    search = 'search_example' # str | Case-insensitive substring of the message (optional)
+    limit = 100 # int | Maximum number of events per page (default 100) (optional) (default to 100)
+    start_time = 'start_time_example' # str | Start of the time range. ISO 8601 or Unix epoch milliseconds. (optional)
+    end_time = 'end_time_example' # str | End of the time range. ISO 8601 or Unix epoch milliseconds. (optional)
+    next_token = 'next_token_example' # str | Opaque pagination token from the previous response (optional)
+
+    try:
+        # Get edge events for a project
+        api_response = api_instance.get_project_edge_events(organization, project, type=type, function=function, level=level, search=search, limit=limit, start_time=start_time, end_time=end_time, next_token=next_token)
+        print("The response of ProjectsApi->get_project_edge_events:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ProjectsApi->get_project_edge_events: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **organization** | **str**| The organization machine name | 
+ **project** | **str**| The project machine name | 
+ **type** | **str**| Comma-separated event types: console, function, waf-hit, static-failover | [optional] 
+ **function** | **str**| Only events from this edge function (UUID) | [optional] 
+ **level** | **str**| Only console events at this level | [optional] 
+ **search** | **str**| Case-insensitive substring of the message | [optional] 
+ **limit** | **int**| Maximum number of events per page (default 100) | [optional] [default to 100]
+ **start_time** | **str**| Start of the time range. ISO 8601 or Unix epoch milliseconds. | [optional] 
+ **end_time** | **str**| End of the time range. ISO 8601 or Unix epoch milliseconds. | [optional] 
+ **next_token** | **str**| Opaque pagination token from the previous response | [optional] 
+
+### Return type
+
+[**GetProjectEdgeEvents200Response**](GetProjectEdgeEvents200Response.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Edge events |  -  |
+**400** | Invalid filter, time range or token |  -  |
+**401** | Unauthenticated |  -  |
+**403** | Token lacks the projects:read scope or the user lacks browse_projects |  -  |
+**404** | Edge events are not available for this project |  -  |
+**422** | Validation error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_project_logs**
 > GetProjectLogs200Response get_project_logs(organization, project, limit=limit, start_time=start_time, end_time=end_time, filter=filter, domain=domain, next_token=next_token)
