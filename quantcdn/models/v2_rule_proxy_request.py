@@ -66,7 +66,7 @@ class V2RuleProxyRequest(BaseModel):
     origin_timeout: Optional[StrictStr] = Field(default=None, description="Origin timeout in milliseconds. Defaults to 30000 when omitted on create.")
     failover_mode: Optional[StrictBool] = Field(default=False, description="Enable failover mode")
     failover_origin_ttfb: Optional[StrictStr] = Field(default='2000', description="Failover TTFB threshold in milliseconds")
-    failover_origin_status_codes: Optional[List[StrictStr]] = Field(default=None, description="Origin status codes that trigger failover")
+    failover_origin_status_codes: Optional[List[StrictStr]] = Field(default=None, description="Origin statuses that do not trigger failover. Any other origin status switches the rule to the static copy. With failover_mode true, a list left out gets the default 200, 301, 302, 304, 404, and an empty list is refused with 422. A PATCH replaces the list.")
     failover_lifetime: Optional[StrictStr] = Field(default='300', description="Failover cache lifetime in seconds")
     proxy_alert_enabled: Optional[StrictBool] = Field(default=False, description="Proxy alert enabled")
     waf_enabled: Optional[StrictBool] = Field(default=False, description="WAF enabled")

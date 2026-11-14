@@ -42,7 +42,7 @@ class V2RuleProxyAction(BaseModel):
     origin_timeout: Optional[StrictStr] = Field(default=None, description="Origin timeout in milliseconds. Defaults to 30000 when omitted on create.")
     failover_mode: Optional[StrictBool] = Field(default=False, description="Enable failover mode")
     failover_origin_ttfb: Optional[StrictStr] = Field(default='2000', description="Failover TTFB threshold")
-    failover_origin_status_codes: Optional[List[StrictStr]] = Field(default=None, description="Status codes for failover (default: 200,404,301,302,304)")
+    failover_origin_status_codes: Optional[List[StrictStr]] = Field(default=None, description="Origin statuses that do not trigger failover. Any other origin status switches the rule to the static copy. With failover_mode true, a list left out gets the default 200, 301, 302, 304, 404, and an empty list is refused with 422 (it would fail over on every response). A PATCH replaces the list.")
     failover_lifetime: Optional[StrictStr] = Field(default='300', description="Failover cache lifetime")
     notify: Optional[StrictStr] = Field(default='none', description="Notification type (none, slack)")
     notify_config: Optional[V2RuleProxyActionNotifyConfig] = None

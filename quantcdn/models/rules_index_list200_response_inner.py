@@ -20,6 +20,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from quantcdn.models.rules_index_list200_response_inner_deployment import RulesIndexList200ResponseInnerDeployment
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,8 +30,9 @@ class RulesIndexList200ResponseInner(BaseModel):
     """ # noqa: E501
     position: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="0-based index in the stored order.")
     managed: Optional[StrictBool] = Field(default=None, description="True when a template deploy owns the rule in this project.")
+    deployment: Optional[RulesIndexList200ResponseInnerDeployment] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["position", "managed"]
+    __properties: ClassVar[List[str]] = ["position", "managed", "deployment"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,6 +75,9 @@ class RulesIndexList200ResponseInner(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of deployment
+        if self.deployment:
+            _dict['deployment'] = self.deployment.to_dict()
         # puts key-value pairs in additional_properties in the top level
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
@@ -91,7 +96,8 @@ class RulesIndexList200ResponseInner(BaseModel):
 
         _obj = cls.model_validate({
             "position": obj.get("position"),
-            "managed": obj.get("managed")
+            "managed": obj.get("managed"),
+            "deployment": RulesIndexList200ResponseInnerDeployment.from_dict(obj["deployment"]) if obj.get("deployment") is not None else None
         })
         # store additional fields in additional_properties
         for _key in obj.keys():

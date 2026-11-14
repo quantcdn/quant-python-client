@@ -16,7 +16,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictStr
+from pydantic import Field, StrictStr, field_validator
 from typing_extensions import Annotated
 from quantcdn.models.container import Container
 
@@ -328,7 +328,7 @@ class ContainersApi:
         organisation: Annotated[StrictStr, Field(description="The organisation ID")],
         application: Annotated[StrictStr, Field(description="The application ID")],
         environment: Annotated[StrictStr, Field(description="The environment ID")],
-        container: Annotated[StrictStr, Field(description="The container ID")],
+        container: Annotated[str, Field(strict=True, description="The container name")],
         container2: Container,
         _request_timeout: Union[
             None,
@@ -342,9 +342,10 @@ class ContainersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> Container:
         """Update a container in an environment
 
+        Updates one container in the environment's compose definition and redeploys the environment. The fields in the request body replace the same fields of the container. Fields that the request body omits keep their current values. Other containers and the task-level settings do not change. To clear a field, send it as null. The container name in the body must match the name in the path: a container cannot be renamed. Container updates to one environment run one at a time. A compose change made at the same moment through another endpoint can still overwrite this update.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -352,7 +353,7 @@ class ContainersApi:
         :type application: str
         :param environment: The environment ID (required)
         :type environment: str
-        :param container: The container ID (required)
+        :param container: The container name (required)
         :type container: str
         :param container2: (required)
         :type container2: Container
@@ -391,8 +392,13 @@ class ContainersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
-            '404': None,
+            '200': "Container",
+            '400': "UpdateContainer400Response",
+            '403': None,
+            '404': "UpdateContainer400Response",
+            '409': "UpdateContainer400Response",
+            '422': None,
+            '502': "UpdateContainer400Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -411,7 +417,7 @@ class ContainersApi:
         organisation: Annotated[StrictStr, Field(description="The organisation ID")],
         application: Annotated[StrictStr, Field(description="The application ID")],
         environment: Annotated[StrictStr, Field(description="The environment ID")],
-        container: Annotated[StrictStr, Field(description="The container ID")],
+        container: Annotated[str, Field(strict=True, description="The container name")],
         container2: Container,
         _request_timeout: Union[
             None,
@@ -425,9 +431,10 @@ class ContainersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[None]:
+    ) -> ApiResponse[Container]:
         """Update a container in an environment
 
+        Updates one container in the environment's compose definition and redeploys the environment. The fields in the request body replace the same fields of the container. Fields that the request body omits keep their current values. Other containers and the task-level settings do not change. To clear a field, send it as null. The container name in the body must match the name in the path: a container cannot be renamed. Container updates to one environment run one at a time. A compose change made at the same moment through another endpoint can still overwrite this update.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -435,7 +442,7 @@ class ContainersApi:
         :type application: str
         :param environment: The environment ID (required)
         :type environment: str
-        :param container: The container ID (required)
+        :param container: The container name (required)
         :type container: str
         :param container2: (required)
         :type container2: Container
@@ -474,8 +481,13 @@ class ContainersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
-            '404': None,
+            '200': "Container",
+            '400': "UpdateContainer400Response",
+            '403': None,
+            '404': "UpdateContainer400Response",
+            '409': "UpdateContainer400Response",
+            '422': None,
+            '502': "UpdateContainer400Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -494,7 +506,7 @@ class ContainersApi:
         organisation: Annotated[StrictStr, Field(description="The organisation ID")],
         application: Annotated[StrictStr, Field(description="The application ID")],
         environment: Annotated[StrictStr, Field(description="The environment ID")],
-        container: Annotated[StrictStr, Field(description="The container ID")],
+        container: Annotated[str, Field(strict=True, description="The container name")],
         container2: Container,
         _request_timeout: Union[
             None,
@@ -511,6 +523,7 @@ class ContainersApi:
     ) -> RESTResponseType:
         """Update a container in an environment
 
+        Updates one container in the environment's compose definition and redeploys the environment. The fields in the request body replace the same fields of the container. Fields that the request body omits keep their current values. Other containers and the task-level settings do not change. To clear a field, send it as null. The container name in the body must match the name in the path: a container cannot be renamed. Container updates to one environment run one at a time. A compose change made at the same moment through another endpoint can still overwrite this update.
 
         :param organisation: The organisation ID (required)
         :type organisation: str
@@ -518,7 +531,7 @@ class ContainersApi:
         :type application: str
         :param environment: The environment ID (required)
         :type environment: str
-        :param container: The container ID (required)
+        :param container: The container name (required)
         :type container: str
         :param container2: (required)
         :type container2: Container
@@ -557,8 +570,13 @@ class ContainersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': None,
-            '404': None,
+            '200': "Container",
+            '400': "UpdateContainer400Response",
+            '403': None,
+            '404': "UpdateContainer400Response",
+            '409': "UpdateContainer400Response",
+            '422': None,
+            '502': "UpdateContainer400Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -611,6 +629,13 @@ class ContainersApi:
             _body_params = container2
 
 
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:

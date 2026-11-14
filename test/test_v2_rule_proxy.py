@@ -76,7 +76,7 @@ class TestV2RuleProxy(unittest.TestCase):
                     origin_timeout = '30000', 
                     failover_mode = True, 
                     failover_origin_ttfb = '2000', 
-                    failover_origin_status_codes = ["200","404","301","302","304"], 
+                    failover_origin_status_codes = ["200","301","302","304","404"], 
                     failover_lifetime = '300', 
                     notify = 'none', 
                     notify_config = quantcdn.models.v2_rule_proxy_action_notify_config.V2RuleProxyAction_notify_config(
@@ -165,7 +165,7 @@ class TestV2RuleProxy(unittest.TestCase):
                     origin_timeout = '30000', 
                     failover_mode = True, 
                     failover_origin_ttfb = '2000', 
-                    failover_origin_status_codes = ["200","404","301","302","304"], 
+                    failover_origin_status_codes = ["200","301","302","304","404"], 
                     failover_lifetime = '300', 
                     notify = 'none', 
                     notify_config = quantcdn.models.v2_rule_proxy_action_notify_config.V2RuleProxyAction_notify_config(

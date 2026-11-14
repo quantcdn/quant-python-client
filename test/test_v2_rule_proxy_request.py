@@ -73,7 +73,7 @@ class TestV2RuleProxyRequest(unittest.TestCase):
                 origin_timeout = '30000',
                 failover_mode = True,
                 failover_origin_ttfb = '2000',
-                failover_origin_status_codes = ["502","503","504"],
+                failover_origin_status_codes = ["200","301","302","304","404"],
                 failover_lifetime = '300',
                 proxy_alert_enabled = False,
                 waf_enabled = False,

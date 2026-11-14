@@ -89,13 +89,6 @@ class TestEnvironmentsApi(unittest.TestCase):
         """
         pass
 
-    def test_update_environment(self) -> None:
-        """Test case for update_environment
-
-        Update Environment Compose Definition
-        """
-        pass
-
     def test_update_environment_state(self) -> None:
         """Test case for update_environment_state
 

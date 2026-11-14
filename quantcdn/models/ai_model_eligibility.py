@@ -17,21 +17,30 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
-from quantcdn.models.compose import Compose
 from typing import Optional, Set
 from typing_extensions import Self
 
-class UpdateEnvironmentRequest(BaseModel):
+class AIModelEligibility(BaseModel):
     """
-    UpdateEnvironmentRequest
+    AIModelEligibility
     """ # noqa: E501
-    compose_definition: Compose = Field(alias="composeDefinition")
-    min_capacity: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Optional. Minimum number of tasks for auto-scaling. If provided at root level, will be merged into composeDefinition.", alias="minCapacity")
-    max_capacity: Optional[Annotated[int, Field(strict=True, ge=1)]] = Field(default=None, description="Optional. Maximum number of tasks for auto-scaling. If provided at root level, will be merged into composeDefinition.", alias="maxCapacity")
-    __properties: ClassVar[List[str]] = ["composeDefinition", "minCapacity", "maxCapacity"]
+    model_id: StrictStr = Field(alias="modelId")
+    resolved_id: StrictStr = Field(alias="resolvedId")
+    eligible: StrictBool
+    reason: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["modelId", "resolvedId", "eligible", "reason"]
+
+    @field_validator('reason')
+    def reason_validate_enum(cls, value):
+        """Validates the enum"""
+        if value is None:
+            return value
+
+        if value not in set(['unknown', 'no_tools', 'policy', 'residency']):
+            raise ValueError("must be one of enum values ('unknown', 'no_tools', 'policy', 'residency')")
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +60,7 @@ class UpdateEnvironmentRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of UpdateEnvironmentRequest from a JSON string"""
+        """Create an instance of AIModelEligibility from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,24 +81,11 @@ class UpdateEnvironmentRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of compose_definition
-        if self.compose_definition:
-            _dict['composeDefinition'] = self.compose_definition.to_dict()
-        # set to None if min_capacity (nullable) is None
-        # and model_fields_set contains the field
-        if self.min_capacity is None and "min_capacity" in self.model_fields_set:
-            _dict['minCapacity'] = None
-
-        # set to None if max_capacity (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_capacity is None and "max_capacity" in self.model_fields_set:
-            _dict['maxCapacity'] = None
-
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of UpdateEnvironmentRequest from a dict"""
+        """Create an instance of AIModelEligibility from a dict"""
         if obj is None:
             return None
 
@@ -97,9 +93,10 @@ class UpdateEnvironmentRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "composeDefinition": Compose.from_dict(obj["composeDefinition"]) if obj.get("composeDefinition") is not None else None,
-            "minCapacity": obj.get("minCapacity"),
-            "maxCapacity": obj.get("maxCapacity")
+            "modelId": obj.get("modelId"),
+            "resolvedId": obj.get("resolvedId"),
+            "eligible": obj.get("eligible"),
+            "reason": obj.get("reason")
         })
         return _obj
 

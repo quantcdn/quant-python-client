@@ -36,7 +36,11 @@ class TestRulesIndexList200ResponseInner(unittest.TestCase):
         if include_optional:
             return RulesIndexList200ResponseInner(
                 position = 0,
-                managed = True
+                managed = True,
+                deployment = quantcdn.models.rules_index_list_200_response_inner_deployment.RulesIndex_list_200_response_inner_deployment(
+                    namespace = '', 
+                    id = '', 
+                    hash = '', )
             )
         else:
             return RulesIndexList200ResponseInner(
