@@ -6,11 +6,20 @@ README.md
 docs/AIAgentsApi.md
 docs/AIApi.md
 docs/AIAuditApi.md
+docs/AIAutoModeApi.md
+docs/AIAutoModeConfig.md
+docs/AIAutoModeConfigGroup.md
+docs/AIAutoModeConfigGroupRoles.md
+docs/AIAutoModeEligibility.md
+docs/AIAutoModeEligibilityRoles.md
+docs/AIAutoModeInput.md
+docs/AIAutoModeInputGroup.md
 docs/AICustomToolsApi.md
 docs/AIFileStorageApi.md
 docs/AIFilterPoliciesApi.md
 docs/AIGovernanceApi.md
 docs/AIInferenceApi.md
+docs/AIModelEligibility.md
 docs/AIModelsApi.md
 docs/AIOrchestrationsApi.md
 docs/AISearchApi.md
@@ -39,6 +48,10 @@ docs/AiSlackBotApiError.md
 docs/AiSlackBotApiMessage.md
 docs/AiSlackBotApiMessageAllOfAuthor.md
 docs/AiSlackBotApiMessageAllOfFiles.md
+docs/AlertChannelError.md
+docs/AlertChannelList.md
+docs/AlertChannelSummary.md
+docs/AlertChannelsApi.md
 docs/Application.md
 docs/ApplicationCache.md
 docs/ApplicationDatabase.md
@@ -52,6 +65,7 @@ docs/BackupManagementApi.md
 docs/BulkSetEnvironmentVariablesRequest.md
 docs/BulkSetEnvironmentVariablesRequestEnvironmentInner.md
 docs/CDNMetricsApi.md
+docs/CIValuesApi.md
 docs/ChatInference200Response.md
 docs/ChatInference200ResponseResponse.md
 docs/ChatInference200ResponseResponseToolUse.md
@@ -89,6 +103,9 @@ docs/ChatWithAIAgent200ResponseResponse.md
 docs/ChatWithAIAgent200ResponseResponseUsage.md
 docs/ChatWithAIAgent202Response.md
 docs/ChatWithAIAgentRequest.md
+docs/CiValue.md
+docs/CiValueError.md
+docs/CiValueWriteResult.md
 docs/Command.md
 docs/CommandsApi.md
 docs/Compose.md
@@ -108,6 +125,7 @@ docs/CrawlersRun200Response.md
 docs/CrawlersRunRequest.md
 docs/CreateAIAgent201Response.md
 docs/CreateAIAgentRequest.md
+docs/CreateAIAgentRequestMcpServersInner.md
 docs/CreateAISession201Response.md
 docs/CreateAISessionRequest.md
 docs/CreateAISessionRequestInitialMessagesInner.md
@@ -154,6 +172,7 @@ docs/DecideToolProposalRequest.md
 docs/DeleteAIAgent200Response.md
 docs/DeleteAISession200Response.md
 docs/DeleteAgentOverlay200Response.md
+docs/DeleteAutoMode200Response.md
 docs/DeleteBackup200Response.md
 docs/DeleteCustomTool200Response.md
 docs/DeleteEnvironmentSecret200Response.md
@@ -194,6 +213,8 @@ docs/GetAIToolExecutionStatus404Response.md
 docs/GetAgentOverlay200Response.md
 docs/GetAgentOverlay200ResponseBase.md
 docs/GetAgentOverlay200ResponseOverlay.md
+docs/GetAgentOverlay200ResponseOverlayMcpServersInner.md
+docs/GetAutoMode200Response.md
 docs/GetCustomTool200Response.md
 docs/GetCustomTool200ResponseTool.md
 docs/GetDependencyGraph200Response.md
@@ -225,6 +246,8 @@ docs/GetMyUsage200ResponseQuota.md
 docs/GetMyUsage200ResponseQuotaDailyLimit.md
 docs/GetMyUsage200ResponseQuotaMonthlyLimit.md
 docs/GetOrgResourceCredentials200Response.md
+docs/GetProjectEdgeEvents200Response.md
+docs/GetProjectEdgeEvents200ResponseEventsInner.md
 docs/GetProjectLogs200Response.md
 docs/GetProjectLogs200ResponseLogsInner.md
 docs/GetProjectLogs400Response.md
@@ -262,6 +285,7 @@ docs/KVLinkToProject200Response.md
 docs/KVLinkToProjectRequest.md
 docs/ListAIAgents200Response.md
 docs/ListAIAgents200ResponseAgentsInner.md
+docs/ListAIAgents200ResponseAgentsInnerMcpServersInner.md
 docs/ListAIModels200Response.md
 docs/ListAIModels200ResponseModelsInner.md
 docs/ListAIModels200ResponseModelsInnerCapabilities.md
@@ -277,6 +301,7 @@ docs/ListApplications503Response.md
 docs/ListBackups200Response.md
 docs/ListBackups200ResponseBackupsInner.md
 docs/ListBackups422Response.md
+docs/ListCiValues200Response.md
 docs/ListCustomTools200Response.md
 docs/ListCustomTools200ResponseToolsInner.md
 docs/ListFiles200Response.md
@@ -335,6 +360,7 @@ docs/PurgeCreateRequest.md
 docs/PurgeOrgResource200Response.md
 docs/PurgeOrgResourceRequest.md
 docs/PutApplicationMetadata400Response.md
+docs/PutCiValueRequest.md
 docs/QueryVectorCollection200Response.md
 docs/QueryVectorCollection200ResponsePagination.md
 docs/QueryVectorCollection200ResponseResultsInner.md
@@ -349,6 +375,7 @@ docs/RestoreFilesystemRequest.md
 docs/RestoreManagementApi.md
 docs/RulesApi.md
 docs/RulesIndexList200ResponseInner.md
+docs/RulesIndexList200ResponseInnerDeployment.md
 docs/SSHAccessApi.md
 docs/ScalingPolicyApi.md
 docs/ScalingPolicyListResponse.md
@@ -380,8 +407,11 @@ docs/UpdateAIAgentRequest.md
 docs/UpdateAISession200Response.md
 docs/UpdateAISessionRequest.md
 docs/UpdateAISessionRequestNewMessagesInner.md
+docs/UpdateAutoMode200Response.md
+docs/UpdateAutoMode400Response.md
+docs/UpdateAutoMode409Response.md
+docs/UpdateContainer400Response.md
 docs/UpdateCronJobRequest.md
-docs/UpdateEnvironmentRequest.md
 docs/UpdateEnvironmentSecretRequest.md
 docs/UpdateEnvironmentStateRequest.md
 docs/UpdateEnvironmentVariableRequest.md
@@ -630,6 +660,7 @@ quantcdn/api/__init__.py
 quantcdn/api/ai_agents_api.py
 quantcdn/api/ai_api.py
 quantcdn/api/ai_audit_api.py
+quantcdn/api/ai_auto_mode_api.py
 quantcdn/api/ai_custom_tools_api.py
 quantcdn/api/ai_file_storage_api.py
 quantcdn/api/ai_filter_policies_api.py
@@ -646,9 +677,11 @@ quantcdn/api/ai_tool_approval_api.py
 quantcdn/api/ai_tools_api.py
 quantcdn/api/ai_usage_api.py
 quantcdn/api/ai_vector_database_api.py
+quantcdn/api/alert_channels_api.py
 quantcdn/api/applications_api.py
 quantcdn/api/backup_management_api.py
 quantcdn/api/cdn_metrics_api.py
+quantcdn/api/ci_values_api.py
 quantcdn/api/commands_api.py
 quantcdn/api/compose_api.py
 quantcdn/api/containers_api.py
@@ -684,6 +717,14 @@ quantcdn/models/ai_audit_record_get200_response.py
 quantcdn/models/ai_audit_record_row.py
 quantcdn/models/ai_audit_record_summary.py
 quantcdn/models/ai_audit_records_page.py
+quantcdn/models/ai_auto_mode_config.py
+quantcdn/models/ai_auto_mode_config_group.py
+quantcdn/models/ai_auto_mode_config_group_roles.py
+quantcdn/models/ai_auto_mode_eligibility.py
+quantcdn/models/ai_auto_mode_eligibility_roles.py
+quantcdn/models/ai_auto_mode_input.py
+quantcdn/models/ai_auto_mode_input_group.py
+quantcdn/models/ai_model_eligibility.py
 quantcdn/models/ai_search_chat_request.py
 quantcdn/models/ai_search_delete_pages_request.py
 quantcdn/models/ai_search_enable_request.py
@@ -696,6 +737,9 @@ quantcdn/models/ai_slack_bot_api_error.py
 quantcdn/models/ai_slack_bot_api_message.py
 quantcdn/models/ai_slack_bot_api_message_all_of_author.py
 quantcdn/models/ai_slack_bot_api_message_all_of_files.py
+quantcdn/models/alert_channel_error.py
+quantcdn/models/alert_channel_list.py
+quantcdn/models/alert_channel_summary.py
 quantcdn/models/application.py
 quantcdn/models/application_cache.py
 quantcdn/models/application_database.py
@@ -743,6 +787,9 @@ quantcdn/models/chat_with_ai_agent200_response_response.py
 quantcdn/models/chat_with_ai_agent200_response_response_usage.py
 quantcdn/models/chat_with_ai_agent202_response.py
 quantcdn/models/chat_with_ai_agent_request.py
+quantcdn/models/ci_value.py
+quantcdn/models/ci_value_error.py
+quantcdn/models/ci_value_write_result.py
 quantcdn/models/command.py
 quantcdn/models/compose.py
 quantcdn/models/container.py
@@ -757,6 +804,7 @@ quantcdn/models/crawlers_run200_response.py
 quantcdn/models/crawlers_run_request.py
 quantcdn/models/create_ai_agent201_response.py
 quantcdn/models/create_ai_agent_request.py
+quantcdn/models/create_ai_agent_request_mcp_servers_inner.py
 quantcdn/models/create_ai_session201_response.py
 quantcdn/models/create_ai_session_request.py
 quantcdn/models/create_ai_session_request_initial_messages_inner.py
@@ -801,6 +849,7 @@ quantcdn/models/decide_tool_proposal_request.py
 quantcdn/models/delete_agent_overlay200_response.py
 quantcdn/models/delete_ai_agent200_response.py
 quantcdn/models/delete_ai_session200_response.py
+quantcdn/models/delete_auto_mode200_response.py
 quantcdn/models/delete_backup200_response.py
 quantcdn/models/delete_custom_tool200_response.py
 quantcdn/models/delete_environment_secret200_response.py
@@ -828,6 +877,7 @@ quantcdn/models/extend_ai_session_request.py
 quantcdn/models/get_agent_overlay200_response.py
 quantcdn/models/get_agent_overlay200_response_base.py
 quantcdn/models/get_agent_overlay200_response_overlay.py
+quantcdn/models/get_agent_overlay200_response_overlay_mcp_servers_inner.py
 quantcdn/models/get_ai_agent200_response.py
 quantcdn/models/get_ai_agent200_response_agent.py
 quantcdn/models/get_ai_model200_response.py
@@ -840,6 +890,7 @@ quantcdn/models/get_ai_orchestration_status404_response.py
 quantcdn/models/get_ai_session200_response.py
 quantcdn/models/get_ai_tool_execution_status200_response.py
 quantcdn/models/get_ai_tool_execution_status404_response.py
+quantcdn/models/get_auto_mode200_response.py
 quantcdn/models/get_custom_tool200_response.py
 quantcdn/models/get_custom_tool200_response_tool.py
 quantcdn/models/get_dependency_graph200_response.py
@@ -871,6 +922,8 @@ quantcdn/models/get_my_usage200_response_quota.py
 quantcdn/models/get_my_usage200_response_quota_daily_limit.py
 quantcdn/models/get_my_usage200_response_quota_monthly_limit.py
 quantcdn/models/get_org_resource_credentials200_response.py
+quantcdn/models/get_project_edge_events200_response.py
+quantcdn/models/get_project_edge_events200_response_events_inner.py
 quantcdn/models/get_project_logs200_response.py
 quantcdn/models/get_project_logs200_response_logs_inner.py
 quantcdn/models/get_project_logs400_response.py
@@ -905,6 +958,7 @@ quantcdn/models/kv_link_to_project200_response.py
 quantcdn/models/kv_link_to_project_request.py
 quantcdn/models/list_ai_agents200_response.py
 quantcdn/models/list_ai_agents200_response_agents_inner.py
+quantcdn/models/list_ai_agents200_response_agents_inner_mcp_servers_inner.py
 quantcdn/models/list_ai_models200_response.py
 quantcdn/models/list_ai_models200_response_models_inner.py
 quantcdn/models/list_ai_models200_response_models_inner_capabilities.py
@@ -920,6 +974,7 @@ quantcdn/models/list_applications503_response.py
 quantcdn/models/list_backups200_response.py
 quantcdn/models/list_backups200_response_backups_inner.py
 quantcdn/models/list_backups422_response.py
+quantcdn/models/list_ci_values200_response.py
 quantcdn/models/list_custom_tools200_response.py
 quantcdn/models/list_custom_tools200_response_tools_inner.py
 quantcdn/models/list_files200_response.py
@@ -974,6 +1029,7 @@ quantcdn/models/purge_create_request.py
 quantcdn/models/purge_org_resource200_response.py
 quantcdn/models/purge_org_resource_request.py
 quantcdn/models/put_application_metadata400_response.py
+quantcdn/models/put_ci_value_request.py
 quantcdn/models/query_vector_collection200_response.py
 quantcdn/models/query_vector_collection200_response_pagination.py
 quantcdn/models/query_vector_collection200_response_results_inner.py
@@ -985,6 +1041,7 @@ quantcdn/models/restore_database_request.py
 quantcdn/models/restore_filesystem202_response.py
 quantcdn/models/restore_filesystem_request.py
 quantcdn/models/rules_index_list200_response_inner.py
+quantcdn/models/rules_index_list200_response_inner_deployment.py
 quantcdn/models/scaling_policy_list_response.py
 quantcdn/models/search_slack_workspace_channels200_response.py
 quantcdn/models/search_slack_workspace_channels200_response_results_inner.py
@@ -1011,8 +1068,11 @@ quantcdn/models/update_ai_agent_request.py
 quantcdn/models/update_ai_session200_response.py
 quantcdn/models/update_ai_session_request.py
 quantcdn/models/update_ai_session_request_new_messages_inner.py
+quantcdn/models/update_auto_mode200_response.py
+quantcdn/models/update_auto_mode400_response.py
+quantcdn/models/update_auto_mode409_response.py
+quantcdn/models/update_container400_response.py
 quantcdn/models/update_cron_job_request.py
-quantcdn/models/update_environment_request.py
 quantcdn/models/update_environment_secret_request.py
 quantcdn/models/update_environment_state_request.py
 quantcdn/models/update_environment_variable_request.py
@@ -1267,11 +1327,20 @@ test/test_ai_audit_record_get200_response.py
 test/test_ai_audit_record_row.py
 test/test_ai_audit_record_summary.py
 test/test_ai_audit_records_page.py
+test/test_ai_auto_mode_api.py
+test/test_ai_auto_mode_config.py
+test/test_ai_auto_mode_config_group.py
+test/test_ai_auto_mode_config_group_roles.py
+test/test_ai_auto_mode_eligibility.py
+test/test_ai_auto_mode_eligibility_roles.py
+test/test_ai_auto_mode_input.py
+test/test_ai_auto_mode_input_group.py
 test/test_ai_custom_tools_api.py
 test/test_ai_file_storage_api.py
 test/test_ai_filter_policies_api.py
 test/test_ai_governance_api.py
 test/test_ai_inference_api.py
+test/test_ai_model_eligibility.py
 test/test_ai_models_api.py
 test/test_ai_orchestrations_api.py
 test/test_ai_search_api.py
@@ -1295,6 +1364,10 @@ test/test_ai_tool_approval_api.py
 test/test_ai_tools_api.py
 test/test_ai_usage_api.py
 test/test_ai_vector_database_api.py
+test/test_alert_channel_error.py
+test/test_alert_channel_list.py
+test/test_alert_channel_summary.py
+test/test_alert_channels_api.py
 test/test_application.py
 test/test_application_cache.py
 test/test_application_database.py
@@ -1345,6 +1418,10 @@ test/test_chat_with_ai_agent200_response_response.py
 test/test_chat_with_ai_agent200_response_response_usage.py
 test/test_chat_with_ai_agent202_response.py
 test/test_chat_with_ai_agent_request.py
+test/test_ci_value.py
+test/test_ci_value_error.py
+test/test_ci_value_write_result.py
+test/test_ci_values_api.py
 test/test_command.py
 test/test_commands_api.py
 test/test_compose.py
@@ -1364,6 +1441,7 @@ test/test_crawlers_run200_response.py
 test/test_crawlers_run_request.py
 test/test_create_ai_agent201_response.py
 test/test_create_ai_agent_request.py
+test/test_create_ai_agent_request_mcp_servers_inner.py
 test/test_create_ai_session201_response.py
 test/test_create_ai_session_request.py
 test/test_create_ai_session_request_initial_messages_inner.py
@@ -1409,6 +1487,7 @@ test/test_decide_tool_proposal_request.py
 test/test_delete_agent_overlay200_response.py
 test/test_delete_ai_agent200_response.py
 test/test_delete_ai_session200_response.py
+test/test_delete_auto_mode200_response.py
 test/test_delete_backup200_response.py
 test/test_delete_custom_tool200_response.py
 test/test_delete_environment_secret200_response.py
@@ -1438,6 +1517,7 @@ test/test_extend_ai_session_request.py
 test/test_get_agent_overlay200_response.py
 test/test_get_agent_overlay200_response_base.py
 test/test_get_agent_overlay200_response_overlay.py
+test/test_get_agent_overlay200_response_overlay_mcp_servers_inner.py
 test/test_get_ai_agent200_response.py
 test/test_get_ai_agent200_response_agent.py
 test/test_get_ai_model200_response.py
@@ -1450,6 +1530,7 @@ test/test_get_ai_orchestration_status404_response.py
 test/test_get_ai_session200_response.py
 test/test_get_ai_tool_execution_status200_response.py
 test/test_get_ai_tool_execution_status404_response.py
+test/test_get_auto_mode200_response.py
 test/test_get_custom_tool200_response.py
 test/test_get_custom_tool200_response_tool.py
 test/test_get_dependency_graph200_response.py
@@ -1481,6 +1562,8 @@ test/test_get_my_usage200_response_quota.py
 test/test_get_my_usage200_response_quota_daily_limit.py
 test/test_get_my_usage200_response_quota_monthly_limit.py
 test/test_get_org_resource_credentials200_response.py
+test/test_get_project_edge_events200_response.py
+test/test_get_project_edge_events200_response_events_inner.py
 test/test_get_project_logs200_response.py
 test/test_get_project_logs200_response_logs_inner.py
 test/test_get_project_logs400_response.py
@@ -1518,6 +1601,7 @@ test/test_kv_link_to_project200_response.py
 test/test_kv_link_to_project_request.py
 test/test_list_ai_agents200_response.py
 test/test_list_ai_agents200_response_agents_inner.py
+test/test_list_ai_agents200_response_agents_inner_mcp_servers_inner.py
 test/test_list_ai_models200_response.py
 test/test_list_ai_models200_response_models_inner.py
 test/test_list_ai_models200_response_models_inner_capabilities.py
@@ -1533,6 +1617,7 @@ test/test_list_applications503_response.py
 test/test_list_backups200_response.py
 test/test_list_backups200_response_backups_inner.py
 test/test_list_backups422_response.py
+test/test_list_ci_values200_response.py
 test/test_list_custom_tools200_response.py
 test/test_list_custom_tools200_response_tools_inner.py
 test/test_list_files200_response.py
@@ -1591,6 +1676,7 @@ test/test_purge_create_request.py
 test/test_purge_org_resource200_response.py
 test/test_purge_org_resource_request.py
 test/test_put_application_metadata400_response.py
+test/test_put_ci_value_request.py
 test/test_query_vector_collection200_response.py
 test/test_query_vector_collection200_response_pagination.py
 test/test_query_vector_collection200_response_results_inner.py
@@ -1605,6 +1691,7 @@ test/test_restore_filesystem_request.py
 test/test_restore_management_api.py
 test/test_rules_api.py
 test/test_rules_index_list200_response_inner.py
+test/test_rules_index_list200_response_inner_deployment.py
 test/test_scaling_policy_api.py
 test/test_scaling_policy_list_response.py
 test/test_search_slack_workspace_channels200_response.py
@@ -1636,8 +1723,11 @@ test/test_update_ai_agent_request.py
 test/test_update_ai_session200_response.py
 test/test_update_ai_session_request.py
 test/test_update_ai_session_request_new_messages_inner.py
+test/test_update_auto_mode200_response.py
+test/test_update_auto_mode400_response.py
+test/test_update_auto_mode409_response.py
+test/test_update_container400_response.py
 test/test_update_cron_job_request.py
-test/test_update_environment_request.py
 test/test_update_environment_secret_request.py
 test/test_update_environment_state_request.py
 test/test_update_environment_variable_request.py

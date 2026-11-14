@@ -87,9 +87,11 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_container**
-> update_container(organisation, application, environment, container, container2)
+> Container update_container(organisation, application, environment, container, container2)
 
 Update a container in an environment
+
+Updates one container in the environment's compose definition and redeploys the environment. The fields in the request body replace the same fields of the container. Fields that the request body omits keep their current values. Other containers and the task-level settings do not change. To clear a field, send it as null. The container name in the body must match the name in the path: a container cannot be renamed. Container updates to one environment run one at a time. A compose change made at the same moment through another endpoint can still overwrite this update.
 
 ### Example
 
@@ -124,12 +126,14 @@ with quantcdn.ApiClient(configuration) as api_client:
     organisation = 'test-org' # str | The organisation ID
     application = 'test-app' # str | The application ID
     environment = 'test-env' # str | The environment ID
-    container = 'test-container' # str | The container ID
+    container = 'app' # str | The container name
     container2 = quantcdn.Container() # Container | 
 
     try:
         # Update a container in an environment
-        api_instance.update_container(organisation, application, environment, container, container2)
+        api_response = api_instance.update_container(organisation, application, environment, container, container2)
+        print("The response of ContainersApi->update_container:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling ContainersApi->update_container: %s\n" % e)
 ```
@@ -144,12 +148,12 @@ Name | Type | Description  | Notes
  **organisation** | **str**| The organisation ID | 
  **application** | **str**| The application ID | 
  **environment** | **str**| The environment ID | 
- **container** | **str**| The container ID | 
+ **container** | **str**| The container name | 
  **container2** | [**Container**](Container.md)|  | 
 
 ### Return type
 
-void (empty response body)
+[**Container**](Container.md)
 
 ### Authorization
 
@@ -158,14 +162,19 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The updated container |  -  |
-**404** | The container not found |  -  |
+**200** | The updated container. The environment redeploys in the background. |  -  |
+**400** | Quant Cloud refused the updated definition |  -  |
+**403** | Permission or token scope missing |  -  |
+**404** | The environment has no container with this name |  -  |
+**409** | Another container update for this environment is in progress |  -  |
+**422** | Invalid container definition, or the body name does not match the path name |  -  |
+**502** | Quant Cloud did not accept the request |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
