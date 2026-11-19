@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **user** | **str** |  | [optional] 
 **origin_protection** | **bool** | Enable origin protection for all exposed ports on this container. Use originProtectionConfig for advanced options like IP allow lists. | [optional] [default to False]
 **origin_protection_config** | [**ContainerOriginProtectionConfig**](ContainerOriginProtectionConfig.md) |  | [optional] 
+**load_balancer_health_check** | [**ContainerLoadBalancerHealthCheck**](ContainerLoadBalancerHealthCheck.md) |  | [optional] 
 
 ## Example
 

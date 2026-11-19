@@ -1,2 +1,2 @@
 """Version information for quantcdn SDK."""
-__version__ = "4.34.1"
+__version__ = "4.35.0"

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **projects** | **List[int]** |  | [optional] 
 **preset** | **str** |  | [optional] 
 **expires_at** | **datetime** |  | [optional] 
+**expiry_limited_by_parent** | **bool** | True when expires_at was cut to the expiry of the token that made this request. A token cannot create a token that expires after it. | [optional] 
 **created_at** | **datetime** |  | [optional] 
 
 ## Example
