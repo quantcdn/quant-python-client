@@ -115,6 +115,7 @@ docs/ContainerDependsOnInner.md
 docs/ContainerEnvironmentInner.md
 docs/ContainerHealthCheck.md
 docs/ContainerImageReference.md
+docs/ContainerLoadBalancerHealthCheck.md
 docs/ContainerMountPointsInner.md
 docs/ContainerOriginProtectionConfig.md
 docs/ContainerSecretsInner.md
@@ -798,6 +799,7 @@ quantcdn/models/container_depends_on_inner.py
 quantcdn/models/container_environment_inner.py
 quantcdn/models/container_health_check.py
 quantcdn/models/container_image_reference.py
+quantcdn/models/container_load_balancer_health_check.py
 quantcdn/models/container_mount_points_inner.py
 quantcdn/models/container_origin_protection_config.py
 quantcdn/models/container_secrets_inner.py
@@ -1433,6 +1435,7 @@ test/test_container_depends_on_inner.py
 test/test_container_environment_inner.py
 test/test_container_health_check.py
 test/test_container_image_reference.py
+test/test_container_load_balancer_health_check.py
 test/test_container_mount_points_inner.py
 test/test_container_origin_protection_config.py
 test/test_container_secrets_inner.py

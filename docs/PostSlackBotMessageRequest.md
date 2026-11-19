@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **channel** | **str** |  | 
 **thread_ts** | **str** | Absent: a root post | [optional] 
 **text** | **str** | 1-8000 characters after trim | 
+**format** | **str** | mrkdwn: Slack mrkdwn sections (default). markdown: standard Markdown in one Slack markdown block, including tables. | [optional] [default to 'mrkdwn']
 
 ## Example
 
