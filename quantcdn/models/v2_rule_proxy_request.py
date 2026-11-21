@@ -68,6 +68,7 @@ class V2RuleProxyRequest(BaseModel):
     failover_origin_ttfb: Optional[StrictStr] = Field(default='2000', description="Failover TTFB threshold in milliseconds")
     failover_origin_status_codes: Optional[List[StrictStr]] = Field(default=None, description="Origin statuses that do not trigger failover. Any other origin status switches the rule to the static copy. With failover_mode true, a list left out gets the default 200, 301, 302, 304, 404, and an empty list is refused with 422. A PATCH replaces the list.")
     failover_lifetime: Optional[StrictStr] = Field(default='300', description="Failover cache lifetime in seconds")
+    failover_threshold: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = Field(default=None, description="Failures (a status outside failover_origin_status_codes, a connection error or no first byte inside failover_origin_ttfb) within 10 seconds before failover starts. Null or 0 uses the default (3).")
     proxy_alert_enabled: Optional[StrictBool] = Field(default=False, description="Proxy alert enabled")
     waf_enabled: Optional[StrictBool] = Field(default=False, description="WAF enabled")
     waf_config: Optional[WafConfig] = None
@@ -78,7 +79,7 @@ class V2RuleProxyRequest(BaseModel):
     application_port: Optional[StrictInt] = Field(default=None, description="Quant Cloud application port (required when application_proxy is true)")
     static_error_page: Optional[StrictStr] = Field(default=None, description="On/off switch, not page content. Send a string: any non-empty string (for example the text true) turns it on; an empty string or null turns it off. Write the text true to enable and an empty string to disable; do not send the text false, because any non-empty string counts as on. A JSON boolean is rejected on write. A boolean stored by the dashboard reads back as the string true, or an empty string when off. When on, an origin response whose status is in static_error_page_status_codes is replaced by the project's published /_quant<status> page (for example /_quant503).")
     static_error_page_status_codes: Optional[List[StrictStr]] = Field(default=None, description="Origin status codes that serve the published /_quant<status> page when static_error_page is on")
-    __properties: ClassVar[List[str]] = ["domain", "name", "uuid", "weight", "disabled", "url", "country", "country_is", "country_is_not", "method", "method_is", "method_is_not", "ip", "ip_is", "ip_is_not", "asn", "asn_is", "asn_is_not", "ua", "ua_is", "ua_is_not", "traffic_source", "traffic_source_is", "traffic_source_is_not", "cookie_name", "to", "host", "auth_user", "auth_pass", "disable_ssl_verify", "cache_lifetime", "only_proxy_404", "inject_headers", "proxy_strip_headers", "proxy_strip_request_headers", "origin_timeout", "failover_mode", "failover_origin_ttfb", "failover_origin_status_codes", "failover_lifetime", "proxy_alert_enabled", "waf_enabled", "waf_config", "application_proxy", "application_name", "application_environment", "application_container", "application_port", "static_error_page", "static_error_page_status_codes"]
+    __properties: ClassVar[List[str]] = ["domain", "name", "uuid", "weight", "disabled", "url", "country", "country_is", "country_is_not", "method", "method_is", "method_is_not", "ip", "ip_is", "ip_is_not", "asn", "asn_is", "asn_is_not", "ua", "ua_is", "ua_is_not", "traffic_source", "traffic_source_is", "traffic_source_is_not", "cookie_name", "to", "host", "auth_user", "auth_pass", "disable_ssl_verify", "cache_lifetime", "only_proxy_404", "inject_headers", "proxy_strip_headers", "proxy_strip_request_headers", "origin_timeout", "failover_mode", "failover_origin_ttfb", "failover_origin_status_codes", "failover_lifetime", "failover_threshold", "proxy_alert_enabled", "waf_enabled", "waf_config", "application_proxy", "application_name", "application_environment", "application_container", "application_port", "static_error_page", "static_error_page_status_codes"]
 
     @field_validator('asn')
     def asn_validate_enum(cls, value):
@@ -184,6 +185,11 @@ class V2RuleProxyRequest(BaseModel):
         if self.inject_headers is None and "inject_headers" in self.model_fields_set:
             _dict['inject_headers'] = None
 
+        # set to None if failover_threshold (nullable) is None
+        # and model_fields_set contains the field
+        if self.failover_threshold is None and "failover_threshold" in self.model_fields_set:
+            _dict['failover_threshold'] = None
+
         # set to None if waf_config (nullable) is None
         # and model_fields_set contains the field
         if self.waf_config is None and "waf_config" in self.model_fields_set:
@@ -246,6 +252,7 @@ class V2RuleProxyRequest(BaseModel):
             "failover_origin_ttfb": obj.get("failover_origin_ttfb") if obj.get("failover_origin_ttfb") is not None else '2000',
             "failover_origin_status_codes": obj.get("failover_origin_status_codes"),
             "failover_lifetime": obj.get("failover_lifetime") if obj.get("failover_lifetime") is not None else '300',
+            "failover_threshold": obj.get("failover_threshold"),
             "proxy_alert_enabled": obj.get("proxy_alert_enabled") if obj.get("proxy_alert_enabled") is not None else False,
             "waf_enabled": obj.get("waf_enabled") if obj.get("waf_enabled") is not None else False,
             "waf_config": WafConfig.from_dict(obj["waf_config"]) if obj.get("waf_config") is not None else None,

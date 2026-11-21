@@ -75,6 +75,7 @@ class TestV2RuleProxyRequest(unittest.TestCase):
                 failover_origin_ttfb = '2000',
                 failover_origin_status_codes = ["200","301","302","304","404"],
                 failover_lifetime = '300',
+                failover_threshold = 3,
                 proxy_alert_enabled = False,
                 waf_enabled = False,
                 waf_config = quantcdn.models.waf_config.WafConfig(
