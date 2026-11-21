@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **failover_origin_ttfb** | **str** | Failover TTFB threshold | [optional] [default to '2000']
 **failover_origin_status_codes** | **List[str]** | Origin statuses that do not trigger failover. Any other origin status switches the rule to the static copy. With failover_mode true, a list left out gets the default 200, 301, 302, 304, 404, and an empty list is refused with 422 (it would fail over on every response). A PATCH replaces the list. | [optional] 
 **failover_lifetime** | **str** | Failover cache lifetime | [optional] [default to '300']
+**failover_threshold** | **int** | Failures (a status outside failover_origin_status_codes, a connection error or no first byte inside failover_origin_ttfb) within 10 seconds before failover starts. Null or 0 uses the default (3). | [optional] 
 **notify** | **str** | Notification type (none, slack) | [optional] [default to 'none']
 **notify_config** | [**V2RuleProxyActionNotifyConfig**](V2RuleProxyActionNotifyConfig.md) |  | [optional] 
 **waf_enabled** | **bool** | WAF enabled | [optional] [default to False]
