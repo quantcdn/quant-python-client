@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **updated_at** | **datetime** |  | [optional] 
 **updated_by** | **str** |  | [optional] 
 **value** | **str** | Variables only. A secret value is never returned. | [optional] 
+**withheld_reason** | **str** | Present on a repository value that jobs do not get. repo_identity_unproven: the value was saved before values were bound to repository IDs, and its repository was created after the value was last saved. Save the value again to fix this. | [optional] 
+**withheld_at** | **datetime** | When the value was first withheld. Present with withheldReason. | [optional] 
 
 ## Example
 
